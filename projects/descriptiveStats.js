@@ -128,15 +128,14 @@ const testType1 = 'sample';
 const testConfInt1 = 0.95;
 const testData1 = [44, 46, 30, 24, 31, 47, 27, 26, 41, 22, 21, 34, 48, 38, 38, 24, 40, 31, 40, 19];
 
-const results1 = descriptiveStats(testType1, testConfInt1, testData1);
-printResults(results1);
+printResults(descriptiveStats(testType1, testConfInt1, testData1));
 
 // Separate from the next set of data
 document.write('<br />');
 
+// Run descriptive stats on another set of data
 const testType2 = 'p';
-const testConfInt2 = 0.99;
+const testConfInt2 = 99;
 const testData2 = [23, 13, 19, 16, 22, 20, 29, 20, 16, 21, 28, 15, 18, 20, 13, 27, 13, 17, 26, 17];
 
-const results2 = descriptiveStats(testType2, testConfInt2, testData2);
-printResults(results2);
+printResults(descriptiveStats(testType2, testConfInt2, testData2));
