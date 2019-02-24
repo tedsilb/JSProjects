@@ -1,4 +1,4 @@
-const descriptiveStats = (dataType, confLevel, data) => {
+const descriptiveStats = (dataType, confLevel, data, roundTo) => {
     // code confidence level, if exists
     let tStat = 0;
     let confLevelCoded = 0;
@@ -85,6 +85,9 @@ const descriptiveStats = (dataType, confLevel, data) => {
     const lowerBound = mean - (tStat * stErr);
     const upperBound = mean + (tStat * stErr);
 
+    // parse roundTo value
+    roundTo = parseInt(roundTo)
+
     // compile and return results
     let results = {};
     results.dataType = dataTypeCoded;
@@ -103,11 +106,11 @@ const descriptiveStats = (dataType, confLevel, data) => {
 };
 
 const printResults = (results) => {
-    const varianceRounded = results.variance.toFixed(4);
-    const stDevRounded = results.stDev.toFixed(4);
-    const stErrRounded = results.stErr.toFixed(4);
-    const lowerBoundRounded = results.lowerBound.toFixed(4);
-    const upperBoundRounded = results.upperBound.toFixed(4);
+    const varianceRounded = results.variance.toFixed(roundTo);
+    const stDevRounded = results.stDev.toFixed(roundTo);
+    const stErrRounded = results.stErr.toFixed(roundTo);
+    const lowerBoundRounded = results.lowerBound.toFixed(roundTo);
+    const upperBoundRounded = results.upperBound.toFixed(roundTo);
 
     document.write(`Sample or Population: ${results.dataType}<br />`);
     document.write(`Observations: ${results.n}<br />`);
