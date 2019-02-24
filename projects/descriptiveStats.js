@@ -123,6 +123,7 @@ const printResults = (results) => {
     document.write(`Upper Bound: ${upperBoundRounded}<br />`);
 };
 
+// Run descriptive stats on a set of data
 const testType1 = 'sample';
 const testConfInt1 = 0.95;
 const testData1 = [44, 46, 30, 24, 31, 47, 27, 26, 41, 22, 21, 34, 48, 38, 38, 24, 40, 31, 40, 19];
@@ -130,6 +131,7 @@ const testData1 = [44, 46, 30, 24, 31, 47, 27, 26, 41, 22, 21, 34, 48, 38, 38, 2
 const results1 = descriptiveStats(testType1, testConfInt1, testData1);
 printResults(results1);
 
+// Separate from the next set of data
 document.write('<br />');
 
 const testType2 = 'p';
