@@ -1,8 +1,11 @@
+// Just a TypeScript sandbox
+// By Ted Silbernagel
+
 //const currentCity: string = 'Omaha';
 //const cashPrize: number = 10000;
 //const loading: boolean = true;
 
-/* 
+/*
 const currentCity = 'Omaha';
 const cashPrize = 10000;
 const loading = true;
@@ -16,7 +19,7 @@ function reverse(word: string): string {
   return word.split('').reverse().join('');
 }
 
-/* 
+/*
 function reverse(word: string) {
   return word.split('').reverse().join('');
 }

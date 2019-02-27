@@ -1,3 +1,6 @@
+// Just a JS sandbox
+// By Ted Silbernagel
+
 const carName = 'Volkswagen';
 
 const ReturnCarMake = (make) => {

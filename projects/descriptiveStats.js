@@ -1,3 +1,6 @@
+// Calculate descriptive statistics for a list of numbers
+// By Ted Silbernagel
+
 const descriptiveStats = (dataType, confLevel, data, roundTo) => {
     // code confidence level, if exists
     let tStat = 0;
