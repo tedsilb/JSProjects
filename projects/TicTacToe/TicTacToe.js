@@ -3,8 +3,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
   main()
 })
 
-/* Declare cell variables so they're global */
+/* Declare variables so they're global */
 let cellA1, cellA2, cellA3, cellB1, cellB2, cellB3, cellC1, cellC2, cellC3;
+let btnResetGame;
 
 /* Main function to run on load */
 function main() {
@@ -18,7 +19,19 @@ function main() {
   cellC1 = document.getElementById('C1');
   cellC2 = document.getElementById('C2');
   cellC3 = document.getElementById('C3');
+  btnResetGame = document.getElementById('status-display');
+
+  /* Set up onClick functions for the cells */
+
+
+  /* Reset game */
+  resetGame();
+}
+
+/* Reset game function */
+function resetGame() {
   clearCells();
+  btnResetGame.innerHTML = 'New game. Your turn.'
 }
 
 /* Clear cells function */
