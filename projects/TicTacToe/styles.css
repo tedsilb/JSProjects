@@ -16,6 +16,8 @@ body {
 .ttt {
   border-spacing: 15px;
   border-collapse: separate;
+  /* Remove bottom margin to fit on page */
+  margin-bottom: 0;
 }
 
 /* Set up cells themselves */
