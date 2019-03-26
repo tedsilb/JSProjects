@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // Tic Tac Toe game! Based on my TicTacToe.py program
 // By Ted Silbernagel
 
@@ -63,19 +64,25 @@ function main() {
 // Function to take CPU turn
 function takeCpuTurn() {
   lblStatusDisplay.innerHTML = cpuTurnMsg;
+  // Check for tie
+  if (availableCells.length === 0 || ![cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML)) {
+    lblStatusDisplay.innerHTML = tieMsg;
+    buttonsEnabled = false;
+    console.log('Found a tie');
+
   // Some winning strategies
-  if (cpuStarted) {
-    if (cpuChosenCells === ['A1', 'A3']) {
-      if ([['B1', 'A2'], ['C1', 'A2']].includes(userChosenCells)) {
-        cpuChoice = 'C3';
-      } else if (userChosenCells === ['B3', 'A2']) {
-        cpuChoice = 'C1';
-      } else if (userChosenCells === ['A2', 'C2']) {
-        cpuChoice = 'B2';
-      }
-    } else if (userChosenCells === ['B2', 'C3'] && cpuChosenCells === ['A1', 'C1']) {
-      cpuChoice = 'A3';
+  } else if (cpuStarted && arraysEqual(cpuChosenCells, ['A1', 'A3'])) {
+    if (arraysEqual(userChosenCells, ['B1', 'A2']) || arraysEqual(userChosenCells, ['C1', 'A2'])) {
+      cpuChoice = 'C3';
+    } else if (arraysEqual(userChosenCells, ['B3', 'A2'])) {
+      cpuChoice = 'C1';
+    } else if (arraysEqual(userChosenCells, ['A2', 'C2'])) {
+      cpuChoice = 'B2';
     }
+    console.log(`CPU started, choosing ${cpuChoice}`);
+  } else if (arraysEqual(userChosenCells, ['B2', 'C3']) && arraysEqual(cpuChosenCells, ['A1', 'C1'])) {
+    cpuChoice = 'A3';
+    console.log(`CPU started, choosing ${cpuChoice}`);
 
   // Block winning moves by user
   // A block
@@ -173,14 +180,14 @@ function takeCpuTurn() {
   // User start
   } else if (userChosenCells.length === 1) {
     if (userChosenCells[0] === 'B2') {
-      itemIndex = ['A1', 'A3', 'C1', 'C3'][Math.floor(Math.random() * ['A1', 'A3', 'C1', 'C3'].length)];
-      cpuChoice = ['A1', 'A3', 'C1', 'C3'][itemIndex];
-      itemIndex = 0;
+      cpuChoice = ['A1', 'A3', 'C1', 'C3'][Math.floor(Math.random() * ['A1', 'A3', 'C1', 'C3'].length)];
+      console.log(`User start, choosing ${cpuChoice}`);
     } else {
       cpuChoice = 'B2';
     }
   // CPU start
   } else if (userChosenCells.length === 0) {
+    console.log('Taking smart cpu starts');
     randomNo = Math.random()
     if (randomNo <= .2) {
       itemIndex = 0;
@@ -205,18 +212,20 @@ function takeCpuTurn() {
 
   // If no winning moves for user or cpu, choose at random
   } else {
+    console.log('Choosing randomly');
     // First make sure it's not a tie
-    if (availableCells.length != 0) {
-      itemIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
-      cpuChoice = availableCells[itemIndex];
-      itemIndex = 0;
+    if (availableCells.length !== 0) {
+      cpuChoice = availableCells[Math.floor(Math.random() * availableCells.length)];
     // If it's a tie, end the game
     } else {
+      console.log('Ending game');
       lblStatusDisplay.innerHTML = tieMsg;
       buttonsEnabled = false;
       return;
     }
   }
+
+  console.log(`CPU choosing ${cpuChoice}`);
 
   // Set cell as chosen based on previous logic
   if (cpuChoice === 'A1') {
@@ -245,30 +254,36 @@ function takeCpuTurn() {
   availableCells.splice(itemIndex, 1);
   itemIndex = 0;
 
+  console.log(`Currently chosen cells: ${cpuChosenCells}`);
+
   // Check to see if computer has won
-  if (hasWon(cpuIcon)) {
+  if (hasWon(cpuChosenCells)) {
     lblStatusDisplay.innerHTML = cpuWinMsg;
     buttonsEnabled = false;
+    console.log('CPU has won');
   } else {
     lblStatusDisplay.innerHTML = userTurnMsg;
+    console.log('CPU has not won');
   }
+
   // Check for tie
-  if (availableCells.length === 0 && [cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML)) {
+  if (availableCells.length === 0 || [cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML)) {
     lblStatusDisplay.innerHTML = tieMsg;
     buttonsEnabled = false;
+    console.log('Found a tie');
   }
 }
 
 // Function to check if player has won
-function hasWon(icon) {
-  if ((cellA1.innerHTML === icon && cellA2.innerHTML === icon && cellA3.innerHTML === icon)
-      || (cellB1.innerHTML === icon && cellB2.innerHTML === icon && cellB3.innerHTML === icon)
-      || (cellC1.innerHTML === icon && cellC2.innerHTML === icon && cellC3.innerHTML === icon)
-      || (cellA1.innerHTML === icon && cellB1.innerHTML === icon && cellC1.innerHTML === icon)
-      || (cellA2.innerHTML === icon && cellB2.innerHTML === icon && cellC2.innerHTML === icon)
-      || (cellA3.innerHTML === icon && cellB3.innerHTML === icon && cellC3.innerHTML === icon)
-      || (cellA1.innerHTML === icon && cellB2.innerHTML === icon && cellC3.innerHTML === icon)
-      || (cellC1.innerHTML === icon && cellB2.innerHTML === icon && cellA3.innerHTML === icon)) {
+function hasWon(chosenCells) {
+  if ((chosenCells.includes('A1') && chosenCells.includes('A2') && chosenCells.includes('A3'))
+      || (chosenCells.includes('B1') && chosenCells.includes('B2') && chosenCells.includes('B3'))
+      || (chosenCells.includes('C1') && chosenCells.includes('C2') && chosenCells.includes('C3'))
+      || (chosenCells.includes('A1') && chosenCells.includes('B1') && chosenCells.includes('C1'))
+      || (chosenCells.includes('A2') && chosenCells.includes('B2') && chosenCells.includes('C2'))
+      || (chosenCells.includes('A3') && chosenCells.includes('B3') && chosenCells.includes('C3'))
+      || (chosenCells.includes('A1') && chosenCells.includes('B2') && chosenCells.includes('C3'))
+      || (chosenCells.includes('C1') && chosenCells.includes('B2') && chosenCells.includes('A3'))) {
     return true;
   } else {
     return false;
@@ -289,7 +304,7 @@ function buttonPress(button, gridLoc) {
       availableCells.splice(itemIndex, 1);
       itemIndex = 0;
       // Check to see if you won
-      if (hasWon(userIcon)) {
+      if (hasWon(userChosenCells)) {
         lblStatusDisplay.innerHTML = userWinMsg;
         buttonsEnabled = false;
       // If you didn't win, take computer's turn
@@ -306,7 +321,6 @@ function buttonPress(button, gridLoc) {
 // Reset game function
 function resetGame() {
   clearCells();
-  lblStatusDisplay.innerHTML = newGameMsg;
   buttonsEnabled = true;
   cellA1.innerHTML = '';
   cellA2.innerHTML = '';
@@ -318,9 +332,8 @@ function resetGame() {
   cellC2.innerHTML = '';
   cellC3.innerHTML = '';
   lblStatusDisplay.innerHTML = newGameMsg;
-  userChosenCells = userChosenCells.splice(0, userChosenCells.length);
-  cpuChosenCells = cpuChosenCells.splice(0, cpuChosenCells.length);
-  availableCells = availableCells.splice(0, availableCells.length);
+  userChosenCells = [];
+  cpuChosenCells = [];
   availableCells = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3'];
 
   // Randomly have cpu start game
@@ -345,7 +358,22 @@ function clearCells() {
   cellC3.innerHTML = '';
 }
 
+// Check if arrays are equal
+function arraysEqual(arrayA, arrayB) {
+  let a = arrayA;
+  let b = arrayB;
+  a.sort();
+  b.sort();
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length != b.length) return false;
+  for (let i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
 // Start script once DOM is loaded
 document.addEventListener('DOMContentLoaded', (event) => {
-  main()
+  main();
 })
