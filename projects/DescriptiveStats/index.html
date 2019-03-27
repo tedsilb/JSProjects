@@ -22,7 +22,7 @@
   <div class="container">
     <!-- Header -->
     <div class="row">
-      <div class="one-half column" id="header-block">
+      <div class="twelve columns" id="header-block">
         <h4 id="main-title">Descriptive Statistics</h4>
         <h5>Enter a list of numbers separated by commas, and we'll calculate descriptive stats!</h5>
       </div>
@@ -30,31 +30,65 @@
 
     <!-- Data entry -->
     <div class="row">
-      <div class="seven columns">
-        New game. Your turn.
+      <div class="two columns">
+        Enter numbers here:
       </div>
-      <div class="three columns u-pull-right">
-        Reset Game
+      <div class="ten columns">
+        <input type="text" id="userData" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="two columns">
+        Confidence level:
+      </div>
+      <div class="one column">
+        <input type="button" name="confLevel" value="90%" />
+      </div>
+      <div class="one column">
+        <input type="button" name="confLevel" value="95%" />
+      </div>
+      <div class="one column">
+        <input type="button" name="confLevel" value="99%" />
       </div>
     </div>
 
     <!-- Results -->
-    <table class="u-full-width" id="ttt">
+    <table class="u-full-width">
       <tbody>
         <tr>
-          <td id="A1"></td>
-          <td id="A2"></td>
-          <td id="A3"></td>
+          <td id="summary" colspan="2">[dataType] of [n] observations</td>
         </tr>
         <tr>
-          <td id="B1"></td>
-          <td id="B2"></td>
-          <td id="B3"></td>
+          <td>Mean:</td>
+          <td id="mean"></td>
         </tr>
         <tr>
-          <td id="C1"></td>
-          <td id="C2"></td>
-          <td id="C3"></td>
+          <td>Median:</td>
+          <td id="median"></td>
+        </tr>
+        <tr>
+          <td>Mode:</td>
+          <td id="mode"></td>
+        </tr>
+        <tr>
+          <td>Range:</td>
+          <td id="range"></td>
+        </tr>
+        <tr>
+          <td>Variance:</td>
+          <td id="variance"></td>
+        </tr>
+        <tr>
+          <td>Standard Deviation:</td>
+          <td id="stDev"></td>
+        </tr>
+        <tr>
+          <td>Standard Error:</td>
+          <td id="stErr"></td>
+        </tr>
+        <tr>
+          <td>xx% Confidence Interval:</td>
+          <td id="confInt"></td>
         </tr>
       </tbody>
     </table>

@@ -1,0 +1,17 @@
+body {
+  /* Main page background colour */
+  background-color: #353b48;
+
+  /* Set up text */
+  color: #dcdde1;
+}
+
+/* Set up header */
+#header-block {
+  color: #dcdde1;
+  margin-top: 5%;
+}
+#main-title {
+  margin-bottom: 1%;
+  font-weight: bold;
+}

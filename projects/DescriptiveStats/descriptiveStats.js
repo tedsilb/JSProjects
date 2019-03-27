@@ -1,6 +1,10 @@
 // Calculate descriptive statistics for a list of numbers
 // By Ted Silbernagel
 
+// Set up
+
+
+// Set up function to compute the statistics
 const descriptiveStats = (dataType, confLevel, data, roundTo) => {
   // code confidence level, if exists
   let tStat = 0;
@@ -93,6 +97,7 @@ const descriptiveStats = (dataType, confLevel, data, roundTo) => {
 
   // compile and return results
   let results = {};
+  results.roundTo;
   results.dataType = dataTypeCoded;
   results.n = dataLength;
   results.dof = dof;
@@ -109,13 +114,13 @@ const descriptiveStats = (dataType, confLevel, data, roundTo) => {
 };
 
 const printResults = (results) => {
-  const varianceRounded = results.variance.toFixed(roundTo);
-  const stDevRounded = results.stDev.toFixed(roundTo);
-  const stErrRounded = results.stErr.toFixed(roundTo);
-  const lowerBoundRounded = results.lowerBound.toFixed(roundTo);
-  const upperBoundRounded = results.upperBound.toFixed(roundTo);
+  const varianceRounded = results.variance.toFixed(results.rountTo);
+  const stDevRounded = results.stDev.toFixed(results.rountTo);
+  const stErrRounded = results.stErr.toFixed(results.rountTo);
+  const lowerBoundRounded = results.lowerBound.toFixed(results.rountTo);
+  const upperBoundRounded = results.upperBound.toFixed(results.rountTo);
 
-  document.write(`Sample or Population: ${results.dataType}<br />`);
+  /*
   document.write(`Observations: ${results.n}<br />`);
   document.write(`Degrees of Freedom: ${results.dof}<br />`);
   document.write(`Mean: ${results.mean}<br />`);
@@ -127,6 +132,7 @@ const printResults = (results) => {
   document.write(`Confidence Level: ${results.confLevel}%<br />`);
   document.write(`Lower Bound: ${lowerBoundRounded}<br />`);
   document.write(`Upper Bound: ${upperBoundRounded}<br />`);
+  */
 };
 
 // Run descriptive stats on a set of data
