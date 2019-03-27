@@ -57,7 +57,7 @@ function main() {
 function takeCpuTurn() {
   lblStatusDisplay.innerHTML = cpuTurnMsg;
   // Check for tie
-  if (availableCells.length === 0 && ![cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML)) {
+  if (isTied()) {
     lblStatusDisplay.innerHTML = tieMsg;
     buttonsEnabled = false;
     console.log('Found a tie');
@@ -238,25 +238,7 @@ function takeCpuTurn() {
   console.log(`CPU choosing ${cpuChoice}`);
 
   // Set cell as chosen based on previous logic
-  if (cpuChoice === 'A1') {
-    cellA1.innerHTML = cpuIcon;
-  } else if (cpuChoice === 'A2') {
-    cellA2.innerHTML = cpuIcon;
-  } else if (cpuChoice === 'A3') {
-    cellA3.innerHTML = cpuIcon;
-  } else if (cpuChoice === 'B1') {
-    cellB1.innerHTML = cpuIcon;
-  } else if (cpuChoice === 'B2') {
-    cellB2.innerHTML = cpuIcon;
-  } else if (cpuChoice === 'B3') {
-    cellB3.innerHTML = cpuIcon;
-  } else if (cpuChoice === 'C1') {
-    cellC1.innerHTML = cpuIcon;
-  } else if (cpuChoice === 'C2') {
-    cellC2.innerHTML = cpuIcon;
-  } else if (cpuChoice === 'C3') {
-    cellC3.innerHTML = cpuIcon;
-  }
+  setCpuCellChosen();
 
   // Set cell as chosen, remove from available
   cpuChosenCells.push(cpuChoice);
@@ -279,11 +261,21 @@ function takeCpuTurn() {
   }
 
   // Check for tie
-  if (availableCells.length === 0 && ![cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML)) {
+  if (isTied()) {
     lblStatusDisplay.innerHTML = tieMsg;
     buttonsEnabled = false;
     console.log('Found a tie');
   }
+}
+
+// Check for tie function
+function isTied() {
+  if (availableCells.length === 0) {
+    if (!([cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML))) {
+      return true
+    }
+  }
+  return false
 }
 
 // Function to check if player has won
@@ -310,7 +302,6 @@ function buttonPress(button, gridLoc) {
     if (button.innerHTML === '') {
       // Set the cell as checked and chosen, remove from available
       button.innerHTML = userIcon;
-      // Set cell as chosen, remove from available
       userChosenCells.push(gridLoc);
       itemIndex = availableCells.indexOf(gridLoc);
       availableCells.splice(itemIndex, 1);
@@ -328,6 +319,29 @@ function buttonPress(button, gridLoc) {
       lblStatusDisplay.innerHTML = alreadySelectedMsg;
     }
   }
+}
+
+// Set cpu cell as chosen function
+function setCpuCellChosen() {
+  if (cpuChoice === 'A1') {
+    cellA1.innerHTML = cpuIcon;
+  } else if (cpuChoice === 'A2') {
+    cellA2.innerHTML = cpuIcon;
+  } else if (cpuChoice === 'A3') {
+    cellA3.innerHTML = cpuIcon;
+  } else if (cpuChoice === 'B1') {
+    cellB1.innerHTML = cpuIcon;
+  } else if (cpuChoice === 'B2') {
+    cellB2.innerHTML = cpuIcon;
+  } else if (cpuChoice === 'B3') {
+    cellB3.innerHTML = cpuIcon;
+  } else if (cpuChoice === 'C1') {
+    cellC1.innerHTML = cpuIcon;
+  } else if (cpuChoice === 'C2') {
+    cellC2.innerHTML = cpuIcon;
+  } else if (cpuChoice === 'C3') {
+    cellC3.innerHTML = cpuIcon;
+}
 }
 
 // Reset game function
@@ -350,11 +364,6 @@ function resetGame() {
   availableCells = ['A1', 'A2', 'A3', 'B1', 'B2', 'B3', 'C1', 'C2', 'C3'];
 
   // Randomly have cpu start
-  randomCpuStart();
-}
-
-// Randomly cpu start game function
-function randomCpuStart() {
   if ([true, false][Math.floor(Math.random() * [true, false].length)]) {
     cpuStarted = true;
     takeCpuTurn();
