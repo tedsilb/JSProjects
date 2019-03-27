@@ -1,8 +1,37 @@
 // Calculate descriptive statistics for a list of numbers
 // By Ted Silbernagel
 
-// Set up
+// Declare variables so they're global
+let userNumbersList, confLevelButton90, confLevelButton95, confLevelButton99, dataTypeButtonS, dataTypeButtonP;
+let boxSummary, boxMean, boxMedian, boxMode, boxRange, boxVariance, boxStDev, boxStErr, boxConfInt;
 
+// Set up function to get data from user
+function getUserData() {
+
+}
+
+// Set up variables to hold DOM elements
+function initialiseDomVariables() {
+  userNumbersList = document.getElementById('userData');
+
+  confLevelButton90 = document.getElementById('confLevelButton90');
+  confLevelButton95 = document.getElementById('confLevelButton95');
+  confLevelButton99 = document.getElementById('confLevelButton99');
+
+  dataTypeButtonS = document.getElementById('dataTypeButtonS');
+  dataTypeButtonP = document.getElementById('dataTypeButtonP');
+
+  boxSummary = document.getElementById('summary');
+  boxMean = document.getElementById('mean');
+  boxMedian = document.getElementById('median');
+  boxMode = document.getElementById('mode');
+  boxRange = document.getElementById('range');
+  boxVariance = document.getElementById('variance');
+  boxStDev = document.getElementById('stDev');
+  boxStErr = document.getElementById('stErr');
+  boxConfInt = document.getElementById('confInt');
+
+}
 
 // Set up function to compute the statistics
 const descriptiveStats = (dataType, confLevel, data, roundTo) => {
@@ -114,11 +143,11 @@ const descriptiveStats = (dataType, confLevel, data, roundTo) => {
 };
 
 const printResults = (results) => {
-  const varianceRounded = results.variance.toFixed(results.rountTo);
-  const stDevRounded = results.stDev.toFixed(results.rountTo);
-  const stErrRounded = results.stErr.toFixed(results.rountTo);
-  const lowerBoundRounded = results.lowerBound.toFixed(results.rountTo);
-  const upperBoundRounded = results.upperBound.toFixed(results.rountTo);
+  const varianceRounded = results.variance.toFixed(results.roundTo);
+  const stDevRounded = results.stDev.toFixed(results.roundTo);
+  const stErrRounded = results.stErr.toFixed(results.roundTo);
+  const lowerBoundRounded = results.lowerBound.toFixed(results.roundTo);
+  const upperBoundRounded = results.upperBound.toFixed(results.roundTo);
 
   /*
   document.write(`Observations: ${results.n}<br />`);
@@ -151,3 +180,8 @@ const testConfInt2 = 99;
 const testData2 = [23, 13, 19, 16, 22, 20, 29, 20, 16, 21, 28, 15, 18, 20, 13, 27, 13, 17, 26, 17];
 
 printResults(descriptiveStats(testType2, testConfInt2, testData2));
+
+// Start script once DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  initialiseDomVariables();
+})

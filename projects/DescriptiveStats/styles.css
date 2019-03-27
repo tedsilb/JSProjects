@@ -9,9 +9,32 @@ body {
 /* Set up header */
 #header-block {
   color: #dcdde1;
-  margin-top: 5%;
+  margin-top: 3%;
 }
 #main-title {
   margin-bottom: 1%;
   font-weight: bold;
+}
+#subtitle {
+  margin-bottom: 5%;
+}
+
+/* Buttons */
+.confLevelButton {
+  color: #dcdde1 !important;
+  font-size: 1.2em !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+.confLevelButton:focus {
+  color: #718093 !important;
+  border-color: #718093 !important;
+}
+#buttonsRow {
+  margin-bottom: 3%;
+}
+
+/* Results table */
+#resultsTable > tbody > tr > td {
+  font-size: 1.5em !important;
 }

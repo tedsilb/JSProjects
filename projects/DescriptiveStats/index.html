@@ -24,7 +24,7 @@
     <div class="row">
       <div class="twelve columns" id="header-block">
         <h4 id="main-title">Descriptive Statistics</h4>
-        <h5>Enter a list of numbers separated by commas, and we'll calculate descriptive stats!</h5>
+        <h5 id="subtitle">Enter a list of numbers separated by commas, and we'll calculate descriptive stats!</h5>
       </div>
     </div>
 
@@ -34,26 +34,28 @@
         Enter numbers here:
       </div>
       <div class="ten columns">
-        <input type="text" id="userData" />
+        <input type="text" id="userData" style="width: 85%" />
       </div>
     </div>
-    <div class="row">
+    <div class="row" id="buttonsRow">
       <div class="two columns">
         Confidence level:
       </div>
-      <div class="one column">
-        <input type="button" name="confLevel" value="90%" />
+      <div class="four columns">
+        <input type="radio" name="confLevel" value="90%" class="confLevelButton" id="confLevelButton90" />
+        <input type="radio" name="confLevel" value="95%" class="confLevelButton" id="confLevelButton95" />
+        <input type="radio" name="confLevel" value="99%" class="confLevelButton" id="confLevelButton99" />
       </div>
-      <div class="one column">
-        <input type="button" name="confLevel" value="95%" />
-      </div>
-      <div class="one column">
-        <input type="button" name="confLevel" value="99%" />
+      <div class="six columns">
+        Data type:
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="dataType" value="sample" class="confLevelButton" id="dataTypeButtonS" />
+        <input type="radio" name="dataType" value="population" class="confLevelButton" id="dataTypeButtonP" />
       </div>
     </div>
 
     <!-- Results -->
-    <table class="u-full-width">
+    <table class="u-full-width" id="resultsTable">
       <tbody>
         <tr>
           <td id="summary" colspan="2">[dataType] of [n] observations</td>
