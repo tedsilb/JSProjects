@@ -19,14 +19,21 @@ body {
   margin-bottom: 5%;
 }
 
+/* Text box */
+#userData {
+  width: 95%;
+  background-color: #718093;
+  color: #dcdde1;
+}
+
 /* Buttons */
-.confLevelButton {
+.descStatsButton {
   color: #dcdde1 !important;
   font-size: 1.2em !important;
   padding-left: 15px !important;
   padding-right: 15px !important;
 }
-.confLevelButton:focus {
+.descStatsButton:hover {
   color: #718093 !important;
   border-color: #718093 !important;
 }

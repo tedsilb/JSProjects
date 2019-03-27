@@ -31,10 +31,13 @@
     <!-- Data entry -->
     <div class="row">
       <div class="two columns">
-        Enter numbers here:
+        Enter numbers:
       </div>
-      <div class="ten columns">
-        <input type="text" id="userData" style="width: 85%" />
+      <div class="eight columns">
+        <input type="text" id="userData" />
+      </div>
+      <div class="two columns">
+        <input type="button" id="calcButton" class="descStatsButton" value="Calculate" />
       </div>
     </div>
     <div class="row" id="buttonsRow">
@@ -42,15 +45,23 @@
         Confidence level:
       </div>
       <div class="four columns">
-        <input type="radio" name="confLevel" value="90%" class="confLevelButton" id="confLevelButton90" />
-        <input type="radio" name="confLevel" value="95%" class="confLevelButton" id="confLevelButton95" />
-        <input type="radio" name="confLevel" value="99%" class="confLevelButton" id="confLevelButton99" />
+        90%
+        <input type="radio" name="confLevel" value="90%" class="descStatsButton" id="confLevelButton90" />
+        &nbsp;&nbsp;&nbsp;
+        95%
+        <input type="radio" name="confLevel" value="95%" class="descStatsButton" id="confLevelButton95" checked="checked" />
+        &nbsp;&nbsp;&nbsp;
+        99%
+        <input type="radio" name="confLevel" value="99%" class="descStatsButton" id="confLevelButton99" />
       </div>
       <div class="six columns">
         Data type:
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <input type="radio" name="dataType" value="sample" class="confLevelButton" id="dataTypeButtonS" />
-        <input type="radio" name="dataType" value="population" class="confLevelButton" id="dataTypeButtonP" />
+        Sample
+        <input type="radio" name="dataType" value="Sample" class="descStatsButton" id="dataTypeButtonS" />
+        &nbsp;&nbsp;&nbsp;
+        Population
+        <input type="radio" name="dataType" value="Population" class="descStatsButton" id="dataTypeButtonP" checked="checked" />
       </div>
     </div>
 
@@ -62,35 +73,35 @@
         </tr>
         <tr>
           <td>Mean:</td>
-          <td id="mean"></td>
+          <td id="mean">32.4823</td>
         </tr>
         <tr>
           <td>Median:</td>
-          <td id="median"></td>
+          <td id="median">33</td>
         </tr>
         <tr>
           <td>Mode:</td>
-          <td id="mode"></td>
+          <td id="mode">33</td>
         </tr>
         <tr>
           <td>Range:</td>
-          <td id="range"></td>
+          <td id="range">[32, 84]</td>
         </tr>
         <tr>
           <td>Variance:</td>
-          <td id="variance"></td>
+          <td id="variance">33.5823</td>
         </tr>
         <tr>
           <td>Standard Deviation:</td>
-          <td id="stDev"></td>
+          <td id="stDev">33.5028</td>
         </tr>
         <tr>
           <td>Standard Error:</td>
-          <td id="stErr"></td>
+          <td id="stErr">38.2342</td>
         </tr>
         <tr>
-          <td>xx% Confidence Interval:</td>
-          <td id="confInt"></td>
+          <td id="confInt">xx% Confidence Interval:</td>
+          <td id="confLevel">[38.3213, 49.2492]</td>
         </tr>
       </tbody>
     </table>

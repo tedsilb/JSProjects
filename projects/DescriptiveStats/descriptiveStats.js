@@ -2,25 +2,25 @@
 // By Ted Silbernagel
 
 // Declare variables so they're global
-let userNumbersList, confLevelButton90, confLevelButton95, confLevelButton99, dataTypeButtonS, dataTypeButtonP;
-let boxSummary, boxMean, boxMedian, boxMode, boxRange, boxVariance, boxStDev, boxStErr, boxConfInt;
+let calcButton;
+let boxSummary, boxMean, boxMedian, boxMode, boxRange;
+let boxVariance, boxStDev, boxStErr, boxConfInt, boxConfLevel;
+let i;
 
 // Set up function to get data from user
 function getUserData() {
-
+  let userData = document.getElementById('userData').value;
+  let dataType = document.querySelector('input[name="dataType"]:checked').value;
+  let confLevel = document.querySelector('input[name="confLevel"]:checked').value;
+  return {userData: userData,
+          dataType: dataType,
+          confLevel: confLevel
+        }
 }
 
 // Set up variables to hold DOM elements
 function initialiseDomVariables() {
-  userNumbersList = document.getElementById('userData');
-
-  confLevelButton90 = document.getElementById('confLevelButton90');
-  confLevelButton95 = document.getElementById('confLevelButton95');
-  confLevelButton99 = document.getElementById('confLevelButton99');
-
-  dataTypeButtonS = document.getElementById('dataTypeButtonS');
-  dataTypeButtonP = document.getElementById('dataTypeButtonP');
-
+  calcButton = document.getElementById('calcButton');
   boxSummary = document.getElementById('summary');
   boxMean = document.getElementById('mean');
   boxMedian = document.getElementById('median');
@@ -30,158 +30,180 @@ function initialiseDomVariables() {
   boxStDev = document.getElementById('stDev');
   boxStErr = document.getElementById('stErr');
   boxConfInt = document.getElementById('confInt');
+  boxConfLevel = document.getElementById('confLevel');
+}
 
+// Set up onclick listener
+function setUpOnClick() {
+  calcButton.onclick = function(){ runDescriptiveStats(); };
+}
+
+// Set up function to run the process and display results
+const runDescriptiveStats = () => {
+  printResults(descriptiveStats(getUserData()));
 }
 
 // Set up function to compute the statistics
-const descriptiveStats = (dataType, confLevel, data, roundTo) => {
-  // code confidence level, if exists
+const descriptiveStats = (values) => {
+  // Set up incoming variables
+  let data = values.userData.split(",");
+  for (i in data) {
+    data[i] = parseFloat(data[i])
+  }
+  const dataType = values.dataType;
+  let confLevel = parseInt(values.confLevel);
+
+  const roundTo = 4;
+  // Code confidence level
   let tStat = 0;
-  let confLevelCoded = 0;
-  if (confLevel === 0.90 || confLevel === 90) {
-      tStat = 1.64;
-      confLevelCoded = 90;
-  } else if (confLevel === 0.95 || confLevel === 95) {
-      tStat = 1.96;
-      confLevelCoded = 95;
-  } else if (confLevel === 0.99 || confLevel === 99) {
-      tStat = 2.58;
-      confLevelCoded = 99;
-  } else {
-      console.log('Enter a confidence level (90, 95, 99).');
-      document.write('<h3 style="color:red;">Error, check console</h3>');
+  if (confLevel === 90) {
+    tStat = 1.64;
+  } else if (confLevel === 95) {
+    tStat = 1.96;
+  } else if (confLevel === 99) {
+    tStat = 2.58;
   }
 
-  // code data type (sample or population)
-  const dataTypeLower = dataType.toLowerCase();
-  let dataTypeCoded = '';
-  if (dataTypeLower === 's' || dataTypeLower === 'sample') {
-      dataTypeCoded = 'Sample';
-  } else if (dataTypeLower === 'p' || dataTypeLower === 'population') {
-      dataTypeCoded = 'Population';
-  } else {
-      console.log('Enter type of data you are providing (sample/population) (s/p)');
-      document.write('<h3 style="color:red;">Error, check console</h3>');
-  }
-
-  // calculate degrees of freedom
+  // Calculate degrees of freedom
   const dataLength = data.length;
   const lastData = dataLength - 1;
   let dof = 0;
-  if (dataTypeCoded === 'Sample') {
-      dof = dataLength - 1;
-  } else if (dataTypeCoded === 'Population') {
-      dof = dataLength;
-  } else {
-      console.log('Error in DoF calculation.');
-      document.write('<h3 style="color:red;">Error, check console.</h3>');
+  if (dataType === 'Sample') {
+    dof = dataLength - 1;
+  } else if (dataType === 'Population') {
+    dof = dataLength;
   }
 
-  // calculate sum and mean
+  // Calculate sum and mean
   let sum = 0;
-  for (let i = 0; i < dataLength; i++) {
+  for (i in data) {
       sum += data[i];
   }
   const mean = sum / dataLength;
 
-  // calculate median
+  // Calculate median
   let sortedData = data.sort();
   let median = 0;
 
   if (dataLength % 2 === 0) {
-      median = (sortedData[dataLength / 2 - 1] + sortedData[dataLength / 2]) / 2;
+    median = (sortedData[dataLength / 2 - 1] + sortedData[dataLength / 2]) / 2;
   } else {
-      median = sortedData[(lastData) / 2];
+    median = sortedData[(lastData) / 2];
   }
 
-  // calculate range
+  // Calculate mode
+  let modes = data;
+  let loopedModeNos = [];
+  let numOccurrences = [];
+  //let deleteRestModes = false;
+  for (i in modes) {
+    if (loopedModeNos.indexOf(modes[i]) === -1) {
+      console.log('not found');
+      console.log(i);
+      console.log(modes[i]);
+      console.log(loopedModeNos.indexOf(modes[i]));
+      loopedModeNos.push(modes[i]);
+      numOccurrences.push(1);
+    } else {
+      console.log('found');
+      console.log(i);
+      console.log(modes[i]);
+      console.log(loopedModeNos.indexOf(modes[i]));
+      loopedModeNos.push(modes[i]);
+      numOccurrences.push(0);
+      numOccurrences[loopedModeNos.indexOf(modes[i])] += 1;
+    }
+  }
+  console.log(modes);
+  console.log(loopedModeNos);
+  console.log(numOccurrences);
+
+  for (i in modes) {
+    if (i[modes.indexOf(i)] !== max(numOccurrences)) {
+
+    }
+  }
+
+  // Calculate range
   let range = [];
   const min = sortedData[0];
   const max = sortedData[lastData];
   range.push(min, max);
 
-  // calculate variance and standard deviation
+  // Calculate variance and standard deviation
   let sqDiffFromMean = [];
   let sqDifference = 0;
-  for (let i = 0; i < dataLength; i++) {
-      sqDifference = Math.pow((data[i] - mean), 2);
-      sqDiffFromMean.push(sqDifference);
+  for (i in data) {
+    sqDifference = Math.pow((data[i] - mean), 2);
+    sqDiffFromMean.push(sqDifference);
   }
   let variance = 0;
-  for (let i = 0; i < dataLength; i++) {
-      variance += sqDiffFromMean[i];
+  for (i in sqDiffFromMean) {
+    variance += sqDiffFromMean[i];
   }
   variance /= dof;
-  const stDev = Math.sqrt(variance);
+  let stDev = Math.sqrt(variance);
 
-  // calculate standard error
-  const stErr = stDev / Math.sqrt(dataLength);
+  // Calculate standard error
+  let stErr = stDev / Math.sqrt(dataLength);
 
-  // calculate confidence interval
-  const lowerBound = mean - (tStat * stErr);
-  const upperBound = mean + (tStat * stErr);
+  // Calculate confidence interval
+  let lowerBound = mean - (tStat * stErr);
+  let upperBound = mean + (tStat * stErr);
 
-  // parse roundTo value
-  roundTo = parseInt(roundTo)
+  // Round numbers
+  variance = variance.toFixed(roundTo);
+  stDev = stDev.toFixed(roundTo);
+  stErr = stErr.toFixed(roundTo);
+  lowerBound = lowerBound.toFixed(roundTo);
+  upperBound = upperBound.toFixed(roundTo);
 
-  // compile and return results
-  let results = {};
-  results.roundTo;
-  results.dataType = dataTypeCoded;
-  results.n = dataLength;
-  results.dof = dof;
-  results.mean = mean;
-  results.median = median;
-  results.range = range;
-  results.variance = variance;
-  results.stDev = stDev;
-  results.stErr = stErr;
-  results.confLevel = confLevelCoded;
-  results.lowerBound = lowerBound;
-  results.upperBound = upperBound;
-  return results;
+  // Compile and return results
+  return {dataType: dataType,
+          n: dataLength,
+          dof: dof,
+          mean: mean,
+          median: median,
+          mode: modes,
+          min: min,
+          max: max,
+          variance: variance,
+          stDev: stDev,
+          stErr: stErr,
+          confLevel: confLevel,
+          lowerBound: lowerBound,
+          upperBound: upperBound
+        }
 };
 
+// Set up function to print results
 const printResults = (results) => {
-  const varianceRounded = results.variance.toFixed(results.roundTo);
-  const stDevRounded = results.stDev.toFixed(results.roundTo);
-  const stErrRounded = results.stErr.toFixed(results.roundTo);
-  const lowerBoundRounded = results.lowerBound.toFixed(results.roundTo);
-  const upperBoundRounded = results.upperBound.toFixed(results.roundTo);
-
-  /*
-  document.write(`Observations: ${results.n}<br />`);
-  document.write(`Degrees of Freedom: ${results.dof}<br />`);
-  document.write(`Mean: ${results.mean}<br />`);
-  document.write(`Median: ${results.median}<br />`);
-  document.write(`Range: [${results.range[0]}, ${results.range[1]}]<br />`);
-  document.write(`Variance: ${varianceRounded}<br />`);
-  document.write(`Standard Deviation: ${stDevRounded}<br />`);
-  document.write(`Standard Error: ${stErrRounded}<br />`);
-  document.write(`Confidence Level: ${results.confLevel}%<br />`);
-  document.write(`Lower Bound: ${lowerBoundRounded}<br />`);
-  document.write(`Upper Bound: ${upperBoundRounded}<br />`);
-  */
+  boxSummary.innerHTML = `${results.dataType} of ${results.n} observations`
+  boxMean.innerHTML = `${results.mean}`
+  boxMedian.innerHTML = `${results.median}`
+  boxMode.innerHTML = `${results.mode}`
+  boxRange.innerHTML = `[${results.min}, ${results.max}]`
+  boxVariance.innerHTML =`${results.variance}`
+  boxStDev.innerHTML = `${results.stDev}`
+  boxStErr.innerHTML = `${results.stErr}`
+  boxConfInt.innerHTML = `${results.confLevel}% Confidence Level:`
+  boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`
 };
 
-// Run descriptive stats on a set of data
-const testType1 = 'sample';
-const testConfInt1 = 0.95;
-const testData1 = [44, 46, 30, 24, 31, 47, 27, 26, 41, 22, 21, 34, 48, 38, 38, 24, 40, 31, 40, 19];
+/*
 
-printResults(descriptiveStats(testType1, testConfInt1, testData1));
+boxMedian
+boxMode
+boxRange
+boxVariance
+boxStDev
+boxStErr
+boxConfInt
+*/
 
-// Separate from the next set of data
-document.write('<br />');
-
-// Run descriptive stats on another set of data
-const testType2 = 'p';
-const testConfInt2 = 99;
-const testData2 = [23, 13, 19, 16, 22, 20, 29, 20, 16, 21, 28, 15, 18, 20, 13, 27, 13, 17, 26, 17];
-
-printResults(descriptiveStats(testType2, testConfInt2, testData2));
 
 // Start script once DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   initialiseDomVariables();
+  setUpOnClick();
 })
