@@ -1,6 +1,6 @@
 # JSProjects
 Various JavaScript projects that I work on from time to time.
 
-[Descriptive Statistics](JSProjects/tree/master/projects/DescriptiveStatistics)
+[Descriptive Statistics](projects/DescriptiveStats)
 
-[Tic Tac Toe Game](JSProjects/tree/master/projects/TicTacToe)
+[Tic Tac Toe Game](projects/TicTacToe)
