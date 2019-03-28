@@ -25,6 +25,13 @@ const checkLastKey = () => {
 const setUpKeyUpListener = () => {
   document.getElementById('userData').onkeyup = () => { checkLastKey(); };
 }
+const setUpButtonListeners = () => {
+  document.getElementById('dataTypeButtonS').onchange = () => { checkLastKey(); };
+  document.getElementById('dataTypeButtonP').onchange = () => { checkLastKey(); };
+  document.getElementById('confLevelButton90').onchange = () => { checkLastKey(); };
+  document.getElementById('confLevelButton95').onchange = () => { checkLastKey(); };
+  document.getElementById('confLevelButton99').onchange = () => { checkLastKey(); };
+}
 
 // Set up variables to hold DOM elements
 const initialiseDomVariables = () => {
@@ -233,6 +240,7 @@ const printResults = (results) => {
 document.addEventListener('DOMContentLoaded', () => {
   initialiseDomVariables();
   setUpKeyUpListener();
+  setUpButtonListeners();
   // Hide results, initially
   resultsTable.style.display = 'none';
 })
