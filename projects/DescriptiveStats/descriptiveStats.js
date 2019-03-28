@@ -6,7 +6,7 @@ let resultsTable, boxSummary, boxMean, boxMedian, boxMode, boxRange;
 let boxVariance, boxStDev, boxStErr, boxConfInt, boxConfLevel;
 let i;
 
-// Set up keyUp listener to auto calculate
+// Set up keyUp and button listeners to auto calculate
 const checkLastKey = () => {
   let entryBoxValue = document.getElementById('userData').value;
 
@@ -56,8 +56,7 @@ const getUserData = () => {
   let confLevel = document.querySelector('input[name="confLevel"]:checked').value;
   return {userData: userData,
           dataType: dataType,
-          confLevel: confLevel
-        }
+          confLevel: confLevel}
 }
 
 // Set up function to run the process and display results
@@ -219,8 +218,7 @@ const descriptiveStats = (values) => {
           stErr: stErr,
           confLevel: confLevel,
           lowerBound: lowerBound,
-          upperBound: upperBound
-        }
+          upperBound: upperBound}
 };
 
 // Set up function to print results
