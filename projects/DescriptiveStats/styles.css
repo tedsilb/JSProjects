@@ -45,3 +45,8 @@ body {
 #resultsTable > tbody > tr > td {
   font-size: 1.5em !important;
 }
+
+/* Set up monospaced font for results */
+.monospace-font {
+  font-family: "Lucida Console", Monaco, "Courier New", Courier, monospace;
+}
