@@ -7,7 +7,7 @@ let boxVariance, boxStDev, boxStErr, boxConfInt, boxConfLevel;
 let i;
 
 // Set up keyUp listener to auto calculate
-function checkLastKey() {
+const checkLastKey = () => {
   let entryBoxValue = document.getElementById('userData').value;
 
   // First show the table
@@ -22,12 +22,12 @@ function checkLastKey() {
     runDescriptiveStats();
   }
 }
-function setUpKeyUpListener() {
-  document.getElementById('userData').onkeyup = function() { checkLastKey(); };
+const setUpKeyUpListener = () => {
+  document.getElementById('userData').onkeyup = () => { checkLastKey(); };
 }
 
 // Set up variables to hold DOM elements
-function initialiseDomVariables() {
+const initialiseDomVariables = () => {
   resultsTable = document.getElementById('resultsTable');
   boxSummary = document.getElementById('summary');
   boxMean = document.getElementById('mean');
@@ -42,7 +42,7 @@ function initialiseDomVariables() {
 }
 
 // Set up function to get data from user
-function getUserData() {
+const getUserData = () => {
   let userData = document.getElementById('userData').value;
   let dataType = document.querySelector('input[name="dataType"]:checked').value;
   let confLevel = document.querySelector('input[name="confLevel"]:checked').value;
@@ -55,6 +55,58 @@ function getUserData() {
 // Set up function to run the process and display results
 const runDescriptiveStats = () => {
   printResults(descriptiveStats(getUserData()));
+}
+
+// Set up function to calculate mode
+const calcMode = (data) => {
+  let modes = data;
+  let modeString = 'None';
+  let loopedModeNos = [];
+  let numOccurrences = [];
+  // Get the number of occurrences per number
+  for (i in modes) {
+    if (loopedModeNos.indexOf(modes[i]) === -1) {
+      loopedModeNos.push(modes[i]);
+      numOccurrences.push(1);
+    } else {
+      loopedModeNos.push(modes[i]);
+      numOccurrences.push(0);
+      numOccurrences[loopedModeNos.indexOf(modes[i])] += 1;
+    }
+  }
+  // If no occurrences less than 0, set to empty array
+  let maxMode = 0;
+  for (i in numOccurrences) {
+    if (numOccurrences[i] > maxMode) {
+      maxMode = numOccurrences[i];
+    }
+  }
+  if (maxMode <= 1) {
+    modes = [];
+  } else {
+    // Remove all numbers with occurrences less than max
+    for (i = modes.length - 1; i >= 0; i--) {
+      if (numOccurrences[modes.indexOf(modes[i])] !== Math.max(...numOccurrences)) {
+        loopedModeNos.splice(i, 1);
+      }
+    }
+    // Remove duplicates
+    modes = [...new Set(loopedModeNos)];
+    // Put modes into string
+    modeString = '';
+    for (i in modes) {
+      if (modes.length == 1) {
+        modeString = modes[0];
+      } else if (i == 0) {
+        modeString += '[' + modes[i];
+      } else if (i == modes.length - 1) {
+        modeString += ', ' + modes[i] + ']';
+      } else {
+        modeString += ', ' + modes[i];
+      }
+    }
+  }
+  return modeString;
 }
 
 // Set up function to compute the statistics
@@ -106,53 +158,7 @@ const descriptiveStats = (values) => {
   }
 
   // Calculate mode
-  let modes = data;
-  let modeString = 'None';
-  let loopedModeNos = [];
-  let numOccurrences = [];
-  // Get the number of occurrences per number
-  for (i in modes) {
-    if (loopedModeNos.indexOf(modes[i]) === -1) {
-      loopedModeNos.push(modes[i]);
-      numOccurrences.push(1);
-    } else {
-      loopedModeNos.push(modes[i]);
-      numOccurrences.push(0);
-      numOccurrences[loopedModeNos.indexOf(modes[i])] += 1;
-    }
-  }
-  // If no occurrences less than 0, set to empty array
-  let maxMode = 0;
-  for (i in numOccurrences) {
-    if (numOccurrences[i] > maxMode) {
-      maxMode = numOccurrences[i];
-    }
-  }
-  if (maxMode <= 1) {
-    modes = [];
-  } else {
-    // Remove all numbers with occurrences less than max
-    for (i = modes.length - 1; i >= 0; i--) {
-      if (numOccurrences[modes.indexOf(modes[i])] !== Math.max(...numOccurrences)) {
-        loopedModeNos.splice(i, 1);
-      }
-    }
-    // Remove duplicates
-    modes = [...new Set(loopedModeNos)];
-    // Put modes into string
-    modeString = '';
-    for (i in modes) {
-      if (modes.length == 1) {
-        modeString = modes[0];
-      } else if (i == 0) {
-        modeString += '[' + modes[i];
-      } else if (i == modes.length - 1) {
-        modeString += ', ' + modes[i] + ']';
-      } else {
-        modeString += ', ' + modes[i];
-      }
-    }
-  }
+  let modeString = calcMode(data);
 
   // Calculate range
   let range = [];
