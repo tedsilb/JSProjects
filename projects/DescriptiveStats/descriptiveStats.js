@@ -24,6 +24,7 @@ const checkLastKey = () => {
 }
 const setUpKeyUpListener = () => {
   document.getElementById('userData').onkeyup = () => { checkLastKey(); };
+  document.getElementById('userData').onchange = () => { checkLastKey(); };
 }
 const setUpButtonListeners = () => {
   document.getElementById('dataTypeButtonS').onchange = () => { checkLastKey(); };
