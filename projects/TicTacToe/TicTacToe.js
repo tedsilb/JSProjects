@@ -63,7 +63,9 @@ function takeCpuTurn() {
     console.log('Found a tie');
 
   // Some winning strategies
-  } else if (cpuStarted && userChosenCells.length === 2 && arraysEqual(cpuChosenCells, ['A1', 'A3'])) {
+  } else if (cpuStarted && userChosenCells.length === 2 && arraysEqual(cpuChosenCells, ['A1', 'A3'])
+              && (arraysEqual(userChosenCells, ['B1', 'A2']) || arraysEqual(userChosenCells, ['C1', 'A2'])
+                  || arraysEqual(userChosenCells, ['B3', 'A2']) || arraysEqual(userChosenCells, ['A2', 'C2']))) {
     if (arraysEqual(userChosenCells, ['B1', 'A2']) || arraysEqual(userChosenCells, ['C1', 'A2'])) {
       cpuChoice = 'C3';
     } else if (arraysEqual(userChosenCells, ['B3', 'A2'])) {
