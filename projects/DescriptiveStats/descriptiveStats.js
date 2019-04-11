@@ -17,7 +17,7 @@ const checkLastKey = () => {
     resultsTable.style.display = 'table';
   }
 
-  const regexToTest = /[a-z||0-9]/i;
+  const regexToTest = /[a-z]|[0-9]/i;
   if (regexToTest.test(entryBoxValue.substr(-1))) {
     runDescriptiveStats();
   }
