@@ -88,9 +88,7 @@ const calcMode = (data) => {
       maxMode = numOccurrences[i];
     }
   }
-  if (maxMode <= 1) {
-    modes = [];
-  } else {
+  if (maxMode > 1) {
     // Remove all numbers with occurrences less than max
     for (i = modes.length - 1; i >= 0; i--) {
       if (numOccurrences[modes.indexOf(modes[i])] !== Math.max(...numOccurrences)) {
@@ -121,7 +119,7 @@ const descriptiveStats = (values) => {
   // Set up incoming variables
   let data = values.userData.split(",");
   for (i in data) {
-    data[i] = parseFloat(data[i])
+    data[i] = parseFloat(data[i]);
   }
   const dataType = values.dataType;
   let confLevel = parseInt(values.confLevel);
@@ -218,7 +216,7 @@ const descriptiveStats = (values) => {
           stErr: stErr,
           confLevel: confLevel,
           lowerBound: lowerBound,
-          upperBound: upperBound}
+          upperBound: upperBound};
 };
 
 // Set up function to print results

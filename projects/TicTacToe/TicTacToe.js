@@ -200,7 +200,7 @@ function takeCpuTurn() {
   // CPU start
   } else if (userChosenCells.length === 0) {
     console.log('Taking smart cpu starts');
-    randomNo = Math.random()
+    randomNo = Math.random();
     if (randomNo <= .2) {
       itemIndex = 0;
     } else if (randomNo > .2 && randomNo <= .4) {
