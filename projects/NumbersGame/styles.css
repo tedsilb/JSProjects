@@ -40,6 +40,10 @@ h5 {
 .mainButton {
   width: 80%;
 }
+#startGameButton {
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+}
 #saveLimitsButton {
   color: #dcdde1;
 }
