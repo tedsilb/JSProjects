@@ -61,24 +61,42 @@ const handleNewGuess = () => {
   // Outside constraints
   if (upperNo < guessNumberInput.value) {
     resultText.innerHTML = `${guessNumberInput.value} is above the upper limit.`;
-    return;
   } else if (guessNumberInput.value < lowerNo) {
     resultText.innerHTML = `${guessNumberInput.value} is below the lower limit.`;
-    return;
+
+  // At constraints
+  } else if (guessNumberInput.value === upperNo.toString()) {
+    resultText.innerHTML = `${guessNumberInput.value} is already the upper limit.`;
+  } else if (guessNumberInput.value === lowerNo.toString()) {
+    resultText.innerHTML = `${guessNumberInput.value} is already the lower limit.`;
 
   // Within constraints
-  } else if (targetNo < guessNumberInput.value) {
+  // ex: If lower is 44, target 45, and guess 46, it's a win.
+  } else if (targetNo < guessNumberInput.value
+             && (guessNumberInput.value - targetNo !== 1
+                 || guessNumberInput.value - lowerNo !== 2)) {
     resultText.innerHTML = `${guessNumberInput.value} is High!`;
     upperNo = guessNumberInput.value;
     highResultText.innerHTML = guessNumberInput.value;
-  } else if (guessNumberInput.value < targetNo) {
+  // ex: If upper is 46, target 45, and guess 44, it's a win.
+  } else if (guessNumberInput.value < targetNo
+             && (targetNo - guessNumberInput.value !== 1
+                 || upperNo - guessNumberInput.value !== 2)) {
     resultText.innerHTML = `${guessNumberInput.value} is Low!`;
     lowerNo = guessNumberInput.value;
     lowResultText.innerHTML = guessNumberInput.value;
 
   // Win!
   } else {
-    resultText.innerHTML = `${guessNumberInput.value} is it!`;
+    // Implicit wins
+    if (targetNo < guessNumberInput.value) {
+      resultText.innerHTML = `${parseInt(guessNumberInput.value) - 1} is it!`;
+    } else if (guessNumberInput.value < targetNo) {
+      resultText.innerHTML = `${parseInt(guessNumberInput.value) + 1} is it!`;
+    // Explicit win
+    } else {
+      resultText.innerHTML = `${guessNumberInput.value} is it!`;
+    }
     guessNumberRow.style.display = 'none';
     startGameButton.innerHTML = 'Start new game';
     startGameButton.classList.add('button-primary');
