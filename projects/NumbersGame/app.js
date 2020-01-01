@@ -61,10 +61,8 @@ const handleNewGuess = () => {
   // Outside constraints
   if (upperNo < guessNumberInput.value) {
     resultText.innerHTML = `${guessNumberInput.value} is above the upper limit.`;
-    return;
   } else if (guessNumberInput.value < lowerNo) {
     resultText.innerHTML = `${guessNumberInput.value} is below the lower limit.`;
-    return;
 
   // Within constraints
   } else if (targetNo < guessNumberInput.value) {
