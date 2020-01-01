@@ -65,12 +65,14 @@ const handleNewGuess = () => {
     resultText.innerHTML = `${guessNumberInput.value} is below the lower limit.`;
 
   // Within constraints
+  // ex: If lower is 44, target 45, and guess 46, it's a win.
   } else if (targetNo < guessNumberInput.value
              && (guessNumberInput.value - targetNo !== 1
                  || guessNumberInput.value - lowerNo !== 2)) {
     resultText.innerHTML = `${guessNumberInput.value} is High!`;
     upperNo = guessNumberInput.value;
     highResultText.innerHTML = guessNumberInput.value;
+  // ex: If upper is 46, target 45, and guess 44, it's a win.
   } else if (guessNumberInput.value < targetNo
              && (targetNo - guessNumberInput.value !== 1
                  || upperNo - guessNumberInput.value !== 2)) {
@@ -80,10 +82,12 @@ const handleNewGuess = () => {
 
   // Win!
   } else {
+    // Implicit wins
     if (targetNo < guessNumberInput.value) {
       resultText.innerHTML = `${parseInt(guessNumberInput.value) - 1} is it!`;
     } else if (guessNumberInput.value < targetNo) {
       resultText.innerHTML = `${parseInt(guessNumberInput.value) + 1} is it!`;
+    // Explicit win
     } else {
       resultText.innerHTML = `${guessNumberInput.value} is it!`;
     }
