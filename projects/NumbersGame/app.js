@@ -65,18 +65,28 @@ const handleNewGuess = () => {
     resultText.innerHTML = `${guessNumberInput.value} is below the lower limit.`;
 
   // Within constraints
-  } else if (targetNo < guessNumberInput.value) {
+  } else if (targetNo < guessNumberInput.value
+             && (guessNumberInput.value - targetNo !== 1
+                 || guessNumberInput.value - lowerNo !== 2)) {
     resultText.innerHTML = `${guessNumberInput.value} is High!`;
     upperNo = guessNumberInput.value;
     highResultText.innerHTML = guessNumberInput.value;
-  } else if (guessNumberInput.value < targetNo) {
+  } else if (guessNumberInput.value < targetNo
+             && (targetNo - guessNumberInput.value !== 1
+                 || upperNo - guessNumberInput.value !== 2)) {
     resultText.innerHTML = `${guessNumberInput.value} is Low!`;
     lowerNo = guessNumberInput.value;
     lowResultText.innerHTML = guessNumberInput.value;
 
   // Win!
   } else {
-    resultText.innerHTML = `${guessNumberInput.value} is it!`;
+    if (targetNo < guessNumberInput.value) {
+      resultText.innerHTML = `${parseInt(guessNumberInput.value) - 1} is it!`;
+    } else if (guessNumberInput.value < targetNo) {
+      resultText.innerHTML = `${parseInt(guessNumberInput.value) + 1} is it!`;
+    } else {
+      resultText.innerHTML = `${guessNumberInput.value} is it!`;
+    }
     guessNumberRow.style.display = 'none';
     startGameButton.innerHTML = 'Start new game';
     startGameButton.classList.add('button-primary');
