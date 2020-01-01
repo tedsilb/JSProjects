@@ -1,0 +1,60 @@
+body {
+  /* Main page background colour */
+  background-color: #353b48;
+
+  /* Text color */
+  color: #dcdde1;
+}
+
+/* Reduce bottom margin on h5s */
+h5 {
+  margin-bottom: 1.3rem;
+}
+
+/* Add bottom margin to rows */
+.row {
+  margin-bottom: 4%;
+}
+
+/* Set up header and title */
+#startGameRow > div{
+  text-align: center;
+}
+#headerBlock {
+  color: #dcdde1;
+  margin-top: 3%;
+}
+#mainTitle {
+  margin-bottom: 1%;
+  font-weight: bold;
+}
+
+/* Button styles */
+.button {
+  font-size: 1em;
+  color: #dcdde1;
+}
+.button:hover {
+  color: #dcdde1;
+}
+.mainButton {
+  width: 80%;
+}
+#saveLimitsButton {
+  color: #dcdde1;
+}
+
+/* Text box override */
+input[type="text"] {
+  background-color: #718093;
+  color: #dcdde1;
+}
+
+/* High/low display table */
+.dataDisplayTable {
+  margin-bottom: 0;
+}
+.dataDisplayTable > tbody > tr > td {
+  font-size: 1.4em;
+  border-bottom: 0 none #000;
+}
