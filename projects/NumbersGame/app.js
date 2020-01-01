@@ -83,7 +83,10 @@ const handleNewGuess = () => {
     startGameButton.innerHTML = 'Start new game';
     startGameButton.classList.add('button-primary');
   }
+
+  // Reset value and focus
   guessNumberInput.value = '';
+  guessNumberInput.focus();
 }
 
 // Hide all main rows
