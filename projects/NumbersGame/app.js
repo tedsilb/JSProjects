@@ -42,7 +42,6 @@ const saveUpperLimit = () => {
 const handleNewGuess = () => {
     guessNo = parseInt(guessNumberInput.value);
     if (upperNo < guessNo) {
-        console.log(`upper: ${upperNo}, guess: ${guessNo}`);
         resultText.innerHTML = `${guessNo} is above the upper limit.`;
     }
     else if (guessNo < lowerNo) {
@@ -81,6 +80,7 @@ const handleNewGuess = () => {
         guessNumberRow.style.display = 'none';
         startGameButton.innerHTML = 'Start new game';
         startGameButton.classList.add('button-primary');
+        guessNumberInput.value = '';
         return;
     }
     guessNumberInput.value = '';
