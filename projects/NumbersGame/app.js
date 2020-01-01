@@ -46,7 +46,7 @@ const saveUpperLimit = () => {
   // Get input, validate
   upperNo = parseInt(upperLimitInput.value);
   upperLimitInput.value = '';
-  if (notOk(upperNo)) return;
+  if (notOk(upperNo) || upperNo < targetNo) return;
 
   // If ok, hide current row, show next
   upperLimitRow.style.display = 'none';
