@@ -109,6 +109,7 @@ const handleNewGuess = () => {
     guessNumberRow.style.display = 'none';
     startGameButton.innerHTML = 'Start new game';
     startGameButton.classList.add('button-primary');
+    guessNumberInput.value = '';
     return;
   }
 
