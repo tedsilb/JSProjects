@@ -10,6 +10,11 @@ let targetNo = 0;
 let upperNo = 0;
 let lowerNo = 1;
 
+// Async sleep function
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
 // Check if not a number
 const notOk = (num) => {
   return (!num || isNaN(num));
@@ -71,14 +76,14 @@ const handleNewGuess = () => {
     resultText.innerHTML = `${guessNumberInput.value} is already the lower limit.`;
 
   // Within constraints
-  // ex: If lower is 44, target 45, and guess 46, it's a win.
+  // ex: If lower is 44, target 45, and guess 46, it's a win, not high.
   } else if (targetNo < guessNumberInput.value
              && (guessNumberInput.value - targetNo !== 1
                  || guessNumberInput.value - lowerNo !== 2)) {
     resultText.innerHTML = `${guessNumberInput.value} is High!`;
     upperNo = guessNumberInput.value;
     highResultText.innerHTML = guessNumberInput.value;
-  // ex: If upper is 46, target 45, and guess 44, it's a win.
+  // ex: If upper is 46, target 45, and guess 44, it's a win, not low.
   } else if (guessNumberInput.value < targetNo
              && (targetNo - guessNumberInput.value !== 1
                  || upperNo - guessNumberInput.value !== 2)) {
@@ -90,8 +95,10 @@ const handleNewGuess = () => {
   } else {
     // Implicit wins
     if (targetNo < guessNumberInput.value) {
+      highResultText.innerHTML = guessNumberInput.value;
       resultText.innerHTML = `${parseInt(guessNumberInput.value) - 1} is it!`;
     } else if (guessNumberInput.value < targetNo) {
+      lowResultText.innerHTML = guessNumberInput.value;
       resultText.innerHTML = `${parseInt(guessNumberInput.value) + 1} is it!`;
     // Explicit win
     } else {
@@ -105,6 +112,13 @@ const handleNewGuess = () => {
   // Reset value and focus
   guessNumberInput.value = '';
   guessNumberInput.focus();
+
+  // Make sure we have focus (sometimes takes a couple tries on iOS Safari)
+  while (document.activeElement !== guessNumberInput) {
+    sleep(100).then(() => {
+      guessNumberInput.focus();
+    })
+  }
 }
 
 // Hide all main rows
