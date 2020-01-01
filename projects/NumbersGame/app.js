@@ -10,6 +10,11 @@ let targetNo = 0;
 let upperNo = 0;
 let lowerNo = 1;
 
+// Async sleep function
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+
 // Check if not a number
 const notOk = (num) => {
   return (!num || isNaN(num));
@@ -90,8 +95,10 @@ const handleNewGuess = () => {
   } else {
     // Implicit wins
     if (targetNo < guessNumberInput.value) {
+      highResultText.innerHTML = guessNumberInput.value;
       resultText.innerHTML = `${parseInt(guessNumberInput.value) - 1} is it!`;
     } else if (guessNumberInput.value < targetNo) {
+      lowResultText.innerHTML = guessNumberInput.value;
       resultText.innerHTML = `${parseInt(guessNumberInput.value) + 1} is it!`;
     // Explicit win
     } else {
@@ -105,6 +112,13 @@ const handleNewGuess = () => {
   // Reset value and focus
   guessNumberInput.value = '';
   guessNumberInput.focus();
+
+  // Make sure we have focus (sometimes takes a couple tries on iOS Safari)
+  while (document.activeElement !== guessNumberInput) {
+    sleep(100).then(() => {
+      guessNumberInput.focus();
+    })
+  }
 }
 
 // Hide all main rows
