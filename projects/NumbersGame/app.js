@@ -69,11 +69,11 @@ const handleNewGuess = () => {
   // Within constraints
   } else if (targetNo < guessNumberInput.value) {
     resultText.innerHTML = `${guessNumberInput.value} is High!`;
-    upperNo = targetNo;
+    upperNo = guessNumberInput.value;
     highResultText.innerHTML = guessNumberInput.value;
   } else if (guessNumberInput.value < targetNo) {
     resultText.innerHTML = `${guessNumberInput.value} is Low!`;
-    lowerNo = targetNo;
+    lowerNo = guessNumberInput.value;
     lowResultText.innerHTML = guessNumberInput.value;
 
   // Win!
