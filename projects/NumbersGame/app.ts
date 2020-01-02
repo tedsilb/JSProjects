@@ -2,12 +2,20 @@
 // By Ted Silbernagel
 
 // Declare variables so they're global
-let startGameButton: HTMLElement, saveTargetNumberButton: HTMLElement;
-let saveUpperLimitButton: HTMLElement, saveguessNumberButton: HTMLElement;
-let targetRow: HTMLElement, upperLimitRow: HTMLElement;
-let guessNumberRow: HTMLElement, highLowRow: HTMLElement;
-let targetNumberInput: HTMLInputElement, upperLimitInput: HTMLInputElement, guessNumberInput: HTMLInputElement;
-let resultText: HTMLElement, highResultText: HTMLElement, lowResultText: HTMLElement;
+let startGameButton: HTMLElement;
+let saveTargetNumberButton: HTMLElement;
+let saveUpperLimitButton: HTMLElement;
+let saveguessNumberButton: HTMLElement;
+let targetRow: HTMLElement;
+let upperLimitRow: HTMLElement;
+let guessNumberRow: HTMLElement;
+let highLowRow: HTMLElement;
+let targetNumberInput: HTMLInputElement;
+let upperLimitInput: HTMLInputElement;
+let guessNumberInput: HTMLInputElement;
+let resultText: HTMLElement;
+let highResultText: HTMLElement;
+let lowResultText: HTMLElement;
 let targetNo = 0;
 let upperNo = 0;
 let lowerNo = 1;
