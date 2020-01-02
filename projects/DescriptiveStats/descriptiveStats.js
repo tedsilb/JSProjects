@@ -1,5 +1,14 @@
-let resultsTable, boxSummary, boxMean, boxMedian, boxMode, boxRange;
-let boxVariance, boxStDev, boxStErr, boxConfInt, boxConfLevel;
+let resultsTable;
+let boxSummary;
+let boxMean;
+let boxMedian;
+let boxMode;
+let boxRange;
+let boxVariance;
+let boxStDev;
+let boxStErr;
+let boxConfInt;
+let boxConfLevel;
 let i;
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 const checkLastKey = () => {

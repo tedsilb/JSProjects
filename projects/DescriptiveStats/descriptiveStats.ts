@@ -2,8 +2,17 @@
 // By Ted Silbernagel
 
 // Declare variables so they're global
-let resultsTable: HTMLElement, boxSummary: HTMLElement, boxMean: HTMLElement, boxMedian: HTMLElement, boxMode: HTMLElement, boxRange: HTMLElement;
-let boxVariance: HTMLElement, boxStDev: HTMLElement, boxStErr: HTMLElement, boxConfInt: HTMLElement, boxConfLevel: HTMLElement;
+let resultsTable: HTMLElement;
+let boxSummary: HTMLElement;
+let boxMean: HTMLElement;
+let boxMedian: HTMLElement;
+let boxMode: HTMLElement;
+let boxRange: HTMLElement;
+let boxVariance: HTMLElement;
+let boxStDev: HTMLElement;
+let boxStErr: HTMLElement;
+let boxConfInt: HTMLElement;
+let boxConfLevel: HTMLElement;
 let i;
 
 // Fix incorrect TS parsing on global functions
