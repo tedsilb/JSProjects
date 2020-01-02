@@ -8,17 +8,12 @@ let i;
 
 // Set up keyUp and button listeners to auto calculate
 const checkLastKey = () => {
-  let entryBoxValue = document.getElementById('userData').value;
+  const entryBoxValue = document.getElementById('userData').value;
 
   // First show the table
-  if (entryBoxValue.length === 0) {
-    resultsTable.style.display = 'none';
-  } else {
-    resultsTable.style.display = 'table';
-  }
+  resultsTable.style.display = (entryBoxValue.length === 0) ? 'none' : 'table';
 
-  const regexToTest = /[a-z]|[0-9]/i;
-  if (regexToTest.test(entryBoxValue.substr(-1))) {
+  if (/[a-z]|[0-9]/i.test(entryBoxValue.substr(-1))) {
     runDescriptiveStats();
   }
 }
@@ -51,12 +46,11 @@ const initialiseDomVariables = () => {
 
 // Set up function to get data from user
 const getUserData = () => {
-  let userData = document.getElementById('userData').value;
-  let dataType = document.querySelector('input[name="dataType"]:checked').value;
-  let confLevel = document.querySelector('input[name="confLevel"]:checked').value;
-  return {userData: userData,
-          dataType: dataType,
-          confLevel: confLevel}
+  return {
+    userData: document.getElementById('userData').value,
+    dataType: document.querySelector('input[name="dataType"]:checked').value,
+    confLevel: document.querySelector('input[name="confLevel"]:checked').value,
+  };
 }
 
 // Set up function to run the process and display results
@@ -71,21 +65,21 @@ const calcMode = (data) => {
   let loopedModeNos = [];
   let numOccurrences = [];
   // Get the number of occurrences per number
-  for (i in modes) {
-    if (loopedModeNos.indexOf(modes[i]) === -1) {
-      loopedModeNos.push(modes[i]);
+  for (let mode of modes) {
+    if (loopedModeNos.indexOf(mode) === -1) {
+      loopedModeNos.push(mode);
       numOccurrences.push(1);
     } else {
-      loopedModeNos.push(modes[i]);
+      loopedModeNos.push(mode);
       numOccurrences.push(0);
-      numOccurrences[loopedModeNos.indexOf(modes[i])] += 1;
+      numOccurrences[loopedModeNos.indexOf(mode)] += 1;
     }
   }
   // If no occurrences less than 0, set to empty array
   let maxMode = 0;
-  for (i in numOccurrences) {
-    if (numOccurrences[i] > maxMode) {
-      maxMode = numOccurrences[i];
+  for (let occurrence of numOccurrences) {
+    if (occurrence > maxMode) {
+      maxMode = occurrence;
     }
   }
   if (maxMode > 1) {
@@ -122,7 +116,7 @@ const descriptiveStats = (values) => {
     data[i] = parseFloat(data[i]);
   }
   const dataType = values.dataType;
-  let confLevel = parseInt(values.confLevel);
+  const confLevel = parseInt(values.confLevel);
 
   const roundTo = 4;
   // Code confidence level
@@ -145,15 +139,11 @@ const descriptiveStats = (values) => {
     dof = dataLength;
   }
 
-  // Calculate sum and mean
-  let sum = 0;
-  for (i in data) {
-      sum += data[i];
-  }
-  let mean = sum / dataLength;
+  // Calculate mean
+  const mean = Math.sum(...data) / dataLength;
 
   // Calculate median
-  let sortedData = data.sort();
+  const sortedData = data.sort();
   let median = 0;
 
   if (dataLength % 2 === 0) {
@@ -163,60 +153,46 @@ const descriptiveStats = (values) => {
   }
 
   // Calculate mode
-  let modeString = calcMode(data);
+  const modeString = calcMode(data);
 
   // Calculate range
-  let range = [];
   const min = sortedData[0];
   const max = sortedData[lastData];
-  range.push(min, max);
 
   // Calculate variance
   let sqDiffFromMean = [];
-  let sqDifference = 0;
-  for (i in data) {
-    sqDifference = Math.pow((data[i] - mean), 2);
-    sqDiffFromMean.push(sqDifference);
+  for (let num of data) {
+    sqDiffFromMean.push(Math.pow((num - mean), 2));
   }
-  let variance = 0;
-  for (i in sqDiffFromMean) {
-    variance += sqDiffFromMean[i];
-  }
+  const variance = Math.sum(...sqDiffFromMean) / dof;
 
   // Calculate standard deviation
-  variance /= dof;
-  let stDev = Math.sqrt(variance);
+  const stDev = Math.sqrt(variance);
 
   // Calculate standard error
-  let stErr = stDev / Math.sqrt(dataLength);
+  const stErr = stDev / Math.sqrt(dataLength);
 
   // Calculate confidence interval
-  let lowerBound = mean - (tStat * stErr);
-  let upperBound = mean + (tStat * stErr);
-
-  // Round numbers
-  mean = mean.toFixed(roundTo);
-  variance = variance.toFixed(roundTo);
-  stDev = stDev.toFixed(roundTo);
-  stErr = stErr.toFixed(roundTo);
-  lowerBound = lowerBound.toFixed(roundTo);
-  upperBound = upperBound.toFixed(roundTo);
+  const lowerBound = mean - (tStat * stErr);
+  const upperBound = mean + (tStat * stErr);
 
   // Compile and return results
-  return {dataType: dataType,
-          n: dataLength,
-          dof: dof,
-          mean: mean,
-          median: median,
-          mode: modeString,
-          min: min,
-          max: max,
-          variance: variance,
-          stDev: stDev,
-          stErr: stErr,
-          confLevel: confLevel,
-          lowerBound: lowerBound,
-          upperBound: upperBound};
+  return {
+    dataType: dataType,
+    n: dataLength,
+    dof: dof,
+    mean: mean.toFixed(roundTo),
+    median: median,
+    mode: modeString,
+    min: min,
+    max: max,
+    variance: variance.toFixed(roundTo),
+    stDev: stDev.toFixed(roundTo),
+    stErr: stErr.toFixed(roundTo),
+    confLevel: confLevel,
+    lowerBound: lowerBound.toFixed(roundTo),
+    upperBound: upperBound.toFixed(roundTo),
+  };
 };
 
 // Set up function to print results
