@@ -8,8 +8,7 @@
         "url": "git://github.com/tedsilb/JSProjects.git"
     },
     "scripts": {
-        "start": "parcel serve projects/NumbersGame/index.html",
-        "build": "cross-env NODE_ENV=production parcel build projects/NumbersGame/index.html --public-url .",
+        "build": "tsc",
         "deploy": "gh-pages -d ."
     },
     "devDependencies": {
