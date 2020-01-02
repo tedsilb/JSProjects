@@ -13,6 +13,9 @@ let upperNo = 0;
 let lowerNo = 1;
 let guessNo = 0;
 
+// Fix incorrect TS parsing on global functions
+export {};
+
 // Async sleep function
 const sleep = (milliseconds: number): Promise<void> => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
