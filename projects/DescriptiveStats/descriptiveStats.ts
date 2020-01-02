@@ -2,13 +2,44 @@
 // By Ted Silbernagel
 
 // Declare variables so they're global
-let resultsTable, boxSummary, boxMean, boxMedian, boxMode, boxRange;
-let boxVariance, boxStDev, boxStErr, boxConfInt, boxConfLevel;
+let resultsTable: HTMLElement, boxSummary: HTMLElement, boxMean: HTMLElement, boxMedian: HTMLElement, boxMode: HTMLElement, boxRange: HTMLElement;
+let boxVariance: HTMLElement, boxStDev: HTMLElement, boxStErr: HTMLElement, boxConfInt: HTMLElement, boxConfLevel: HTMLElement;
 let i;
+
+// Fix incorrect TS parsing on global functions
+export {};
+
+// Interfaces
+interface userData {
+  userData: string;
+  dataType: string;
+  confLevel: string;
+}
+interface descriptiveStatsData {
+  dataType: string;
+  n: number;
+  dof: number;
+  mean: string;
+  median: number;
+  mode: string;
+  min: number;
+  max: number;
+  variance: string;
+  stDev: string;
+  stErr: string;
+  confLevel: number;
+  lowerBound: string;
+  upperBound: string;
+}
+
+// Sum
+// sum = array.reduce(reducer);
+const reducer = (accumulator: number, currentValue: number) => accumulator + currentValue;
 
 // Set up keyUp and button listeners to auto calculate
 const checkLastKey = () => {
-  const entryBoxValue = document.getElementById('userData').value;
+  const userDataElement = <HTMLInputElement>document.getElementById('userData')
+  const entryBoxValue = userDataElement.value;
 
   // First show the table
   resultsTable.style.display = (entryBoxValue.length === 0) ? 'none' : 'table';
@@ -46,10 +77,13 @@ const initialiseDomVariables = () => {
 
 // Set up function to get data from user
 const getUserData = () => {
+  const userDataElement = <HTMLInputElement>document.getElementById('userData');
+  const dataTypeElement = <HTMLInputElement>document.querySelector('input[name="dataType"]:checked');
+  const confLevelElement = <HTMLInputElement>document.querySelector('input[name="confLevel"]:checked');
   return {
-    userData: document.getElementById('userData').value,
-    dataType: document.querySelector('input[name="dataType"]:checked').value,
-    confLevel: document.querySelector('input[name="confLevel"]:checked').value,
+    userData: userDataElement.value,
+    dataType: dataTypeElement.value,
+    confLevel: confLevelElement.value,
   };
 }
 
@@ -59,10 +93,10 @@ const runDescriptiveStats = () => {
 }
 
 // Set up function to calculate mode
-const calcMode = (data) => {
-  let modes = data;
+const calcMode = (data: Array<number>) => {
+  let modes: Array<number> = data;
   let modeString = 'None';
-  let loopedModeNos = [];
+  let loopedModeNos: Array<number> = [];
   let numOccurrences = [];
   // Get the number of occurrences per number
   for (let mode of modes) {
@@ -95,10 +129,10 @@ const calcMode = (data) => {
     modeString = '';
     for (i in modes) {
       if (modes.length == 1) {
-        modeString = modes[0];
-      } else if (i == 0) {
+        modeString = modes[0].toString();
+      } else if (parseInt(i) === 0) {
         modeString += '[' + modes[i];
-      } else if (i == modes.length - 1) {
+      } else if (parseInt(i) === modes.length - 1) {
         modeString += ', ' + modes[i] + ']';
       } else {
         modeString += ', ' + modes[i];
@@ -109,13 +143,13 @@ const calcMode = (data) => {
 }
 
 // Set up function to compute the statistics
-const descriptiveStats = (values) => {
+const descriptiveStats = (values: userData) => {
   // Set up incoming variables
-  let data = values.userData.split(",");
-  for (i in data) {
-    data[i] = parseFloat(data[i]);
+  let data: Array<number> = [];
+  for (let value of values.userData.split(",")) {
+    data.push(parseFloat(value));
   }
-  const dataType = values.dataType;
+  const dataType: string = values.dataType;
   const confLevel = parseInt(values.confLevel);
 
   const roundTo = 4;
@@ -140,7 +174,7 @@ const descriptiveStats = (values) => {
   }
 
   // Calculate mean
-  const mean = Math.sum(...data) / dataLength;
+  const mean = data.reduce(reducer) / dataLength;
 
   // Calculate median
   const sortedData = data.sort();
@@ -164,7 +198,7 @@ const descriptiveStats = (values) => {
   for (let num of data) {
     sqDiffFromMean.push(Math.pow((num - mean), 2));
   }
-  const variance = Math.sum(...sqDiffFromMean) / dof;
+  const variance = sqDiffFromMean.reduce(reducer) / dof;
 
   // Calculate standard deviation
   const stDev = Math.sqrt(variance);
@@ -196,7 +230,7 @@ const descriptiveStats = (values) => {
 };
 
 // Set up function to print results
-const printResults = (results) => {
+const printResults = (results: descriptiveStatsData) => {
   boxSummary.innerHTML = `<b>${results.dataType} of ${results.n} observations</b>`
   boxMean.innerHTML = `${results.mean}`
   boxMedian.innerHTML = `${results.median}`
