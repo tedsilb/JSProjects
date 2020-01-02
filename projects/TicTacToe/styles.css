@@ -1,0 +1,97 @@
+body {
+  /* Main page background colour */
+  background-color: #353b48;
+
+  /* Disallow text selection */
+  user-select: none;
+}
+
+/* Set up header */
+#header-block {
+  color: #dcdde1;
+  margin-top: 6%;
+  margin-left: 5% !important;
+}
+#main-title {
+  margin-bottom: 1%;
+  font-weight: bold;
+}
+
+/* Set up status display */
+#status-display {
+  /* Remove left margin */
+  margin-left: 5% !important;
+
+  /* Background colour */
+  background-color: #718093;
+
+  /* Rounded edges, remove default border */
+  border-radius: .2em;
+  border: none;
+
+  /* Set up text */
+  vertical-align: middle;
+  text-align: center;
+  font-size: 1.3em;
+  color: #dcdde1;
+}
+#status-reset-bar {
+  margin-top: 2%;
+}
+
+/* Reset button */
+#reset-button {
+  /* Remove right margin */
+  margin-right: 5% !important;
+
+  /* Remove padding to properly centre text */
+  padding-left: 0;
+  padding-right: 0;
+
+  /* Background colour */
+  background-color: #40739e;
+
+  /* Rounded edges, remove default border */
+  border-radius: .5em;
+  border: none;
+
+  /* Set up text */
+  vertical-align: middle;
+  text-align: center;
+  font-size: 1.3em;
+  color: #dcdde1;
+}
+
+/* Set up spacing between cells */
+#ttt {
+  border-spacing: 15px;
+  border-collapse: separate;
+  /* Remove bottom margin to fit on page */
+  margin-bottom: 0;
+  /* Add just a bit of margin on the top */
+  margin-top: 1%;
+}
+
+/* Set up cells themselves */
+#ttt > tbody > tr > td {
+  /* Height/width */
+  height: 130px;
+  width: calc(100% / 3);
+
+  /* Remove padding to properly centre text */
+  padding-left: 0;
+  padding-right: 0;
+
+  /* Background colour */
+  background-color: #4cd137;
+
+  /* Rounded edges, remove default border */
+  border-radius: .5em;
+  border: none;
+
+  /* Set up text */
+  vertical-align: middle;
+  text-align: center;
+  font-size: 3em;
+  color: #2f3640;
+}
