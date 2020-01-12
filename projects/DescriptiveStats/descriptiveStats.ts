@@ -173,26 +173,25 @@ const descriptiveStats = (values: userData) => {
   }
 
   // Calculate degrees of freedom
-  const dataLength = data.length;
-  const lastData = dataLength - 1;
   let dof = 0;
   if (dataType === 'Sample') {
-    dof = dataLength - 1;
+    dof = data.length - 1;
   } else if (dataType === 'Population') {
-    dof = dataLength;
+    dof = data.length;
   }
 
   // Calculate mean
-  const mean = data.reduce(reducer) / dataLength;
+  const mean = data.reduce(reducer) / data.length;
 
   // Calculate median
-  const sortedData = data.sort();
+  const sortedData = data.sort(function(a, b){ return a - b; });
   let median = 0;
 
-  if (dataLength % 2 === 0) {
-    median = (sortedData[dataLength / 2 - 1] + sortedData[dataLength / 2]) / 2;
+  if (data.length % 2 === 0) {
+    const lowerIndex = (data.length / 2) - 1;
+    median = (sortedData[lowerIndex] + sortedData[lowerIndex + 1]) / 2;
   } else {
-    median = sortedData[(lastData) / 2];
+    median = sortedData[(data.length - 1) / 2];
   }
 
   // Calculate mode
@@ -200,7 +199,7 @@ const descriptiveStats = (values: userData) => {
 
   // Calculate range
   const min = sortedData[0];
-  const max = sortedData[lastData];
+  const max = sortedData[data.length - 1];
 
   // Calculate variance
   let sqDiffFromMean = [];
@@ -213,7 +212,7 @@ const descriptiveStats = (values: userData) => {
   const stDev = Math.sqrt(variance);
 
   // Calculate standard error
-  const stErr = stDev / Math.sqrt(dataLength);
+  const stErr = stDev / data.length;
 
   // Calculate confidence interval
   const lowerBound = mean - (tStat * stErr);
@@ -222,7 +221,7 @@ const descriptiveStats = (values: userData) => {
   // Compile and return results
   return {
     dataType: dataType,
-    n: dataLength,
+    n: data.length,
     dof: dof,
     mean: mean.toFixed(roundTo),
     median: median,
