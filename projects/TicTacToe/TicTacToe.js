@@ -406,4 +406,4 @@ function arraysEqual(arrayA, arrayB) {
 // Start script once DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   main();
-})
+});

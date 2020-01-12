@@ -132,7 +132,7 @@ const handleNewGuess = () => {
   while (document.activeElement !== guessNumberInput) {
     sleep(100).then(() => {
       guessNumberInput.focus();
-    })
+    });
   }
 }
 
