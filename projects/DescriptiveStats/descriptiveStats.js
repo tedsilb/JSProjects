@@ -121,39 +121,38 @@ const descriptiveStats = (values) => {
     else if (confLevel === 99) {
         tStat = 2.58;
     }
-    const dataLength = data.length;
-    const lastData = dataLength - 1;
     let dof = 0;
     if (dataType === 'Sample') {
-        dof = dataLength - 1;
+        dof = data.length - 1;
     }
     else if (dataType === 'Population') {
-        dof = dataLength;
+        dof = data.length;
     }
-    const mean = data.reduce(reducer) / dataLength;
-    const sortedData = data.sort();
+    const mean = data.reduce(reducer) / data.length;
+    const sortedData = data.sort(function (a, b) { return a - b; });
     let median = 0;
-    if (dataLength % 2 === 0) {
-        median = (sortedData[dataLength / 2 - 1] + sortedData[dataLength / 2]) / 2;
+    if (data.length % 2 === 0) {
+        const lowerIndex = (data.length / 2) - 1;
+        median = (sortedData[lowerIndex] + sortedData[lowerIndex + 1]) / 2;
     }
     else {
-        median = sortedData[(lastData) / 2];
+        median = sortedData[(data.length - 1) / 2];
     }
     const modeString = calcMode(data);
     const min = sortedData[0];
-    const max = sortedData[lastData];
+    const max = sortedData[data.length - 1];
     let sqDiffFromMean = [];
     for (let num of data) {
         sqDiffFromMean.push(Math.pow((num - mean), 2));
     }
     const variance = sqDiffFromMean.reduce(reducer) / dof;
     const stDev = Math.sqrt(variance);
-    const stErr = stDev / Math.sqrt(dataLength);
+    const stErr = stDev / data.length;
     const lowerBound = mean - (tStat * stErr);
     const upperBound = mean + (tStat * stErr);
     return {
         dataType: dataType,
-        n: dataLength,
+        n: data.length,
         dof: dof,
         mean: mean.toFixed(roundTo),
         median: median,
