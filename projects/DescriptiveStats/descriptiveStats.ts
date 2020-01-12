@@ -139,9 +139,9 @@ const calcMode = (data: Array<number>) => {
     for (i in modes) {
       if (modes.length == 1) {
         modeString = modes[0].toString();
-      } else if (parseInt(i) === 0) {
+      } else if (parseInt(i, 10) === 0) {
         modeString += '[' + modes[i];
-      } else if (parseInt(i) === modes.length - 1) {
+      } else if (parseInt(i, 10) === modes.length - 1) {
         modeString += ', ' + modes[i] + ']';
       } else {
         modeString += ', ' + modes[i];
@@ -159,7 +159,7 @@ const descriptiveStats = (values: userData) => {
     data.push(parseFloat(value));
   }
   const dataType: string = values.dataType;
-  const confLevel = parseInt(values.confLevel);
+  const confLevel = parseInt(values.confLevel, 10);
 
   const roundTo = 4;
   // Code confidence level

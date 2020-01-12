@@ -43,7 +43,7 @@ const setHighAndLow = () => {
 // Save target number (step 1)
 const saveTargetNumber = () => {
   // Get input, validate
-  targetNo = parseInt(targetNumberInput.value);
+  targetNo = parseInt(targetNumberInput.value, 10);
   targetNumberInput.value = '';
   if (notOk(targetNo)) return;
 
@@ -58,7 +58,7 @@ const saveTargetNumber = () => {
 // Save upper limit (step 2)
 const saveUpperLimit = () => {
   // Get input, validate
-  upperNo = parseInt(upperLimitInput.value);
+  upperNo = parseInt(upperLimitInput.value, 10);
   upperLimitInput.value = '';
   if (notOk(upperNo) || upperNo < targetNo) return;
 
@@ -77,7 +77,7 @@ const saveUpperLimit = () => {
 
 // Handle new guess (step 3+)
 const handleNewGuess = () => {
-  guessNo = parseInt(guessNumberInput.value);
+  guessNo = parseInt(guessNumberInput.value, 10);
   // Outside constraints
   if (upperNo < guessNo) {
     resultText.innerHTML = `${guessNo} is above the upper limit.`;
