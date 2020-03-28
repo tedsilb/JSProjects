@@ -8,6 +8,7 @@ variables:
 cache:
   paths:
     - projects/
+    - themes/
 
 build:
   stage: build
