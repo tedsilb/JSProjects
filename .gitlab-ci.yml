@@ -1,3 +1,4 @@
+image: node:latest
 image: registry.gitlab.com/pages/hugo:latest
 
 variables:
@@ -5,6 +6,8 @@ variables:
 
 pages:
   script:
+  - npm install yarn typescript
+  - yarn install
   - tsc
   - mkdir .public
   - cp -r projects/* .public
