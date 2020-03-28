@@ -1,38 +1,37 @@
-build-node:
-  image: node:latest
+image: registry.gitlab.com/pages/hugo:latest
 
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
+stages:
+  - build
+  - deploy
+services:
+  - docker:dind
 
-  cache:
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  stage: build
+  image: docker:stable
+  script:
+    - docker run -v $PWD:/ -w / node:latest npm install
+    - docker run -v $PWD:/ -w / node:latest npm run-script build
+  artifacts:
     paths:
-      - node_modules/
-
-  pages:
-    script:
-    - apt-get install nodejs
-    - npm install
-    - tsc
-    - mkdir .public
-    - cp -r projects/* .public
-    - mv .public public
-    artifacts:
-      paths:
-      - public
-    only:
+    - static/dist/
+  only:
     - master
 
-build-hugo:
-  image: registry.gitlab.com/pages/hugo:latest
-
-  variables:
-    GIT_SUBMODULE_STRATEGY: recursive
-
-  pages:
-    script:
-    - hugo
-    artifacts:
-      paths:
-      - public
-    only:
-    - master
+pages:
+  stage: deploy
+  script:
+  - cp -r projects/* public
+  - hugo
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
