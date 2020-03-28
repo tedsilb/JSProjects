@@ -1,6 +1,7 @@
 baseURL = "https://tedsilbernagel.pw/"
 languageCode = "en-us"
 title = "Ted Silbernagel - Personal Site"
+theme = "minimal"
 
 [Author]
   name = "Ted Silbernagel"
