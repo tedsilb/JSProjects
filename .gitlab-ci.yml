@@ -1,23 +1,38 @@
-image: registry.gitlab.com/pages/hugo:latest
+build-node:
+  image: node:latest
 
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
 
-cache:
-  paths:
-    - node_modules/
-
-pages:
-  script:
-  - apt-get install nodejs
-  - npm install
-  - tsc
-  - mkdir .public
-  - cp -r projects/* .public
-  - mv .public public
-  - hugo
-  artifacts:
+  cache:
     paths:
-    - public
-  only:
-  - master
+      - node_modules/
+
+  pages:
+    script:
+    - apt-get install nodejs
+    - npm install
+    - tsc
+    - mkdir .public
+    - cp -r projects/* .public
+    - mv .public public
+    artifacts:
+      paths:
+      - public
+    only:
+    - master
+
+build-hugo:
+  image: registry.gitlab.com/pages/hugo:latest
+
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
+  pages:
+    script:
+    - hugo
+    artifacts:
+      paths:
+      - public
+    only:
+    - master
