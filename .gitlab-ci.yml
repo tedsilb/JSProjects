@@ -1,35 +1,33 @@
-image: registry.gitlab.com/pages/hugo:latest
-
 stages:
   - build
   - deploy
-services:
-  - docker:dind
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 cache:
   paths:
-    - node_modules/
+    - projects/
 
 build:
   stage: build
-  image: docker:stable
+  image: node:latest
   script:
-    - docker run -v $PWD:/app -w /app node:10 npm install
-    - docker run -v $PWD:/app -w /app node:10 npm run-script build
+    - npm install
+    - npm build
   artifacts:
     paths:
-    - public
+    - projects
   only:
     - master
 
 pages:
   stage: deploy
+  image: registry.gitlab.com/pages/hugo:latest
   dependencies:
   - build
   script:
+  - mkdir public
   - cp -r projects/* public
   - hugo
   artifacts:
