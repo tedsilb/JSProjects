@@ -17,16 +17,18 @@ build:
   stage: build
   image: docker:stable
   script:
-    - docker run -v $PWD:/ -w / node:latest npm install
-    - docker run -v $PWD:/ -w / node:latest npm run-script build
+    - docker run -v $PWD:/app -w /app node:10 npm install
+    - docker run -v $PWD:/app -w /app node:10 npm run-script build
   artifacts:
     paths:
-    - static/dist/
+    - public
   only:
     - master
 
 pages:
   stage: deploy
+  dependencies:
+  - build
   script:
   - cp -r projects/* public
   - hugo
@@ -35,3 +37,5 @@ pages:
     - public
   only:
   - master
+  before_script:
+  - hugo version
