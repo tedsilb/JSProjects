@@ -1,10 +1,17 @@
+image: registry.gitlab.com/pages/hugo:latest
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
 pages:
- script:
- - mkdir .public
- - cp -r * .public
- - mv .public public
- artifacts:
+  script:
+  - tsc
+  - mkdir .public
+  - cp -r projects/* .public
+  - mv .public public
+  - hugo
+  artifacts:
     paths:
     - public
- only:
- - master
+  only:
+  - master

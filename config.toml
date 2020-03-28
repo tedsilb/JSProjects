@@ -1,0 +1,9 @@
+baseURL = "https://tedsilbernagel.pw/"
+languageCode = "en-us"
+title = "Ted Silbernagel - Personal Site"
+
+[Author]
+  name = "Ted Silbernagel"
+  gitlab = "tedsilb"
+  github = "tedsilb"
+  linkedin = "ted-silbernagel"

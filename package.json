@@ -8,13 +8,11 @@
         "url": "git://github.com/tedsilb/JSProjects.git"
     },
     "scripts": {
-        "build": "tsc",
-        "deploy": "gh-pages -d ."
+        "build": "tsc"
     },
     "devDependencies": {
         "cross-env": "^6.0.3",
-        "gh-pages": "^2.1.1",
         "parcel-bundler": "^1.12.4",
-        "typescript": "^3.7.4"
+        "typescript": "^3.8.3"
     }
 }
