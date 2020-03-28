@@ -4,10 +4,13 @@ image: registry.gitlab.com/pages/hugo:latest
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
+cache:
+  paths:
+    - node_modules/
+
 pages:
   script:
-  - npm install yarn typescript
-  - yarn install
+  - npm install
   - tsc
   - mkdir .public
   - cp -r projects/* .public
