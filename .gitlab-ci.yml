@@ -8,15 +8,10 @@ variables:
 cache:
   paths:
     - projects/
-    - themes/
 
 build:
   stage: build
   image: node:latest
-  before_script:
-    - git submodule add https://github.com/calintat/minimal.git themes/minimal
-    - git submodule init
-    - git submodule update
   script:
     - npm install
     - npm build
@@ -28,16 +23,13 @@ build:
 
 pages:
   stage: deploy
-  image: registry.gitlab.com/pages/hugo:latest
+  image: alpine:latest
   dependencies:
   - build
-  before_script:
-  - hugo version
   script:
   - mkdir .public
   - cp -r * .public/
   - mv .public public
-  - hugo
   artifacts:
     paths:
     - public
