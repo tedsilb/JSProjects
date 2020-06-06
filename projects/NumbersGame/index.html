@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- Numbers Game JS - by Ted Silbernagel -->
 <html>
+
 <head>
   <!-- Boilerplate, CSS -->
   <meta charset="UTF-8">
@@ -23,81 +24,80 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
   <script src="app.js"></script>
 </head>
+
 <body>
-<div class="container">
-  <!-- Header -->
-  <div class="row" id="headerRow">
-    <div class="twelve columns" id="headerBlock">
-      <h3 id="mainTitle">Numbers Game</h3>
+  <div class="container">
+    <!-- Header -->
+    <div class="row" id="headerRow">
+      <div class="twelve columns" id="headerBlock">
+        <h3 id="mainTitle">Numbers Game</h3>
+      </div>
     </div>
-  </div>
 
-  <!-- Start/restart game button -->
-  <div class="row" id="startGameRow">
-    <div class="twelve columns">
-      <a class="button mainButton button-primary" href="#" id="startGameButton">Start new game</a>
+    <!-- Start/restart game button -->
+    <div class="row" id="startGameRow">
+      <div class="twelve columns">
+        <a class="button mainButton button-primary" href="#" id="startGameButton">Start new game</a>
+      </div>
     </div>
-  </div>
 
-  <!-- Target number input -->
-  <div class="row" id="targetRow">
-    <div class="twelve columns">
-      <h5>Your number is:</h5>
-      <input inputmode="numeric" pattern="[0-9]*" type="text" required
-             name="targetNumber" id="targetNumber" />
-      <a class="button button-primary" href="#" id="saveTargetNumberButton">Got it!</a>
+    <!-- Target number input -->
+    <div class="row" id="targetRow">
+      <div class="twelve columns">
+        <h5>Your number is:</h5>
+        <input inputmode="numeric" pattern="[0-9]*" type="text" required name="targetNumber" id="targetNumber" />
+        <a class="button button-primary" href="#" id="saveTargetNumberButton">Got it!</a>
+      </div>
     </div>
-  </div>
 
-  <!-- Upper limit input -->
-  <div class="row" id="upperLimitRow">
-    <div class="twelve columns">
-      <h5>Your upper number is: (ex: 100)</h5>
-      <input inputmode="numeric" pattern="[0-9]*" type="text" required
-             name="upperLimit" id="upperLimit" />
-      <a class="button button-primary" href="#" id="saveUpperLimitButton">Got it!</a>
+    <!-- Upper limit input -->
+    <div class="row" id="upperLimitRow">
+      <div class="twelve columns">
+        <h5>Your upper number is: (ex: 100)</h5>
+        <input inputmode="numeric" pattern="[0-9]*" type="text" required name="upperLimit" id="upperLimit" />
+        <a class="button button-primary" href="#" id="saveUpperLimitButton">Got it!</a>
+      </div>
     </div>
-  </div>
 
-  <!-- Guess input -->
-  <div class="row" id="guessNumberRow">
-    <div class="twelve columns">
-      <h5>Enter the other person's guess:</h5>
-      <input inputmode="numeric" pattern="[0-9]*" type="text" required
-             name="guessNumber" id="guessNumber" />
-      <a class="button button-primary" href="#" id="saveguessNumberButton">Go!</a>
+    <!-- Guess input -->
+    <div class="row" id="guessNumberRow">
+      <div class="twelve columns">
+        <h5>Enter the other person's guess:</h5>
+        <input inputmode="numeric" pattern="[0-9]*" type="text" required name="guessNumber" id="guessNumber" />
+        <a class="button button-primary" href="#" id="saveguessNumberButton">Go!</a>
+      </div>
     </div>
-  </div>
 
-  <!-- High/Low display -->
-  <div class="row" id="highLowRow">
-    <div class="twelve columns">
-      <table class="dataDisplayTable">
-      <tbody>
-        <tr>
-          <td>
-            High:
-          </td>
-          <td id="highResultText">
-            100
-          </td>
-          <td rowspan="2"></td>
-          <td rowspan="2" id="resultText">
-            High!
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Low:
-          </td>
-          <td id="lowResultText">
-            1
-          </td>
-        </tr>
-      </tbody>
-      </table>
+    <!-- High/Low display -->
+    <div class="row" id="highLowRow">
+      <div class="twelve columns">
+        <table class="dataDisplayTable">
+          <tbody>
+            <tr>
+              <td>
+                High:
+              </td>
+              <td id="highResultText">
+                100
+              </td>
+              <td rowspan="2"></td>
+              <td rowspan="2" id="resultText">
+                High!
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Low:
+              </td>
+              <td id="lowResultText">
+                1
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
-</div>
 </body>
+
 </html>

@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
-      "lib": ["DOM", "ES6"],
-      "sourceMap": false,
-      "noImplicitAny": true,
-      "moduleResolution": "node",
-      "target": "ES6",
-      "jsx": "preserve",
-      "removeComments": true,
-      "preserveConstEnums": true
+    "lib": [
+      "DOM",
+      "ES6"
+    ],
+    "sourceMap": false,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "target": "ES6",
+    "jsx": "preserve",
+    "removeComments": true,
+    "preserveConstEnums": true
   },
   "include": [
-      "projects/**/*.ts"
+    "projects/**/*.ts"
   ],
   "exclude": [
     ".git",
