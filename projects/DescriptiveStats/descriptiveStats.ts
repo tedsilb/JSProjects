@@ -13,7 +13,6 @@ let boxStDev: HTMLElement;
 let boxStErr: HTMLElement;
 let boxConfInt: HTMLElement;
 let boxConfLevel: HTMLElement;
-let i;
 
 // Fix incorrect TS parsing on global functions
 export {};
@@ -66,120 +65,114 @@ const setUpKeyUpListener = () => {
     checkLastKey();
   };
 };
-const setUpButtonListeners =
-    () => {
-      document.getElementById('dataTypeButtonS').onchange = () => {
-        checkLastKey();
-      };
-      document.getElementById('dataTypeButtonP').onchange = () => {
-        checkLastKey();
-      };
-      document.getElementById('confLevelButton90').onchange = () => {
-        checkLastKey();
-      };
-      document.getElementById('confLevelButton95').onchange = () => {
-        checkLastKey();
-      };
-      document.getElementById('confLevelButton99').onchange = () => {
-        checkLastKey();
-      };
-    }
+const setUpButtonListeners = () => {
+  document.getElementById('dataTypeButtonS').onchange = () => {
+    checkLastKey();
+  };
+  document.getElementById('dataTypeButtonP').onchange = () => {
+    checkLastKey();
+  };
+  document.getElementById('confLevelButton90').onchange = () => {
+    checkLastKey();
+  };
+  document.getElementById('confLevelButton95').onchange = () => {
+    checkLastKey();
+  };
+  document.getElementById('confLevelButton99').onchange = () => {
+    checkLastKey();
+  };
+};
 
 // Set up variables to hold DOM elements
-const initialiseDomVariables =
-    () => {
-      resultsTable = document.getElementById('resultsTable');
-      boxSummary = document.getElementById('summary');
-      boxMean = document.getElementById('mean');
-      boxMedian = document.getElementById('median');
-      boxMode = document.getElementById('mode');
-      boxRange = document.getElementById('range');
-      boxVariance = document.getElementById('variance');
-      boxStDev = document.getElementById('stDev');
-      boxStErr = document.getElementById('stErr');
-      boxConfInt = document.getElementById('confInt');
-      boxConfLevel = document.getElementById('confLevel');
-    }
+const initialiseDomVariables = () => {
+  resultsTable = document.getElementById('resultsTable');
+  boxSummary = document.getElementById('summary');
+  boxMean = document.getElementById('mean');
+  boxMedian = document.getElementById('median');
+  boxMode = document.getElementById('mode');
+  boxRange = document.getElementById('range');
+  boxVariance = document.getElementById('variance');
+  boxStDev = document.getElementById('stDev');
+  boxStErr = document.getElementById('stErr');
+  boxConfInt = document.getElementById('confInt');
+  boxConfLevel = document.getElementById('confLevel');
+};
 
 // Set up function to get data from user
-const getUserData =
-    () => {
-      const userDataElement =
-          <HTMLInputElement>document.getElementById('userData');
-      const dataTypeElement = <HTMLInputElement>document.querySelector(
-          'input[name="dataType"]:checked');
-      const confLevelElement = <HTMLInputElement>document.querySelector(
-          'input[name="confLevel"]:checked');
-      return {
-        userData: userDataElement.value,
-        dataType: dataTypeElement.value,
-        confLevel: confLevelElement.value,
-      };
-    }
+const getUserData = () => {
+  const userDataElement = <HTMLInputElement>document.getElementById('userData');
+  const dataTypeElement = <HTMLInputElement>document.querySelector(
+      'input[name="dataType"]:checked');
+  const confLevelElement = <HTMLInputElement>document.querySelector(
+      'input[name="confLevel"]:checked');
+  return {
+    userData: userDataElement.value,
+    dataType: dataTypeElement.value,
+    confLevel: confLevelElement.value,
+  };
+};
 
 // Set up function to run the process and display results
-const runDescriptiveStats =
-    () => {
-      printResults(descriptiveStats(getUserData()));
-    }
+const runDescriptiveStats = () => {
+  printResults(descriptiveStats(getUserData()));
+};
 
 // Set up function to calculate mode
-const calcMode =
-    (data: Array<number>) => {
-      let modes: Array<number> = data;
-      let modeString = 'None';
-      let loopedModeNos: Array<number> = [];
-      let numOccurrences = [];
-      // Get the number of occurrences per number
-      for (let mode of modes) {
-        if (loopedModeNos.indexOf(mode) === -1) {
-          loopedModeNos.push(mode);
-          numOccurrences.push(1);
-        } else {
-          loopedModeNos.push(mode);
-          numOccurrences.push(0);
-          numOccurrences[loopedModeNos.indexOf(mode)] += 1;
-        }
-      }
-      // If no occurrences less than 0, set to empty array
-      let maxMode = 0;
-      for (let occurrence of numOccurrences) {
-        if (occurrence > maxMode) {
-          maxMode = occurrence;
-        }
-      }
-      if (maxMode > 1) {
-        // Remove all numbers with occurrences less than max
-        for (i = modes.length - 1; i >= 0; i--) {
-          if (numOccurrences[modes.indexOf(modes[i])] !==
-              Math.max(...numOccurrences)) {
-            loopedModeNos.splice(i, 1);
-          }
-        }
-        // Remove duplicates
-        modes = [...new Set(loopedModeNos)];
-        // Put modes into string
-        modeString = '';
-        for (i in modes) {
-          if (modes.length == 1) {
-            modeString = modes[0].toString();
-          } else if (parseInt(i, 10) === 0) {
-            modeString += '[' + modes[i];
-          } else if (parseInt(i, 10) === modes.length - 1) {
-            modeString += ', ' + modes[i] + ']';
-          } else {
-            modeString += ', ' + modes[i];
-          }
-        }
-      }
-      return modeString;
+const calcMode = (data: Array<number>) => {
+  let modes: Array<number> = data;
+  let modeString = 'None';
+  let loopedModeNos: Array<number> = [];
+  let numOccurrences = [];
+  // Get the number of occurrences per number
+  for (const mode of modes) {
+    if (loopedModeNos.indexOf(mode) === -1) {
+      loopedModeNos.push(mode);
+      numOccurrences.push(1);
+    } else {
+      loopedModeNos.push(mode);
+      numOccurrences.push(0);
+      numOccurrences[loopedModeNos.indexOf(mode)] += 1;
     }
+  }
+  // If no occurrences less than 0, set to empty array
+  let maxMode = 0;
+  for (const occurrence of numOccurrences) {
+    if (occurrence > maxMode) {
+      maxMode = occurrence;
+    }
+  }
+  if (maxMode > 1) {
+    // Remove all numbers with occurrences less than max
+    for (let i = modes.length - 1; i >= 0; i--) {
+      if (numOccurrences[modes.indexOf(modes[i])] !==
+          Math.max(...numOccurrences)) {
+        loopedModeNos.splice(i, 1);
+      }
+    }
+    // Remove duplicates
+    modes = [...new Set(loopedModeNos)];
+    // Put modes into string
+    modeString = '';
+    for (const i in modes) {
+      if (modes.length == 1) {
+        modeString = modes[0].toString();
+      } else if (parseInt(i, 10) === 0) {
+        modeString += '[' + modes[i];
+      } else if (parseInt(i, 10) === modes.length - 1) {
+        modeString += ', ' + modes[i] + ']';
+      } else {
+        modeString += ', ' + modes[i];
+      }
+    }
+  }
+  return modeString;
+};
 
 // Set up function to compute the statistics
 const descriptiveStats = (values: userData) => {
   // Set up incoming variables
   let data: Array<number> = [];
-  for (let value of values.userData.split(',')) {
+  for (const value of values.userData.split(',')) {
     data.push(parseFloat(value));
   }
   const dataType: string = values.dataType;
@@ -229,7 +222,7 @@ const descriptiveStats = (values: userData) => {
 
   // Calculate variance
   let sqDiffFromMean = [];
-  for (let num of data) {
+  for (const num of data) {
     sqDiffFromMean.push(Math.pow((num - mean), 2));
   }
   const variance = sqDiffFromMean.reduce(reducer) / dof;

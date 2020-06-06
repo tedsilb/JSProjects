@@ -3,8 +3,8 @@
 // By Ted Silbernagel
 
 // Declare variables so they're global
-let btnResetGame, lblStatusDisplay, cellA1, cellA2, cellA3, cellB1, cellB2,
-    cellB3, cellC1, cellC2, cellC3;
+let btnResetGame, lblStatusDisplay;
+let cellA1, cellA2, cellA3, cellB1, cellB2, cellB3, cellC1, cellC2, cellC3;
 let cpuChoice, cpuStarted, buttonsEnabled, itemIndex, randomNo;
 let availableCells = [];
 let userChosenCells = [];
@@ -22,17 +22,17 @@ const cpuTurnMsg = 'Computer\'s turn...';
 const userTurnMsg = 'Your turn.';
 
 // Check if all array items are included in another array
-function includesAll(masterArray, itemsToCheck) {
-  for (let arrayItem of itemsToCheck) {
+const includesAll = (masterArray, itemsToCheck) => {
+  for (const arrayItem of itemsToCheck) {
     if (!masterArray.includes(arrayItem)) {
       return false;
     }
-    return true;
   }
-}
+  return true;
+};
 
 // Main function to run on load
-function main() {
+const main = () => {
   // Put interactable elements into variables
   cellA1 = document.getElementById('A1');
   cellA2 = document.getElementById('A2');
@@ -47,45 +47,45 @@ function main() {
   lblStatusDisplay = document.getElementById('status-display');
 
   // Set up onClick functions for the cells
-  cellA1.onclick = function() {
-    buttonPress(cellA1, 'A1')
+  cellA1.onclick = () => {
+    buttonPress(cellA1, 'A1');
   };
-  cellA2.onclick = function() {
-    buttonPress(cellA2, 'A2')
+  cellA2.onclick = () => {
+    buttonPress(cellA2, 'A2');
   };
-  cellA3.onclick = function() {
-    buttonPress(cellA3, 'A3')
+  cellA3.onclick = () => {
+    buttonPress(cellA3, 'A3');
   };
-  cellB1.onclick = function() {
-    buttonPress(cellB1, 'B1')
+  cellB1.onclick = () => {
+    buttonPress(cellB1, 'B1');
   };
-  cellB2.onclick = function() {
-    buttonPress(cellB2, 'B2')
+  cellB2.onclick = () => {
+    buttonPress(cellB2, 'B2');
   };
-  cellB3.onclick = function() {
-    buttonPress(cellB3, 'B3')
+  cellB3.onclick = () => {
+    buttonPress(cellB3, 'B3');
   };
-  cellC1.onclick = function() {
-    buttonPress(cellC1, 'C1')
+  cellC1.onclick = () => {
+    buttonPress(cellC1, 'C1');
   };
-  cellC2.onclick = function() {
-    buttonPress(cellC2, 'C2')
+  cellC2.onclick = () => {
+    buttonPress(cellC2, 'C2');
   };
-  cellC3.onclick = function() {
-    buttonPress(cellC3, 'C3')
+  cellC3.onclick = () => {
+    buttonPress(cellC3, 'C3');
   };
 
   // Set up reset button
-  btnResetGame.onclick = function() {
+  btnResetGame.onclick = () => {
     resetGame()
   };
 
   // Reset game, initially
   resetGame();
-}
+};
 
 // Function to take CPU turn
-function takeCpuTurn() {
+const takeCpuTurn = () => {
   lblStatusDisplay.innerHTML = cpuTurnMsg;
   // Check for tie
   if (isTied()) {
@@ -328,20 +328,20 @@ function takeCpuTurn() {
     buttonsEnabled = false;
     console.log('Found a tie');
   }
-}
+};
 
 // Check for tie function
-function isTied() {
+const isTied = () => {
   if (availableCells.length === 0) {
     if (!([cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML))) {
-      return true
+      return true;
     }
   }
-  return false
-}
+  return false;
+};
 
 // Check if player has won
-function hasWon(chosenCells) {
+const hasWon = (chosenCells) => {
   return (
       includesAll(chosenCells, ['A1', 'A2', 'A3']) ||
       includesAll(chosenCells, ['B1', 'B2', 'B3']) ||
@@ -351,10 +351,10 @@ function hasWon(chosenCells) {
       includesAll(chosenCells, ['A3', 'B3', 'C3']) ||
       includesAll(chosenCells, ['A1', 'B2', 'C3']) ||
       includesAll(chosenCells, ['C1', 'B2', 'A3']));
-}
+};
 
 // Button press function
-function buttonPress(button, gridLoc) {
+const buttonPress = (button, gridLoc) => {
   // Ensure buttons are enabled
   if (buttonsEnabled) {
     // Ensure cell isn't yet selected
@@ -378,10 +378,10 @@ function buttonPress(button, gridLoc) {
       lblStatusDisplay.innerHTML = alreadySelectedMsg;
     }
   }
-}
+};
 
 // Set cpu cell as chosen function
-function setCpuCellChosen() {
+const setCpuCellChosen = () => {
   if (cpuChoice === 'A1') {
     cellA1.innerHTML = cpuIcon;
   } else if (cpuChoice === 'A2') {
@@ -401,10 +401,10 @@ function setCpuCellChosen() {
   } else if (cpuChoice === 'C3') {
     cellC3.innerHTML = cpuIcon;
   }
-}
+};
 
 // Reset game function
-function resetGame() {
+const resetGame = () => {
   console.log('Resetting game');
   clearCells();
   buttonsEnabled = true;
@@ -429,10 +429,10 @@ function resetGame() {
   } else {
     cpuStarted = false;
   }
-}
+};
 
 // Clear cells function
-function clearCells() {
+const clearCells = () => {
   console.log('Clearing cells');
   cellA1.innerHTML = '';
   cellA2.innerHTML = '';
@@ -443,10 +443,10 @@ function clearCells() {
   cellC1.innerHTML = '';
   cellC2.innerHTML = '';
   cellC3.innerHTML = '';
-}
+};
 
 // Check if arrays are equal
-function arraysEqual(arrayA, arrayB) {
+const arraysEqual = (arrayA, arrayB) => {
   let a = arrayA;
   let b = arrayB;
   a.sort();
@@ -458,7 +458,7 @@ function arraysEqual(arrayA, arrayB) {
     if (a[i] !== b[i]) return false;
   }
   return true;
-}
+};
 
 // Start script once DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
