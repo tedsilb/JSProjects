@@ -77,7 +77,7 @@ const main = () => {
 
   // Set up reset button
   btnResetGame.onclick = () => {
-    resetGame()
+    resetGame();
   };
 
   // Reset game, initially
@@ -333,7 +333,7 @@ const takeCpuTurn = () => {
 // Check for tie function
 const isTied = () => {
   if (availableCells.length === 0) {
-    if (!([cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML))) {
+    if (![cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML)) {
       return true;
     }
   }
@@ -342,15 +342,14 @@ const isTied = () => {
 
 // Check if player has won
 const hasWon = (chosenCells) => {
-  return (
-      includesAll(chosenCells, ['A1', 'A2', 'A3']) ||
+  return includesAll(chosenCells, ['A1', 'A2', 'A3']) ||
       includesAll(chosenCells, ['B1', 'B2', 'B3']) ||
       includesAll(chosenCells, ['C1', 'C2', 'C3']) ||
       includesAll(chosenCells, ['A1', 'B1', 'C1']) ||
       includesAll(chosenCells, ['A2', 'B2', 'C2']) ||
       includesAll(chosenCells, ['A3', 'B3', 'C3']) ||
       includesAll(chosenCells, ['A1', 'B2', 'C3']) ||
-      includesAll(chosenCells, ['C1', 'B2', 'A3']));
+      includesAll(chosenCells, ['C1', 'B2', 'A3']);
 };
 
 // Button press function

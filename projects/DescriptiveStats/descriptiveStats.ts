@@ -18,12 +18,12 @@ let boxConfLevel: HTMLElement;
 export {};
 
 // Interfaces
-interface userData {
+interface UserData {
   userData: string;
   dataType: string;
   confLevel: string;
 }
-interface descriptiveStatsData {
+interface DescriptiveStatsData {
   dataType: string;
   n: number;
   dof: number;
@@ -169,7 +169,7 @@ const calcMode = (data: Array<number>) => {
 };
 
 // Set up function to compute the statistics
-const descriptiveStats = (values: userData) => {
+const descriptiveStats = (values: UserData) => {
   // Set up incoming variables
   let data: Array<number> = [];
   for (const value of values.userData.split(',')) {
@@ -257,7 +257,7 @@ const descriptiveStats = (values: userData) => {
 };
 
 // Set up function to print results
-const printResults = (results: descriptiveStatsData) => {
+const printResults = (results: DescriptiveStatsData) => {
   boxSummary.innerHTML =
       `<b>${results.dataType} of ${results.n} observations</b>`
   boxMean.innerHTML = `${results.mean}`

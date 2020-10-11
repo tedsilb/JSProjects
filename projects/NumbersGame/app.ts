@@ -31,7 +31,7 @@ const sleep = (milliseconds: number): Promise<void> => {
 
 // Check if not a number
 const notOk = (num: any): boolean => {
-  return (!num || isNaN(num));
+  return !num || isNaN(num);
 };
 
 // Set high and low numbers in results table
@@ -213,20 +213,20 @@ const setUpButtonListeners = () => {
 // Set up enter key handlers for inputs
 const setUpEnterKeyHandlers = () => {
   targetNumberInput.addEventListener('keyup', event => {
-    if (event.keyCode === 13) {  // 13 == enter key
-      event.preventDefault();    // Cancel the default action, if needed
+    if (event.key === 'Enter') {
+      event.preventDefault();  // Cancel the default action, if needed
       saveTargetNumberButton.click();
     }
   });
   upperLimitInput.addEventListener('keyup', event => {
-    if (event.keyCode === 13) {  // 13 == enter key
-      event.preventDefault();    // Cancel the default action, if needed
+    if (event.key === 'Enter') {
+      event.preventDefault();  // Cancel the default action, if needed
       saveUpperLimitButton.click();
     }
   });
   guessNumberInput.addEventListener('keyup', event => {
-    if (event.keyCode === 13) {  // 13 == enter key
-      event.preventDefault();    // Cancel the default action, if needed
+    if (event.key === 'Enter') {
+      event.preventDefault();  // Cancel the default action, if needed
       saveguessNumberButton.click();
     }
   });
