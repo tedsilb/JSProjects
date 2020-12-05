@@ -51,7 +51,7 @@ const checkLastKey = () => {
   const entryBoxValue = userDataElement.value;
 
   // First show the table
-  resultsTable.style.display = (entryBoxValue.length === 0) ? 'none' : 'table';
+  resultsTable.style.display = entryBoxValue.length === 0 ? 'none' : 'table';
 
   if (/[a-z]|[0-9]/i.test(entryBoxValue.substr(-1))) {
     runDescriptiveStats();
@@ -122,7 +122,7 @@ const calcMode = (data: Array<number>) => {
   let modes: Array<number> = data;
   let modeString = 'None';
   let loopedModeNos: Array<number> = [];
-  let numOccurrences = [];
+  let numOccurrences: Array<number> = [];
   // Get the number of occurrences per number
   for (const mode of modes) {
     if (loopedModeNos.indexOf(mode) === -1) {
@@ -201,7 +201,7 @@ const descriptiveStats = (values: UserData) => {
   const mean = data.reduce(reducer) / data.length;
 
   // Calculate median
-  const sortedData = data.sort(function(a, b) {
+  const sortedData = data.sort((a, b) => {
     return a - b;
   });
   let median = 0;
@@ -259,16 +259,16 @@ const descriptiveStats = (values: UserData) => {
 // Set up function to print results
 const printResults = (results: DescriptiveStatsData) => {
   boxSummary.innerHTML =
-      `<b>${results.dataType} of ${results.n} observations</b>`
-  boxMean.innerHTML = `${results.mean}`
-  boxMedian.innerHTML = `${results.median}`
-  boxMode.innerHTML = `${results.mode}`
-  boxRange.innerHTML = `[${results.min}, ${results.max}]`
-  boxVariance.innerHTML = `${results.variance}`
-  boxStDev.innerHTML = `${results.stDev}`
-  boxStErr.innerHTML = `${results.stErr}`
-  boxConfInt.innerHTML = `${results.confLevel}% Confidence Interval:`
-  boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`
+      `<b>${results.dataType} of ${results.n} observations</b>`;
+  boxMean.innerHTML = `${results.mean}`;
+  boxMedian.innerHTML = `${results.median}`;
+  boxMode.innerHTML = `${results.mode}`;
+  boxRange.innerHTML = `[${results.min}, ${results.max}]`;
+  boxVariance.innerHTML = `${results.variance}`;
+  boxStDev.innerHTML = `${results.stDev}`;
+  boxStErr.innerHTML = `${results.stErr}`;
+  boxConfInt.innerHTML = `${results.confLevel}% Confidence Interval:`;
+  boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`;
 };
 
 // Start script once DOM is loaded
