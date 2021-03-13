@@ -1,7 +1,7 @@
 // Calculate descriptive statistics for a list of numbers
 // By Ted Silbernagel
 
-// Declare variables so they're global
+// Declare variables so they're global.
 let resultsTable: HTMLElement;
 let boxSummary: HTMLElement;
 let boxMean: HTMLElement;
@@ -14,10 +14,7 @@ let boxStErr: HTMLElement;
 let boxConfInt: HTMLElement;
 let boxConfLevel: HTMLElement;
 
-// Fix incorrect TS parsing on global functions
-export {};
-
-// Interfaces
+// Interfaces.
 interface UserData {
   userData: string;
   dataType: string;
@@ -40,12 +37,14 @@ interface DescriptiveStatsData {
   upperBound: string;
 }
 
-// Sum
-// sum = array.reduce(reducer);
+/**
+ * Sum reducer function.
+ * sum = array.reduce(reducer);
+ */
 const reducer = (accumulator: number, currentValue: number) =>
     accumulator + currentValue;
 
-// Set up keyUp and button listeners to auto calculate
+/** Set up keyUp and button listeners to auto calculate. */
 const checkLastKey = () => {
   const userDataElement = <HTMLInputElement>document.getElementById('userData')
   const entryBoxValue = userDataElement.value;
@@ -65,7 +64,7 @@ const setUpKeyUpListener = () => {
     checkLastKey();
   };
 };
-const setUpButtonListeners = () => {
+const setUpDescriptiveStatsButtonListeners = () => {
   document.getElementById('dataTypeButtonS').onchange = () => {
     checkLastKey();
   };
@@ -83,8 +82,8 @@ const setUpButtonListeners = () => {
   };
 };
 
-// Set up variables to hold DOM elements
-const initialiseDomVariables = () => {
+/** Set up variables to hold DOM elements. */
+const initialiseDescriptiveStatsDomVariables = () => {
   resultsTable = document.getElementById('resultsTable');
   boxSummary = document.getElementById('summary');
   boxMean = document.getElementById('mean');
@@ -98,7 +97,7 @@ const initialiseDomVariables = () => {
   boxConfLevel = document.getElementById('confLevel');
 };
 
-// Set up function to get data from user
+/** Get data from user. */
 const getUserData = () => {
   const userDataElement = <HTMLInputElement>document.getElementById('userData');
   const dataTypeElement = <HTMLInputElement>document.querySelector(
@@ -112,12 +111,12 @@ const getUserData = () => {
   };
 };
 
-// Set up function to run the process and display results
+/** Run the process and display results. */
 const runDescriptiveStats = () => {
   printResults(descriptiveStats(getUserData()));
 };
 
-// Set up function to calculate mode
+/** Calculate mode. */
 const calcMode = (data: Array<number>) => {
   let modes: Array<number> = data;
   let modeString = 'None';
@@ -168,7 +167,7 @@ const calcMode = (data: Array<number>) => {
   return modeString;
 };
 
-// Set up function to compute the statistics
+/** Compute the statistics. */
 const descriptiveStats = (values: UserData) => {
   // Set up incoming variables
   let data: Array<number> = [];
@@ -256,7 +255,7 @@ const descriptiveStats = (values: UserData) => {
   };
 };
 
-// Set up function to print results
+/** Print results. */
 const printResults = (results: DescriptiveStatsData) => {
   boxSummary.innerHTML =
       `<b>${results.dataType} of ${results.n} observations</b>`;
@@ -271,11 +270,11 @@ const printResults = (results: DescriptiveStatsData) => {
   boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`;
 };
 
-// Start script once DOM is loaded
+// Start script once DOM is loaded.
 document.addEventListener('DOMContentLoaded', () => {
-  initialiseDomVariables();
+  initialiseDescriptiveStatsDomVariables();
   setUpKeyUpListener();
-  setUpButtonListeners();
+  setUpDescriptiveStatsButtonListeners();
   // Hide results, initially
   resultsTable.style.display = 'none';
 })
