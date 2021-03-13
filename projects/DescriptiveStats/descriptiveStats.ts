@@ -277,4 +277,4 @@ document.addEventListener('DOMContentLoaded', () => {
   setUpDescriptiveStatsButtonListeners();
   // Hide results, initially
   resultsTable.style.display = 'none';
-})
+});

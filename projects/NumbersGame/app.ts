@@ -238,4 +238,4 @@ document.addEventListener('DOMContentLoaded', () => {
   setUpNumbersGameButtonListeners();
   setUpEnterKeyHandlers();
   hideMainRows();
-})
+});
