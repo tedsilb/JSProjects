@@ -41,12 +41,13 @@ interface DescriptiveStatsData {
  * Sum reducer function.
  * sum = array.reduce(reducer);
  */
-const reducer = (accumulator: number, currentValue: number) =>
-    accumulator + currentValue;
+const reducer = (accumulator: number, currentValue: number) => {
+  return accumulator + currentValue;
+};
 
 /** Set up keyUp and button listeners to auto calculate. */
 const checkLastKey = () => {
-  const userDataElement = <HTMLInputElement>document.getElementById('userData')
+  const userDataElement = <HTMLInputElement>document.getElementById('userData');
   const entryBoxValue = userDataElement.value;
 
   // First show the table
@@ -120,8 +121,8 @@ const runDescriptiveStats = () => {
 const calcMode = (data: Array<number>) => {
   let modes: Array<number> = data;
   let modeString = 'None';
-  let loopedModeNos: Array<number> = [];
-  let numOccurrences: Array<number> = [];
+  const loopedModeNos: Array<number> = [];
+  const numOccurrences: Array<number> = [];
   // Get the number of occurrences per number
   for (const mode of modes) {
     if (loopedModeNos.indexOf(mode) === -1) {
@@ -170,7 +171,7 @@ const calcMode = (data: Array<number>) => {
 /** Compute the statistics. */
 const descriptiveStats = (values: UserData) => {
   // Set up incoming variables
-  let data: Array<number> = [];
+  const data: Array<number> = [];
   for (const value of values.userData.split(',')) {
     data.push(parseFloat(value));
   }
@@ -220,7 +221,7 @@ const descriptiveStats = (values: UserData) => {
   const max = sortedData[data.length - 1];
 
   // Calculate variance
-  let sqDiffFromMean = [];
+  const sqDiffFromMean = [];
   for (const num of data) {
     sqDiffFromMean.push(Math.pow((num - mean), 2));
   }

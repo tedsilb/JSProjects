@@ -9,7 +9,9 @@ let boxStDev;
 let boxStErr;
 let boxConfInt;
 let boxConfLevel;
-const reducer = (accumulator, currentValue) => accumulator + currentValue;
+const reducer = (accumulator, currentValue) => {
+    return accumulator + currentValue;
+};
 const checkLastKey = () => {
     const userDataElement = document.getElementById('userData');
     const entryBoxValue = userDataElement.value;
@@ -72,8 +74,8 @@ const runDescriptiveStats = () => {
 const calcMode = (data) => {
     let modes = data;
     let modeString = 'None';
-    let loopedModeNos = [];
-    let numOccurrences = [];
+    const loopedModeNos = [];
+    const numOccurrences = [];
     for (const mode of modes) {
         if (loopedModeNos.indexOf(mode) === -1) {
             loopedModeNos.push(mode);
@@ -118,7 +120,7 @@ const calcMode = (data) => {
     return modeString;
 };
 const descriptiveStats = (values) => {
-    let data = [];
+    const data = [];
     for (const value of values.userData.split(',')) {
         data.push(parseFloat(value));
     }
@@ -157,7 +159,7 @@ const descriptiveStats = (values) => {
     const modeString = calcMode(data);
     const min = sortedData[0];
     const max = sortedData[data.length - 1];
-    let sqDiffFromMean = [];
+    const sqDiffFromMean = [];
     for (const num of data) {
         sqDiffFromMean.push(Math.pow((num - mean), 2));
     }

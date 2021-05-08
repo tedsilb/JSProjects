@@ -23,7 +23,7 @@ let guessNo = 0;
 
 /** Async sleep function. */
 const sleep = (milliseconds: number): Promise<void> => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
 /** Check if not a number. */
@@ -76,37 +76,33 @@ const saveUpperLimit = () => {
 const handleNewGuess = () => {
   guessNo = parseInt(guessNumberInput.value, 10);
 
-  // Outside constraints
   if (upperNo < guessNo) {
+    // Outside constraints
     resultText.innerHTML = `${guessNo} is above a previous guess.`;
   } else if (guessNo < lowerNo) {
     resultText.innerHTML = `${guessNo} is below a previous guess.`;
-  }
-  // At constraints
-  else if (guessNo === upperNo) {
+  } else if (guessNo === upperNo) {
+    // At constraints
     resultText.innerHTML = `${guessNo} is already the highest guess.`;
   } else if (guessNo === lowerNo) {
     resultText.innerHTML = `${guessNo} is already the lowest guess.`;
-  }
-  // Within constraints
-  // ex: If lower is 44, target 45, and guess 46, it's a win, not high.
-  else if (
-      targetNo < guessNo &&
-      (guessNo - targetNo !== 1 || guessNo - lowerNo !== 2)) {
+  } else if (
+    targetNo < guessNo &&
+    (guessNo - targetNo !== 1 || guessNo - lowerNo !== 2)) {
+    // Within constraints
+    // ex: If lower is 44, target 45, and guess 46, it's a win, not high.
     resultText.innerHTML = `${guessNo} is high!`;
     upperNo = guessNo;
     highResultText.innerHTML = guessNo.toString();
-  }
-  // ex: If upper is 46, target 45, and guess 44, it's a win, not low.
-  else if (
-      guessNo < targetNo &&
-      (targetNo - guessNo !== 1 || upperNo - guessNo !== 2)) {
+  } else if (
+    guessNo < targetNo &&
+    (targetNo - guessNo !== 1 || upperNo - guessNo !== 2)) {
+    // ex: If upper is 46, target 45, and guess 44, it's a win, not low.
     resultText.innerHTML = `${guessNo} is low!`;
     lowerNo = guessNo;
     lowResultText.innerHTML = guessNo.toString();
-  }
-  // Win!
-  else {
+  } else {
+    // Win!
     // Implicit wins
     if (targetNo < guessNo) {
       highResultText.innerHTML = guessNo.toString();
@@ -114,9 +110,8 @@ const handleNewGuess = () => {
     } else if (guessNo < targetNo) {
       lowResultText.innerHTML = guessNo.toString();
       resultText.innerHTML = `${guessNo + 1} is it!`;
-    }
-    // Explicit win
-    else {
+    } else {
+      // Explicit win
       resultText.innerHTML = `${guessNo} is it!`;
     }
     guessNumberRow.style.display = 'none';
@@ -212,21 +207,21 @@ const setUpNumbersGameButtonListeners = () => {
 
 /** Set up enter key handlers for inputs. */
 const setUpEnterKeyHandlers = () => {
-  targetNumberInput.addEventListener('keyup', event => {
+  targetNumberInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault();  // Cancel the default action, if needed
+      event.preventDefault(); // Cancel the default action, if needed
       saveTargetNumberButton.click();
     }
   });
-  upperLimitInput.addEventListener('keyup', event => {
+  upperLimitInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault();  // Cancel the default action, if needed
+      event.preventDefault(); // Cancel the default action, if needed
       saveUpperLimitButton.click();
     }
   });
-  guessNumberInput.addEventListener('keyup', event => {
+  guessNumberInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault();  // Cancel the default action, if needed
+      event.preventDefault(); // Cancel the default action, if needed
       saveguessNumberButton.click();
     }
   });

@@ -17,7 +17,7 @@ let upperNo = 0;
 let lowerNo = 1;
 let guessNo = 0;
 const sleep = (milliseconds) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 const notOk = (num) => {
     return !num || isNaN(num);
@@ -148,19 +148,19 @@ const setUpNumbersGameButtonListeners = () => {
     };
 };
 const setUpEnterKeyHandlers = () => {
-    targetNumberInput.addEventListener('keyup', event => {
+    targetNumberInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
             saveTargetNumberButton.click();
         }
     });
-    upperLimitInput.addEventListener('keyup', event => {
+    upperLimitInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
             saveUpperLimitButton.click();
         }
     });
-    guessNumberInput.addEventListener('keyup', event => {
+    guessNumberInput.addEventListener('keyup', (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
             saveguessNumberButton.click();
