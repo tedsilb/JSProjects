@@ -11,3 +11,5 @@ Various JS/TS projects that I work on from time to time.
 [Numbers Game](projects/NumbersGame)
 
 [Tic Tac Toe Game](projects/TicTacToe)
+
+`.ts` files are formatted with clang-format, `.js` files are formatted with VSCode "TS/JS language features".
