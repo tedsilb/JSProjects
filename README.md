@@ -1,11 +1,13 @@
-# JavaScript Projects
+# JavaScript/TypeScript Projects
+
+[![CI](https://github.com/tedsilb/JSProjects/actions/workflows/main.yml/badge.svg)](https://github.com/tedsilb/JSProjects/actions/workflows/main.yml)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/tedsilb/jsprojects/badge)](https://www.codefactor.io/repository/github/tedsilb/jsprojects) [![Total alerts](https://img.shields.io/lgtm/alerts/g/tedsilb/JSProjects.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/tedsilb/JSProjects/alerts/)
 
-Various JavaScript projects that I work on from time to time.
+Various JS/TS projects that I work on from time to time. CI running on [GitLab](https://gitlab.com/tedsilb/JSProjects).
 
 [Descriptive Statistics](projects/DescriptiveStats)
 
-[Tic Tac Toe Game](projects/TicTacToe)
-
 [Numbers Game](projects/NumbersGame)
+
+[Tic Tac Toe Game](projects/TicTacToe)

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- Descriptive Statistics JS - by Ted Silbernagel -->
 <html lang="en">
+
 <head>
   <!-- Boilerplate, CSS -->
   <meta charset="UTF-8">
@@ -15,93 +16,97 @@
   <meta name="author" content="Ted Silbernagel">
 
   <!-- Font and script import -->
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
   <script src="descriptiveStats.js"></script>
 </head>
+
 <body>
-<div class="container">
-  <!-- Header -->
-  <div class="row">
-    <div class="twelve columns" id="header-block">
-      <h4 id="main-title">Descriptive Statistics</h4>
-      <h5 id="subtitle">Enter a list of numbers separated by commas, and we'll calculate descriptive stats!</h5>
+  <div class="container">
+    <!-- Header -->
+    <div class="row">
+      <div class="twelve columns" id="header-block">
+        <h4 id="main-title">Descriptive Statistics</h4>
+        <h5 id="subtitle">Enter a list of numbers separated by commas, and we'll calculate descriptive stats!</h5>
+      </div>
     </div>
-  </div>
 
-  <!-- Data entry -->
-  <div class="row">
-    <div class="two columns">
-      Enter numbers:
+    <!-- Data entry -->
+    <div class="row">
+      <div class="two columns">
+        Enter numbers:
+      </div>
+      <div class="ten columns">
+        <input type="text" id="userData" />
+      </div>
     </div>
-    <div class="ten columns">
-      <input type="text" id="userData" />
+    <div class="row" id="buttonsRow">
+      <div class="two columns">
+        Confidence level:
+      </div>
+      <div class="four columns">
+        90%
+        <input type="radio" name="confLevel" value="90%" class="descStatsButton" id="confLevelButton90" />
+        &nbsp;&nbsp;&nbsp;
+        95%
+        <input type="radio" name="confLevel" value="95%" class="descStatsButton" id="confLevelButton95"
+          checked="checked" />
+        &nbsp;&nbsp;&nbsp;
+        99%
+        <input type="radio" name="confLevel" value="99%" class="descStatsButton" id="confLevelButton99" />
+      </div>
+      <div class="six columns">
+        Data type:
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        Sample
+        <input type="radio" name="dataType" value="Sample" class="descStatsButton" id="dataTypeButtonS" />
+        &nbsp;&nbsp;&nbsp;
+        Population
+        <input type="radio" name="dataType" value="Population" class="descStatsButton" id="dataTypeButtonP"
+          checked="checked" />
+      </div>
     </div>
-  </div>
-  <div class="row" id="buttonsRow">
-    <div class="two columns">
-      Confidence level:
-    </div>
-    <div class="four columns">
-      90%
-      <input type="radio" name="confLevel" value="90%" class="descStatsButton" id="confLevelButton90" />
-      &nbsp;&nbsp;&nbsp;
-      95%
-      <input type="radio" name="confLevel" value="95%" class="descStatsButton" id="confLevelButton95" checked="checked" />
-      &nbsp;&nbsp;&nbsp;
-      99%
-      <input type="radio" name="confLevel" value="99%" class="descStatsButton" id="confLevelButton99" />
-    </div>
-    <div class="six columns">
-      Data type:
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      Sample
-      <input type="radio" name="dataType" value="Sample" class="descStatsButton" id="dataTypeButtonS" />
-      &nbsp;&nbsp;&nbsp;
-      Population
-      <input type="radio" name="dataType" value="Population" class="descStatsButton" id="dataTypeButtonP" checked="checked" />
-    </div>
-  </div>
 
-  <!-- Results -->
-  <table class="u-full-width" id="resultsTable">
-    <tbody>
-      <tr>
-        <td id="summary" colspan="2"></td>
-      </tr>
-      <tr>
-        <td>Mean:</td>
-        <td class="monospace-font"id="mean"></td>
-      </tr>
-      <tr>
-        <td>Median:</td>
-        <td class="monospace-font"id="median"></td>
-      </tr>
-      <tr>
-        <td>Mode:</td>
-        <td class="monospace-font"id="mode"></td>
-      </tr>
-      <tr>
-        <td>Range:</td>
-        <td class="monospace-font" id="range"></td>
-      </tr>
-      <tr>
-        <td>Variance:</td>
-        <td class="monospace-font" id="variance"></td>
-      </tr>
-      <tr>
-        <td>Standard Deviation:</td>
-        <td class="monospace-font" id="stDev"></td>
-      </tr>
-      <tr>
-        <td>Standard Error:</td>
-        <td class="monospace-font" id="stErr"></td>
-      </tr>
-      <tr>
-        <td id="confInt"></td>
-        <td class="monospace-font" id="confLevel"></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <!-- Results -->
+    <table class="u-full-width" id="resultsTable">
+      <tbody>
+        <tr>
+          <td id="summary" colspan="2"></td>
+        </tr>
+        <tr>
+          <td>Mean:</td>
+          <td class="monospace-font" id="mean"></td>
+        </tr>
+        <tr>
+          <td>Median:</td>
+          <td class="monospace-font" id="median"></td>
+        </tr>
+        <tr>
+          <td>Mode:</td>
+          <td class="monospace-font" id="mode"></td>
+        </tr>
+        <tr>
+          <td>Range:</td>
+          <td class="monospace-font" id="range"></td>
+        </tr>
+        <tr>
+          <td>Variance:</td>
+          <td class="monospace-font" id="variance"></td>
+        </tr>
+        <tr>
+          <td>Standard Deviation:</td>
+          <td class="monospace-font" id="stDev"></td>
+        </tr>
+        <tr>
+          <td>Standard Error:</td>
+          <td class="monospace-font" id="stErr"></td>
+        </tr>
+        <tr>
+          <td id="confInt"></td>
+          <td class="monospace-font" id="confLevel"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
+
 </html>

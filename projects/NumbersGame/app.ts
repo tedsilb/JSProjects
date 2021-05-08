@@ -1,7 +1,7 @@
 // Numbers game app logic.
 // By Ted Silbernagel
 
-// Declare variables so they're global
+// Declare variables so they're global.
 let startGameButton: HTMLElement;
 let saveTargetNumberButton: HTMLElement;
 let saveUpperLimitButton: HTMLElement;
@@ -21,29 +21,26 @@ let upperNo = 0;
 let lowerNo = 1;
 let guessNo = 0;
 
-// Fix incorrect TS parsing on global functions
-export {};
-
-// Async sleep function
+/** Async sleep function. */
 const sleep = (milliseconds: number): Promise<void> => {
   return new Promise(resolve => setTimeout(resolve, milliseconds));
-}
+};
 
-// Check if not a number
+/** Check if not a number. */
 const notOk = (num: any): boolean => {
-  return (!num || isNaN(num));
-}
+  return !num || isNaN(num);
+};
 
-// Set high and low numbers in results table
+/** Set high and low numbers in results table. */
 const setHighAndLow = () => {
   highResultText.innerHTML = upperNo.toString();
   lowResultText.innerHTML = lowerNo.toString();
-}
+};
 
-// Save target number (step 1)
+/** Save target number (step 1). */
 const saveTargetNumber = () => {
   // Get input, validate
-  targetNo = parseInt(targetNumberInput.value);
+  targetNo = parseInt(targetNumberInput.value, 10);
   targetNumberInput.value = '';
   if (notOk(targetNo)) return;
 
@@ -53,12 +50,12 @@ const saveTargetNumber = () => {
 
   // Set focus to next input
   upperLimitInput.focus();
-}
+};
 
-// Save upper limit (step 2)
+/** Save upper limit (step 2). */
 const saveUpperLimit = () => {
   // Get input, validate
-  upperNo = parseInt(upperLimitInput.value);
+  upperNo = parseInt(upperLimitInput.value, 10);
   upperLimitInput.value = '';
   if (notOk(upperNo) || upperNo < targetNo) return;
 
@@ -73,39 +70,43 @@ const saveUpperLimit = () => {
 
   // Set focus to next input
   guessNumberInput.focus();
-}
+};
 
-// Handle new guess (step 3+)
+/** Handle new guess (step 3+). */
 const handleNewGuess = () => {
-  guessNo = parseInt(guessNumberInput.value);
+  guessNo = parseInt(guessNumberInput.value, 10);
+
   // Outside constraints
   if (upperNo < guessNo) {
-    resultText.innerHTML = `${guessNo} is above the upper limit.`;
+    resultText.innerHTML = `${guessNo} is above a previous guess.`;
   } else if (guessNo < lowerNo) {
-    resultText.innerHTML = `${guessNo} is below the lower limit.`;
-
+    resultText.innerHTML = `${guessNo} is below a previous guess.`;
+  }
   // At constraints
-  } else if (guessNo === upperNo) {
-    resultText.innerHTML = `${guessNo} is already the upper limit.`;
+  else if (guessNo === upperNo) {
+    resultText.innerHTML = `${guessNo} is already the highest guess.`;
   } else if (guessNo === lowerNo) {
-    resultText.innerHTML = `${guessNo} is already the lower limit.`;
-
+    resultText.innerHTML = `${guessNo} is already the lowest guess.`;
+  }
   // Within constraints
   // ex: If lower is 44, target 45, and guess 46, it's a win, not high.
-  } else if (targetNo < guessNo
-             && (guessNo - targetNo !== 1 || guessNo - lowerNo !== 2)) {
-    resultText.innerHTML = `${guessNo} is High!`;
+  else if (
+      targetNo < guessNo &&
+      (guessNo - targetNo !== 1 || guessNo - lowerNo !== 2)) {
+    resultText.innerHTML = `${guessNo} is high!`;
     upperNo = guessNo;
     highResultText.innerHTML = guessNo.toString();
+  }
   // ex: If upper is 46, target 45, and guess 44, it's a win, not low.
-  } else if (guessNo < targetNo
-             && (targetNo - guessNo !== 1 || upperNo - guessNo !== 2)) {
-    resultText.innerHTML = `${guessNo} is Low!`;
+  else if (
+      guessNo < targetNo &&
+      (targetNo - guessNo !== 1 || upperNo - guessNo !== 2)) {
+    resultText.innerHTML = `${guessNo} is low!`;
     lowerNo = guessNo;
     lowResultText.innerHTML = guessNo.toString();
-
+  }
   // Win!
-  } else {
+  else {
     // Implicit wins
     if (targetNo < guessNo) {
       highResultText.innerHTML = guessNo.toString();
@@ -113,8 +114,9 @@ const handleNewGuess = () => {
     } else if (guessNo < targetNo) {
       lowResultText.innerHTML = guessNo.toString();
       resultText.innerHTML = `${guessNo + 1} is it!`;
+    }
     // Explicit win
-    } else {
+    else {
       resultText.innerHTML = `${guessNo} is it!`;
     }
     guessNumberRow.style.display = 'none';
@@ -132,19 +134,19 @@ const handleNewGuess = () => {
   while (document.activeElement !== guessNumberInput) {
     sleep(100).then(() => {
       guessNumberInput.focus();
-    })
+    });
   }
-}
+};
 
-// Hide all main rows
+/** Hide all main rows. */
 const hideMainRows = () => {
   targetRow.style.display = 'none';
   upperLimitRow.style.display = 'none';
   guessNumberRow.style.display = 'none';
   highLowRow.style.display = 'none';
-}
+};
 
-// Reset game
+/** Reset game. */
 const resetGame = () => {
   // Set start game button to defaults
   startGameButton.innerHTML = 'Restart game';
@@ -163,10 +165,10 @@ const resetGame = () => {
   targetNo = 0;
   upperNo = 0;
   lowerNo = 1;
-}
+};
 
-// Set up variables to hold DOM elements
-const initialiseDomVariables = () => {
+/** Set up variables to hold DOM elements. */
+const initialiseNumbersGameDomVariables = () => {
   // Start game button
   startGameButton = document.getElementById('startGameButton');
 
@@ -190,42 +192,50 @@ const initialiseDomVariables = () => {
   resultText = document.getElementById('resultText');
   highResultText = document.getElementById('highResultText');
   lowResultText = document.getElementById('lowResultText');
-}
+};
 
-// Set up listeners for buttons
-const setUpButtonListeners = () => {
-  startGameButton.onclick = () => { resetGame(); };
-  saveTargetNumberButton.onclick = () => { saveTargetNumber(); };
-  saveUpperLimitButton.onclick = () => { saveUpperLimit(); };
-  saveguessNumberButton.onclick = () => { handleNewGuess(); };
-}
+/** Set up listeners for buttons. */
+const setUpNumbersGameButtonListeners = () => {
+  startGameButton.onclick = () => {
+    resetGame();
+  };
+  saveTargetNumberButton.onclick = () => {
+    saveTargetNumber();
+  };
+  saveUpperLimitButton.onclick = () => {
+    saveUpperLimit();
+  };
+  saveguessNumberButton.onclick = () => {
+    handleNewGuess();
+  };
+};
 
-// Set up enter key handlers for inputs
+/** Set up enter key handlers for inputs. */
 const setUpEnterKeyHandlers = () => {
-  targetNumberInput.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {  // 13 == enter key
+  targetNumberInput.addEventListener('keyup', event => {
+    if (event.key === 'Enter') {
       event.preventDefault();  // Cancel the default action, if needed
       saveTargetNumberButton.click();
     }
   });
-  upperLimitInput.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {  // 13 == enter key
+  upperLimitInput.addEventListener('keyup', event => {
+    if (event.key === 'Enter') {
       event.preventDefault();  // Cancel the default action, if needed
       saveUpperLimitButton.click();
     }
   });
-  guessNumberInput.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {  // 13 == enter key
+  guessNumberInput.addEventListener('keyup', event => {
+    if (event.key === 'Enter') {
       event.preventDefault();  // Cancel the default action, if needed
       saveguessNumberButton.click();
     }
   });
-}
+};
 
-// Start script once DOM is loaded
+// Start script once DOM is loaded.
 document.addEventListener('DOMContentLoaded', () => {
-  initialiseDomVariables();
-  setUpButtonListeners();
+  initialiseNumbersGameDomVariables();
+  setUpNumbersGameButtonListeners();
   setUpEnterKeyHandlers();
   hideMainRows();
-})
+});

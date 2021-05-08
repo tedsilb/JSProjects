@@ -9,28 +9,41 @@ let boxStDev;
 let boxStErr;
 let boxConfInt;
 let boxConfLevel;
-let i;
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 const checkLastKey = () => {
     const userDataElement = document.getElementById('userData');
     const entryBoxValue = userDataElement.value;
-    resultsTable.style.display = (entryBoxValue.length === 0) ? 'none' : 'table';
+    resultsTable.style.display = entryBoxValue.length === 0 ? 'none' : 'table';
     if (/[a-z]|[0-9]/i.test(entryBoxValue.substr(-1))) {
         runDescriptiveStats();
     }
 };
 const setUpKeyUpListener = () => {
-    document.getElementById('userData').onkeyup = () => { checkLastKey(); };
-    document.getElementById('userData').onchange = () => { checkLastKey(); };
+    document.getElementById('userData').onkeyup = () => {
+        checkLastKey();
+    };
+    document.getElementById('userData').onchange = () => {
+        checkLastKey();
+    };
 };
-const setUpButtonListeners = () => {
-    document.getElementById('dataTypeButtonS').onchange = () => { checkLastKey(); };
-    document.getElementById('dataTypeButtonP').onchange = () => { checkLastKey(); };
-    document.getElementById('confLevelButton90').onchange = () => { checkLastKey(); };
-    document.getElementById('confLevelButton95').onchange = () => { checkLastKey(); };
-    document.getElementById('confLevelButton99').onchange = () => { checkLastKey(); };
+const setUpDescriptiveStatsButtonListeners = () => {
+    document.getElementById('dataTypeButtonS').onchange = () => {
+        checkLastKey();
+    };
+    document.getElementById('dataTypeButtonP').onchange = () => {
+        checkLastKey();
+    };
+    document.getElementById('confLevelButton90').onchange = () => {
+        checkLastKey();
+    };
+    document.getElementById('confLevelButton95').onchange = () => {
+        checkLastKey();
+    };
+    document.getElementById('confLevelButton99').onchange = () => {
+        checkLastKey();
+    };
 };
-const initialiseDomVariables = () => {
+const initialiseDescriptiveStatsDomVariables = () => {
     resultsTable = document.getElementById('resultsTable');
     boxSummary = document.getElementById('summary');
     boxMean = document.getElementById('mean');
@@ -61,7 +74,7 @@ const calcMode = (data) => {
     let modeString = 'None';
     let loopedModeNos = [];
     let numOccurrences = [];
-    for (let mode of modes) {
+    for (const mode of modes) {
         if (loopedModeNos.indexOf(mode) === -1) {
             loopedModeNos.push(mode);
             numOccurrences.push(1);
@@ -73,27 +86,28 @@ const calcMode = (data) => {
         }
     }
     let maxMode = 0;
-    for (let occurrence of numOccurrences) {
+    for (const occurrence of numOccurrences) {
         if (occurrence > maxMode) {
             maxMode = occurrence;
         }
     }
     if (maxMode > 1) {
-        for (i = modes.length - 1; i >= 0; i--) {
-            if (numOccurrences[modes.indexOf(modes[i])] !== Math.max(...numOccurrences)) {
+        for (let i = modes.length - 1; i >= 0; i--) {
+            if (numOccurrences[modes.indexOf(modes[i])] !==
+                Math.max(...numOccurrences)) {
                 loopedModeNos.splice(i, 1);
             }
         }
         modes = [...new Set(loopedModeNos)];
         modeString = '';
-        for (i in modes) {
+        for (const i in modes) {
             if (modes.length == 1) {
                 modeString = modes[0].toString();
             }
-            else if (parseInt(i) === 0) {
+            else if (parseInt(i, 10) === 0) {
                 modeString += '[' + modes[i];
             }
-            else if (parseInt(i) === modes.length - 1) {
+            else if (parseInt(i, 10) === modes.length - 1) {
                 modeString += ', ' + modes[i] + ']';
             }
             else {
@@ -105,11 +119,11 @@ const calcMode = (data) => {
 };
 const descriptiveStats = (values) => {
     let data = [];
-    for (let value of values.userData.split(",")) {
+    for (const value of values.userData.split(',')) {
         data.push(parseFloat(value));
     }
     const dataType = values.dataType;
-    const confLevel = parseInt(values.confLevel);
+    const confLevel = parseInt(values.confLevel, 10);
     const roundTo = 4;
     let tStat = 0;
     if (confLevel === 90) {
@@ -129,7 +143,9 @@ const descriptiveStats = (values) => {
         dof = data.length;
     }
     const mean = data.reduce(reducer) / data.length;
-    const sortedData = data.sort(function (a, b) { return a - b; });
+    const sortedData = data.sort((a, b) => {
+        return a - b;
+    });
     let median = 0;
     if (data.length % 2 === 0) {
         const lowerIndex = (data.length / 2) - 1;
@@ -142,7 +158,7 @@ const descriptiveStats = (values) => {
     const min = sortedData[0];
     const max = sortedData[data.length - 1];
     let sqDiffFromMean = [];
-    for (let num of data) {
+    for (const num of data) {
         sqDiffFromMean.push(Math.pow((num - mean), 2));
     }
     const variance = sqDiffFromMean.reduce(reducer) / dof;
@@ -168,7 +184,8 @@ const descriptiveStats = (values) => {
     };
 };
 const printResults = (results) => {
-    boxSummary.innerHTML = `<b>${results.dataType} of ${results.n} observations</b>`;
+    boxSummary.innerHTML =
+        `<b>${results.dataType} of ${results.n} observations</b>`;
     boxMean.innerHTML = `${results.mean}`;
     boxMedian.innerHTML = `${results.median}`;
     boxMode.innerHTML = `${results.mode}`;
@@ -180,8 +197,8 @@ const printResults = (results) => {
     boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`;
 };
 document.addEventListener('DOMContentLoaded', () => {
-    initialiseDomVariables();
+    initialiseDescriptiveStatsDomVariables();
     setUpKeyUpListener();
-    setUpButtonListeners();
+    setUpDescriptiveStatsButtonListeners();
     resultsTable.style.display = 'none';
 });

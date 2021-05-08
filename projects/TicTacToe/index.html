@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <!-- TicTacToe JS - by Ted Silbernagel -->
 <html lang="en">
+
 <head>
   <!-- Boilerplate, CSS -->
   <meta charset="UTF-8">
@@ -16,49 +17,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Font and script import -->
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
   <script src="TicTacToe.js"></script>
 </head>
+
 <body>
-<div class="container">
-  <!-- Header -->
-  <div class="row">
-    <div class="one-half column" id="header-block">
-      <h4 id="main-title">Tic Tac Toe</h4>
-      <h5>Play below!</h5>
+  <div class="container">
+    <!-- Header -->
+    <div class="row">
+      <div class="one-half column" id="header-block">
+        <h4 id="main-title">Tic Tac Toe</h4>
+        <h5>Play below!</h5>
+      </div>
     </div>
-  </div>
 
-  <!-- Making some room -->
-  <div class="row" id="status-reset-bar">
-    <div class="seven columns" id="status-display">
-      New game. Your turn.
+    <!-- Making some room -->
+    <div class="row" id="status-reset-bar">
+      <div class="seven columns" id="status-display">
+        New game. Your turn.
+      </div>
+      <div class="three columns u-pull-right" id="reset-button">
+        Reset Game
+      </div>
     </div>
-    <div class="three columns u-pull-right" id="reset-button">
-      Reset Game
-    </div>
-  </div>
 
-  <!-- Game -->
-  <table class="u-full-width" id="ttt">
-    <tbody>
-      <tr>
-        <td id="A1"></td>
-        <td id="A2"></td>
-        <td id="A3"></td>
-      </tr>
-      <tr>
-        <td id="B1"></td>
-        <td id="B2"></td>
-        <td id="B3"></td>
-      </tr>
-      <tr>
-        <td id="C1"></td>
-        <td id="C2"></td>
-        <td id="C3"></td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <!-- Game -->
+    <table class="u-full-width" id="ttt">
+      <tbody>
+        <tr>
+          <td id="A1"></td>
+          <td id="A2"></td>
+          <td id="A3"></td>
+        </tr>
+        <tr>
+          <td id="B1"></td>
+          <td id="B2"></td>
+          <td id="B3"></td>
+        </tr>
+        <tr>
+          <td id="C1"></td>
+          <td id="C2"></td>
+          <td id="C3"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
+
 </html>

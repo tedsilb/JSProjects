@@ -3,7 +3,8 @@
 // By Ted Silbernagel
 
 // Declare variables so they're global
-let btnResetGame, lblStatusDisplay, cellA1, cellA2, cellA3, cellB1, cellB2, cellB3, cellC1, cellC2, cellC3;
+let btnResetGame, lblStatusDisplay;
+let cellA1, cellA2, cellA3, cellB1, cellB2, cellB3, cellC1, cellC2, cellC3;
 let cpuChoice, cpuStarted, buttonsEnabled, itemIndex, randomNo;
 let availableCells = [];
 let userChosenCells = [];
@@ -20,8 +21,18 @@ const alreadySelectedMsg = 'Spot already selected. Try again.';
 const cpuTurnMsg = 'Computer\'s turn...';
 const userTurnMsg = 'Your turn.';
 
+// Check if all array items are included in another array
+const includesAll = (masterArray, itemsToCheck) => {
+  for (const arrayItem of itemsToCheck) {
+    if (!masterArray.includes(arrayItem)) {
+      return false;
+    }
+  }
+  return true;
+};
+
 // Main function to run on load
-function main() {
+const main = () => {
   // Put interactable elements into variables
   cellA1 = document.getElementById('A1');
   cellA2 = document.getElementById('A2');
@@ -36,25 +47,45 @@ function main() {
   lblStatusDisplay = document.getElementById('status-display');
 
   // Set up onClick functions for the cells
-  cellA1.onclick = function(){ buttonPress(cellA1, 'A1') };
-  cellA2.onclick = function(){ buttonPress(cellA2, 'A2') };
-  cellA3.onclick = function(){ buttonPress(cellA3, 'A3') };
-  cellB1.onclick = function(){ buttonPress(cellB1, 'B1') };
-  cellB2.onclick = function(){ buttonPress(cellB2, 'B2') };
-  cellB3.onclick = function(){ buttonPress(cellB3, 'B3') };
-  cellC1.onclick = function(){ buttonPress(cellC1, 'C1') };
-  cellC2.onclick = function(){ buttonPress(cellC2, 'C2') };
-  cellC3.onclick = function(){ buttonPress(cellC3, 'C3') };
+  cellA1.onclick = () => {
+    buttonPress(cellA1, 'A1');
+  };
+  cellA2.onclick = () => {
+    buttonPress(cellA2, 'A2');
+  };
+  cellA3.onclick = () => {
+    buttonPress(cellA3, 'A3');
+  };
+  cellB1.onclick = () => {
+    buttonPress(cellB1, 'B1');
+  };
+  cellB2.onclick = () => {
+    buttonPress(cellB2, 'B2');
+  };
+  cellB3.onclick = () => {
+    buttonPress(cellB3, 'B3');
+  };
+  cellC1.onclick = () => {
+    buttonPress(cellC1, 'C1');
+  };
+  cellC2.onclick = () => {
+    buttonPress(cellC2, 'C2');
+  };
+  cellC3.onclick = () => {
+    buttonPress(cellC3, 'C3');
+  };
 
   // Set up reset button
-  btnResetGame.onclick = function(){ resetGame() };
+  btnResetGame.onclick = () => {
+    resetGame();
+  };
 
   // Reset game, initially
   resetGame();
-}
+};
 
 // Function to take CPU turn
-function takeCpuTurn() {
+const takeCpuTurn = () => {
   lblStatusDisplay.innerHTML = cpuTurnMsg;
   // Check for tie
   if (isTied()) {
@@ -62,11 +93,16 @@ function takeCpuTurn() {
     buttonsEnabled = false;
     console.log('Found a tie');
 
-  // Some winning strategies
-  } else if (cpuStarted && userChosenCells.length === 2 && arraysEqual(cpuChosenCells, ['A1', 'A3'])
-              && (arraysEqual(userChosenCells, ['B1', 'A2']) || arraysEqual(userChosenCells, ['C1', 'A2'])
-                  || arraysEqual(userChosenCells, ['B3', 'A2']) || arraysEqual(userChosenCells, ['A2', 'C2']))) {
-    if (arraysEqual(userChosenCells, ['B1', 'A2']) || arraysEqual(userChosenCells, ['C1', 'A2'])) {
+    // Some winning strategies
+  } else if (
+      cpuStarted && userChosenCells.length === 2 &&
+      arraysEqual(cpuChosenCells, ['A1', 'A3']) &&
+      (arraysEqual(userChosenCells, ['B1', 'A2']) ||
+       arraysEqual(userChosenCells, ['C1', 'A2']) ||
+       arraysEqual(userChosenCells, ['B3', 'A2']) ||
+       arraysEqual(userChosenCells, ['A2', 'C2']))) {
+    if (arraysEqual(userChosenCells, ['B1', 'A2']) ||
+        arraysEqual(userChosenCells, ['C1', 'A2'])) {
       cpuChoice = 'C3';
     } else if (arraysEqual(userChosenCells, ['B3', 'A2'])) {
       cpuChoice = 'C1';
@@ -74,130 +110,152 @@ function takeCpuTurn() {
       cpuChoice = 'B2';
     }
     console.log(`Taking a winning strategy, choosing ${cpuChoice}`);
-  } else if (arraysEqual(userChosenCells, ['B2', 'C3']) && arraysEqual(cpuChosenCells, ['A1', 'C1'])) {
+  } else if (
+      arraysEqual(userChosenCells, ['B2', 'C3']) &&
+      arraysEqual(cpuChosenCells, ['A1', 'C1'])) {
     cpuChoice = 'A3';
     console.log(`Taking a winning strategy, choosing ${cpuChoice}`);
 
-  // Block winning moves by user
-  // A block
-  } else if (((userChosenCells.includes('A2') && userChosenCells.includes('A3'))
-              || (userChosenCells.includes('B1') && userChosenCells.includes('C1'))
-              || (userChosenCells.includes('B2') && userChosenCells.includes('C3'))
-            ) && availableCells.includes('A1')) {
+    // Block winning moves by user
+    // A block
+  } else if (
+      (includesAll(userChosenCells, ['A2', 'A3']) ||
+       includesAll(userChosenCells, ['B1', 'C1']) ||
+       includesAll(userChosenCells, ['B2', 'C3'])) &&
+      availableCells.includes('A1')) {
     cpuChoice = 'A1';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
-  } else if (((userChosenCells.includes('A1') && userChosenCells.includes('A3'))
-              || (userChosenCells.includes('B2') && userChosenCells.includes('C2'))
-            ) && availableCells.includes('A2')) {
+  } else if (
+      (includesAll(userChosenCells, ['A1', 'A3']) ||
+       includesAll(userChosenCells, ['B2', 'C2'])) &&
+      availableCells.includes('A2')) {
     cpuChoice = 'A2';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
-  } else if (((userChosenCells.includes('A1') && userChosenCells.includes('A2'))
-              || (userChosenCells.includes('B3') && userChosenCells.includes('C3'))
-              || (userChosenCells.includes('C1') && userChosenCells.includes('B2'))
-            ) && availableCells.includes('A3')) {
+  } else if (
+      (includesAll(userChosenCells, ['A1', 'A2']) ||
+       includesAll(userChosenCells, ['B3', 'C3']) ||
+       includesAll(userChosenCells, ['C1', 'B2'])) &&
+      availableCells.includes('A3')) {
     cpuChoice = 'A3';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
-  // B block
-  } else if (((userChosenCells.includes('B2') && userChosenCells.includes('B3'))
-              || (userChosenCells.includes('A1') && userChosenCells.includes('C1'))
-            ) && availableCells.includes('B1')) {
+    // B block
+  } else if (
+      (includesAll(userChosenCells, ['B2', 'B3']) ||
+       includesAll(userChosenCells, ['A1', 'C1'])) &&
+      availableCells.includes('B1')) {
     cpuChoice = 'B1';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
-  } else if (((userChosenCells.includes('B1') && userChosenCells.includes('B3'))
-              || (userChosenCells.includes('A2') && userChosenCells.includes('C2'))
-              || (userChosenCells.includes('A1') && userChosenCells.includes('C3'))
-            ) && availableCells.includes('B2')) {
+  } else if (
+      (includesAll(userChosenCells, ['B1', 'B3']) ||
+       includesAll(userChosenCells, ['A2', 'C2']) ||
+       includesAll(userChosenCells, ['A1', 'C3'])) &&
+      availableCells.includes('B2')) {
     cpuChoice = 'B2';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
-  } else if (((userChosenCells.includes('B1') && userChosenCells.includes('B2'))
-              || (userChosenCells.includes('A3') && userChosenCells.includes('C3'))
-            ) && availableCells.includes('B3')) {
+  } else if (
+      (includesAll(userChosenCells, ['B1', 'B2']) ||
+       includesAll(userChosenCells, ['A3', 'C3'])) &&
+      availableCells.includes('B3')) {
     cpuChoice = 'B3';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
-  // C block
-  } else if (((userChosenCells.includes('C2') && userChosenCells.includes('C3'))
-              || (userChosenCells.includes('A1') && userChosenCells.includes('B1'))
-              || (userChosenCells.includes('B2') && userChosenCells.includes('A3'))
-            ) && availableCells.includes('C1')) {
+    // C block
+  } else if (
+      (includesAll(userChosenCells, ['C2', 'C3']) ||
+       includesAll(userChosenCells, ['A1', 'B1']) ||
+       includesAll(userChosenCells, ['A3', 'B2'])) &&
+      availableCells.includes('C1')) {
     cpuChoice = 'C1';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
-  } else if (((userChosenCells.includes('C1') && userChosenCells.includes('C3'))
-              || (userChosenCells.includes('A2') && userChosenCells.includes('B2'))
-            ) && availableCells.includes('C2')) {
+  } else if (
+      (includesAll(userChosenCells, ['C1', 'C3']) ||
+       includesAll(userChosenCells, ['A2', 'B2'])) &&
+      availableCells.includes('C2')) {
     cpuChoice = 'C2';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
-  } else if (((cpuChosenCells.includes('C1') && userChosenCells.includes('C2'))
-              || (userChosenCells.includes('B3') && userChosenCells.includes('C3'))
-              || (userChosenCells.includes('C1') && userChosenCells.includes('B2'))
-            ) && availableCells.includes('C3')) {
+  } else if (
+      (includesAll(userChosenCells, ['C1', 'C2']) ||
+       includesAll(userChosenCells, ['B3', 'C3']) ||
+       includesAll(userChosenCells, ['C1', 'B2'])) &&
+      availableCells.includes('C3')) {
     cpuChoice = 'C3';
     console.log(`Blocking a winning move, choosing ${cpuChoice}`);
 
-  // Take winning moves for cpu
-  // A block
-  } else if (((cpuChosenCells.includes('A2') && cpuChosenCells.includes('A3'))
-              || (cpuChosenCells.includes('B1') && cpuChosenCells.includes('C1'))
-              || (cpuChosenCells.includes('B2') && cpuChosenCells.includes('C3'))
-            ) && availableCells.includes('A1')) {
+    // Take winning moves for cpu
+    // A block
+  } else if (
+      (includesAll(cpuChosenCells, ['A2', 'A3']) ||
+       includesAll(cpuChosenCells, ['B1', 'C1']) ||
+       includesAll(cpuChosenCells, ['B2', 'C3'])) &&
+      availableCells.includes('A1')) {
     cpuChoice = 'A1';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
-  } else if (((cpuChosenCells.includes('A1') && cpuChosenCells.includes('A3'))
-              || (cpuChosenCells.includes('B2') && cpuChosenCells.includes('C2'))
-            ) && availableCells.includes('A2')) {
+  } else if (
+      (includesAll(cpuChosenCells, ['A1', 'A3']) ||
+       includesAll(cpuChosenCells, ['B2', 'C2'])) &&
+      availableCells.includes('A2')) {
     cpuChoice = 'A2';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
-  } else if (((cpuChosenCells.includes('A1') && cpuChosenCells.includes('A2'))
-              || (cpuChosenCells.includes('B3') && cpuChosenCells.includes('C3'))
-              || (cpuChosenCells.includes('C1') && cpuChosenCells.includes('B2'))
-            ) && availableCells.includes('A3')) {
+  } else if (
+      (includesAll(cpuChosenCells, ['A1', 'A2']) ||
+       includesAll(cpuChosenCells, ['B3', 'C3']) ||
+       includesAll(cpuChosenCells, ['C1', 'B2'])) &&
+      availableCells.includes('A3')) {
     cpuChoice = 'A3';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
-  // B block
-  } else if (((cpuChosenCells.includes('B2') && cpuChosenCells.includes('B3'))
-              || (cpuChosenCells.includes('A1') && cpuChosenCells.includes('C1'))
-            ) && availableCells.includes('B1')) {
+    // B block
+  } else if (
+      (includesAll(cpuChosenCells, ['B2', 'B3']) ||
+       includesAll(cpuChosenCells, ['A1', 'C1'])) &&
+      availableCells.includes('B1')) {
     cpuChoice = 'B1';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
-  } else if (((cpuChosenCells.includes('B1') && cpuChosenCells.includes('B3'))
-              || (cpuChosenCells.includes('A2') && cpuChosenCells.includes('C2'))
-              || (cpuChosenCells.includes('A1') && cpuChosenCells.includes('C3'))
-            ) && availableCells.includes('B2')) {
+  } else if (
+      (includesAll(cpuChosenCells, ['B1', 'B3']) ||
+       includesAll(cpuChosenCells, ['A2', 'C2']) ||
+       includesAll(cpuChosenCells, ['A1', 'C3'])) &&
+      availableCells.includes('B2')) {
     cpuChoice = 'B2';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
-  } else if (((cpuChosenCells.includes('B1') && cpuChosenCells.includes('B2'))
-              || (cpuChosenCells.includes('A3') && cpuChosenCells.includes('C3'))
-            ) && availableCells.includes('B3')) {
+  } else if (
+      (includesAll(cpuChosenCells, ['B1', 'B2']) ||
+       includesAll(cpuChosenCells, ['A3', 'C3'])) &&
+      availableCells.includes('B3')) {
     cpuChoice = 'B3';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
-  // C block
-  } else if (((cpuChosenCells.includes('C2') && cpuChosenCells.includes('C3'))
-              || (cpuChosenCells.includes('A1') && cpuChosenCells.includes('B1'))
-              || (cpuChosenCells.includes('B2') && cpuChosenCells.includes('A3'))
-            ) && availableCells.includes('C1')) {
+    // C block
+  } else if (
+      (includesAll(cpuChosenCells, ['C2', 'C3']) ||
+       includesAll(cpuChosenCells, ['A1', 'B1']) ||
+       includesAll(cpuChosenCells, ['B2', 'A3'])) &&
+      availableCells.includes('C1')) {
     cpuChoice = 'C1';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
-  } else if (((cpuChosenCells.includes('C1') && cpuChosenCells.includes('C3'))
-              || (cpuChosenCells.includes('A2') && cpuChosenCells.includes('B2'))
-            ) && availableCells.includes('C2')) {
+  } else if (
+      (includesAll(cpuChosenCells, ['C1', 'C3']) ||
+       includesAll(cpuChosenCells, ['A2', 'B2'])) &&
+      availableCells.includes('C2')) {
     cpuChoice = 'C2';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
-  } else if (((cpuChosenCells.includes('C1') && cpuChosenCells.includes('C2'))
-              || (cpuChosenCells.includes('B3') && cpuChosenCells.includes('C3'))
-              || (cpuChosenCells.includes('A1') && cpuChosenCells.includes('B2'))
-            ) && availableCells.includes('C3')) {
+  } else if (
+      (includesAll(cpuChosenCells, ['C1', 'C2']) ||
+       includesAll(cpuChosenCells, ['B3', 'C3']) ||
+       includesAll(cpuChosenCells, ['A1', 'B2'])) &&
+      availableCells.includes('C3')) {
     cpuChoice = 'C3';
     console.log(`Taking a winning move, choosing ${cpuChoice}`);
 
-  // Take smart starts
-  // User start
+    // Take smart starts
+    // User start
   } else if (userChosenCells.length === 1 && cpuChosenCells.length === 0) {
     if (userChosenCells[0] === 'B2') {
-      cpuChoice = ['A1', 'A3', 'C1', 'C3'][Math.floor(Math.random() * ['A1', 'A3', 'C1', 'C3'].length)];
+      cpuChoice =
+          ['A1', 'A3', 'C1',
+           'C3'][Math.floor(Math.random() * ['A1', 'A3', 'C1', 'C3'].length)];
       console.log(`User start, choosing ${cpuChoice}`);
     } else {
       cpuChoice = 'B2';
     }
-  // CPU start
+    // CPU start
   } else if (userChosenCells.length === 0) {
     console.log('Taking smart cpu starts');
     randomNo = Math.random();
@@ -220,15 +278,17 @@ function takeCpuTurn() {
     }
     randomNo = 0;
 
-    cpuChoice = ['A1', 'A3', 'C1', 'C3', 'B2', 'A2', 'B3', 'C2', 'B1'][itemIndex];
+    cpuChoice =
+        ['A1', 'A3', 'C1', 'C3', 'B2', 'A2', 'B3', 'C2', 'B1'][itemIndex];
 
-  // If no winning moves for user or cpu, choose at random
+    // If no winning moves for user or cpu, choose at random
   } else {
     console.log('Choosing randomly');
     // First make sure it's not a tie
     if (availableCells.length !== 0) {
-      cpuChoice = availableCells[Math.floor(Math.random() * availableCells.length)];
-    // If it's a tie, end the game
+      cpuChoice =
+          availableCells[Math.floor(Math.random() * availableCells.length)];
+      // If it's a tie, end the game
     } else {
       console.log('Ending game');
       lblStatusDisplay.innerHTML = tieMsg;
@@ -268,36 +328,32 @@ function takeCpuTurn() {
     buttonsEnabled = false;
     console.log('Found a tie');
   }
-}
+};
 
 // Check for tie function
-function isTied() {
+const isTied = () => {
   if (availableCells.length === 0) {
-    if (!([cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML))) {
-      return true
+    if (![cpuWinMsg, userWinMsg].includes(lblStatusDisplay.innerHTML)) {
+      return true;
     }
   }
-  return false
-}
+  return false;
+};
 
-// Function to check if player has won
-function hasWon(chosenCells) {
-  if ((chosenCells.includes('A1') && chosenCells.includes('A2') && chosenCells.includes('A3'))
-      || (chosenCells.includes('B1') && chosenCells.includes('B2') && chosenCells.includes('B3'))
-      || (chosenCells.includes('C1') && chosenCells.includes('C2') && chosenCells.includes('C3'))
-      || (chosenCells.includes('A1') && chosenCells.includes('B1') && chosenCells.includes('C1'))
-      || (chosenCells.includes('A2') && chosenCells.includes('B2') && chosenCells.includes('C2'))
-      || (chosenCells.includes('A3') && chosenCells.includes('B3') && chosenCells.includes('C3'))
-      || (chosenCells.includes('A1') && chosenCells.includes('B2') && chosenCells.includes('C3'))
-      || (chosenCells.includes('C1') && chosenCells.includes('B2') && chosenCells.includes('A3'))) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// Check if player has won
+const hasWon = (chosenCells) => {
+  return includesAll(chosenCells, ['A1', 'A2', 'A3']) ||
+      includesAll(chosenCells, ['B1', 'B2', 'B3']) ||
+      includesAll(chosenCells, ['C1', 'C2', 'C3']) ||
+      includesAll(chosenCells, ['A1', 'B1', 'C1']) ||
+      includesAll(chosenCells, ['A2', 'B2', 'C2']) ||
+      includesAll(chosenCells, ['A3', 'B3', 'C3']) ||
+      includesAll(chosenCells, ['A1', 'B2', 'C3']) ||
+      includesAll(chosenCells, ['C1', 'B2', 'A3']);
+};
 
 // Button press function
-function buttonPress(button, gridLoc) {
+const buttonPress = (button, gridLoc) => {
   // Ensure buttons are enabled
   if (buttonsEnabled) {
     // Ensure cell isn't yet selected
@@ -312,19 +368,19 @@ function buttonPress(button, gridLoc) {
       if (hasWon(userChosenCells)) {
         lblStatusDisplay.innerHTML = userWinMsg;
         buttonsEnabled = false;
-      // If you didn't win, take computer's turn
+        // If you didn't win, take computer's turn
       } else {
         takeCpuTurn();
       }
-    // If cell's selected, display error
+      // If cell's selected, display error
     } else {
       lblStatusDisplay.innerHTML = alreadySelectedMsg;
     }
   }
-}
+};
 
 // Set cpu cell as chosen function
-function setCpuCellChosen() {
+const setCpuCellChosen = () => {
   if (cpuChoice === 'A1') {
     cellA1.innerHTML = cpuIcon;
   } else if (cpuChoice === 'A2') {
@@ -343,11 +399,11 @@ function setCpuCellChosen() {
     cellC2.innerHTML = cpuIcon;
   } else if (cpuChoice === 'C3') {
     cellC3.innerHTML = cpuIcon;
-}
-}
+  }
+};
 
 // Reset game function
-function resetGame() {
+const resetGame = () => {
   console.log('Resetting game');
   clearCells();
   buttonsEnabled = true;
@@ -372,10 +428,10 @@ function resetGame() {
   } else {
     cpuStarted = false;
   }
-}
+};
 
 // Clear cells function
-function clearCells() {
+const clearCells = () => {
   console.log('Clearing cells');
   cellA1.innerHTML = '';
   cellA2.innerHTML = '';
@@ -386,10 +442,10 @@ function clearCells() {
   cellC1.innerHTML = '';
   cellC2.innerHTML = '';
   cellC3.innerHTML = '';
-}
+};
 
 // Check if arrays are equal
-function arraysEqual(arrayA, arrayB) {
+const arraysEqual = (arrayA, arrayB) => {
   let a = arrayA;
   let b = arrayB;
   a.sort();
@@ -401,9 +457,9 @@ function arraysEqual(arrayA, arrayB) {
     if (a[i] !== b[i]) return false;
   }
   return true;
-}
+};
 
 // Start script once DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   main();
-})
+});
