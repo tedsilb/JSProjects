@@ -87,16 +87,16 @@ const handleNewGuess = () => {
   } else if (guessNo === lowerNo) {
     resultText.innerHTML = `${guessNo} is already the lowest guess.`;
   } else if (
-    targetNo < guessNo &&
-    (guessNo - targetNo !== 1 || guessNo - lowerNo !== 2)) {
+      targetNo < guessNo &&
+      (guessNo - targetNo !== 1 || guessNo - lowerNo !== 2)) {
     // Within constraints
     // ex: If lower is 44, target 45, and guess 46, it's a win, not high.
     resultText.innerHTML = `${guessNo} is high!`;
     upperNo = guessNo;
     highResultText.innerHTML = guessNo.toString();
   } else if (
-    guessNo < targetNo &&
-    (targetNo - guessNo !== 1 || upperNo - guessNo !== 2)) {
+      guessNo < targetNo &&
+      (targetNo - guessNo !== 1 || upperNo - guessNo !== 2)) {
     // ex: If upper is 46, target 45, and guess 44, it's a win, not low.
     resultText.innerHTML = `${guessNo} is low!`;
     lowerNo = guessNo;
@@ -209,19 +209,19 @@ const setUpNumbersGameButtonListeners = () => {
 const setUpEnterKeyHandlers = () => {
   targetNumberInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Cancel the default action, if needed
+      event.preventDefault();  // Cancel the default action, if needed
       saveTargetNumberButton.click();
     }
   });
   upperLimitInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Cancel the default action, if needed
+      event.preventDefault();  // Cancel the default action, if needed
       saveUpperLimitButton.click();
     }
   });
   guessNumberInput.addEventListener('keyup', (event) => {
     if (event.key === 'Enter') {
-      event.preventDefault(); // Cancel the default action, if needed
+      event.preventDefault();  // Cancel the default action, if needed
       saveguessNumberButton.click();
     }
   });
