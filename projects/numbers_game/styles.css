@@ -15,13 +15,15 @@ h5 {
 }
 
 /* Set up header and title */
-#startGameRow > div{
+#startGameRow>div {
   text-align: center;
 }
+
 #headerBlock {
   color: #dcdde1;
   margin-top: 3%;
 }
+
 #mainTitle {
   margin-bottom: 1%;
   font-weight: bold;
@@ -32,16 +34,20 @@ h5 {
   font-size: 1em;
   color: #dcdde1;
 }
+
 .button:hover {
   color: #dcdde1;
 }
+
 .mainButton {
   width: 80%;
 }
+
 #startGameButton {
   margin-top: 1.5rem;
   margin-bottom: 2.5rem;
 }
+
 #saveLimitsButton {
   color: #dcdde1;
 }
@@ -56,7 +62,8 @@ input[type="text"] {
 .dataDisplayTable {
   margin-bottom: 0;
 }
-.dataDisplayTable > tbody > tr > td {
+
+.dataDisplayTable>tbody>tr>td {
   font-size: 1.4em;
   border-bottom: 0 none #000;
 }

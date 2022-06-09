@@ -11,10 +11,12 @@ body {
   color: #dcdde1;
   margin-top: 3%;
 }
+
 #main-title {
   margin-bottom: 1%;
   font-weight: bold;
 }
+
 #subtitle {
   margin-bottom: 5%;
 }
@@ -33,16 +35,18 @@ body {
   padding-left: 15px !important;
   padding-right: 15px !important;
 }
+
 .descStatsButton:hover {
   color: #718093 !important;
   border-color: #718093 !important;
 }
+
 #buttonsRow {
   margin-bottom: 3%;
 }
 
 /* Results table */
-#resultsTable > tbody > tr > td {
+#resultsTable>tbody>tr>td {
   font-size: 1.5em !important;
 }
 
