@@ -1,4 +1,4 @@
-name: CI
+name: Lint
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3.2.0
-      - uses: actions/cache@v3.2.2
+      - uses: actions/cache@v3.2.1
         with:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -30,12 +30,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build
+      - name: Install
+        run: npm ci
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
-        with:
-          branch: gh-pages
-          folder: .
+      - name: Lint
+        run: npm run lint
