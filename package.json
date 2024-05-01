@@ -17,6 +17,6 @@
     "cross-env": "7.0.3",
     "eslint": "8.57.0",
     "eslint-config-google": "0.14.0",
-    "typescript": "5.4.3"
+    "typescript": "5.4.5"
   }
 }
