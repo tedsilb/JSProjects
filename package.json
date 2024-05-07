@@ -7,6 +7,7 @@
     "type": "git",
     "url": "git://github.com/tedsilb/JSProjects.git"
   },
+  "preinstall": "npx only-allow pnpm",
   "scripts": {
     "build": "tsc",
     "lint": "eslint ."
