@@ -1,27 +1,22 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "DOM",
-      "ES6"
-    ],
-    "sourceMap": false,
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "target": "ES6",
-    "jsx": "preserve",
-    "removeComments": true,
-    "preserveConstEnums": true
-  },
-  "include": [
-    "projects/**/*.ts"
-  ],
-  "exclude": [
-    ".git",
-    ".gitignore",
-    "*.json",
-    "yarn.lock",
-    "node_modules",
-    "dist",
-    ".cache"
-  ]
+	"compilerOptions": {
+		"lib": ["DOM", "ES6"],
+		"sourceMap": false,
+		"noImplicitAny": true,
+		"moduleResolution": "node",
+		"target": "ES6",
+		"jsx": "preserve",
+		"removeComments": true,
+		"preserveConstEnums": true
+	},
+	"include": ["projects/**/*.ts"],
+	"exclude": [
+		".git",
+		".gitignore",
+		"*.json",
+		"yarn.lock",
+		"node_modules",
+		"dist",
+		".cache"
+	]
 }

@@ -1,24 +1,20 @@
 {
-  "files": [
-    "projects/"
-  ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/tedsilb/JSProjects.git"
-  },
-  "preinstall": "npx only-allow pnpm",
-  "scripts": {
-    "build": "tsc",
-    "lint": "eslint ."
-  },
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "7.14.1",
-    "@typescript-eslint/parser": "7.15.0",
-    "cross-env": "7.0.3",
-    "eslint": "8.57.0",
-    "eslint-config-google": "0.14.0",
-    "typescript": "5.5.3"
-  },
-  "packageManager": "pnpm@9.1.0+sha512.67f5879916a9293e5cf059c23853d571beaf4f753c707f40cb22bed5fb1578c6aad3b6c4107ccb3ba0b35be003eb621a16471ac836c87beb53f9d54bb4612724"
+	"files": ["projects/"],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/tedsilb/JSProjects.git"
+	},
+	"preinstall": "npx only-allow pnpm",
+	"scripts": {
+		"build": "tsc",
+		"lint": "biome lint",
+		"format": "biome format --write"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"cross-env": "7.0.3",
+		"typescript": "5.5.3"
+	},
+	"packageManager": "pnpm@9.1.0+sha512.67f5879916a9293e5cf059c23853d571beaf4f753c707f40cb22bed5fb1578c6aad3b6c4107ccb3ba0b35be003eb621a16471ac836c87beb53f9d54bb4612724"
 }
