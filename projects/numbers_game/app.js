@@ -28,22 +28,24 @@ const setHighAndLow = () => {
 };
 const saveTargetNumber = () => {
     targetNo = parseInt(targetNumberInput.value, 10);
-    targetNumberInput.value = '';
-    if (notOk(targetNo))
+    targetNumberInput.value = "";
+    if (notOk(targetNo)) {
         return;
-    targetRow.style.display = 'none';
-    upperLimitRow.style.display = 'block';
+    }
+    targetRow.style.display = "none";
+    upperLimitRow.style.display = "block";
     upperLimitInput.focus();
 };
 const saveUpperLimit = () => {
     upperNo = parseInt(upperLimitInput.value, 10);
-    upperLimitInput.value = '';
-    if (notOk(upperNo) || upperNo < targetNo)
+    upperLimitInput.value = "";
+    if (notOk(upperNo) || upperNo < targetNo) {
         return;
-    upperLimitRow.style.display = 'none';
-    guessNumberRow.style.display = 'block';
-    highLowRow.style.display = 'block';
-    resultText.innerHTML = '';
+    }
+    upperLimitRow.style.display = "none";
+    guessNumberRow.style.display = "block";
+    highLowRow.style.display = "block";
+    resultText.innerHTML = "";
     setHighAndLow();
     guessNumberInput.focus();
 };
@@ -85,13 +87,13 @@ const handleNewGuess = () => {
         else {
             resultText.innerHTML = `${guessNo} is it!`;
         }
-        guessNumberRow.style.display = 'none';
-        startGameButton.innerHTML = 'Start new game';
-        startGameButton.classList.add('button-primary');
-        guessNumberInput.value = '';
+        guessNumberRow.style.display = "none";
+        startGameButton.innerHTML = "Start new game";
+        startGameButton.classList.add("button-primary");
+        guessNumberInput.value = "";
         return;
     }
-    guessNumberInput.value = '';
+    guessNumberInput.value = "";
     guessNumberInput.focus();
     while (document.activeElement !== guessNumberInput) {
         sleep(100).then(() => {
@@ -100,38 +102,38 @@ const handleNewGuess = () => {
     }
 };
 const hideMainRows = () => {
-    targetRow.style.display = 'none';
-    upperLimitRow.style.display = 'none';
-    guessNumberRow.style.display = 'none';
-    highLowRow.style.display = 'none';
+    targetRow.style.display = "none";
+    upperLimitRow.style.display = "none";
+    guessNumberRow.style.display = "none";
+    highLowRow.style.display = "none";
 };
 const resetGame = () => {
-    startGameButton.innerHTML = 'Restart game';
-    startGameButton.classList.remove('button-primary');
-    targetRow.style.display = 'block';
-    upperLimitRow.style.display = 'none';
-    guessNumberRow.style.display = 'none';
-    highLowRow.style.display = 'none';
+    startGameButton.innerHTML = "Restart game";
+    startGameButton.classList.remove("button-primary");
+    targetRow.style.display = "block";
+    upperLimitRow.style.display = "none";
+    guessNumberRow.style.display = "none";
+    highLowRow.style.display = "none";
     targetNumberInput.focus();
     targetNo = 0;
     upperNo = 0;
     lowerNo = 1;
 };
 const initialiseNumbersGameDomVariables = () => {
-    startGameButton = document.getElementById('startGameButton');
-    targetRow = document.getElementById('targetRow');
-    targetNumberInput = document.getElementById('targetNumber');
-    saveTargetNumberButton = document.getElementById('saveTargetNumberButton');
-    upperLimitRow = document.getElementById('upperLimitRow');
-    upperLimitInput = document.getElementById('upperLimit');
-    saveUpperLimitButton = document.getElementById('saveUpperLimitButton');
-    guessNumberRow = document.getElementById('guessNumberRow');
-    guessNumberInput = document.getElementById('guessNumber');
-    saveguessNumberButton = document.getElementById('saveguessNumberButton');
-    highLowRow = document.getElementById('highLowRow');
-    resultText = document.getElementById('resultText');
-    highResultText = document.getElementById('highResultText');
-    lowResultText = document.getElementById('lowResultText');
+    startGameButton = document.getElementById("startGameButton");
+    targetRow = document.getElementById("targetRow");
+    targetNumberInput = document.getElementById("targetNumber");
+    saveTargetNumberButton = document.getElementById("saveTargetNumberButton");
+    upperLimitRow = document.getElementById("upperLimitRow");
+    upperLimitInput = document.getElementById("upperLimit");
+    saveUpperLimitButton = document.getElementById("saveUpperLimitButton");
+    guessNumberRow = document.getElementById("guessNumberRow");
+    guessNumberInput = document.getElementById("guessNumber");
+    saveguessNumberButton = document.getElementById("saveguessNumberButton");
+    highLowRow = document.getElementById("highLowRow");
+    resultText = document.getElementById("resultText");
+    highResultText = document.getElementById("highResultText");
+    lowResultText = document.getElementById("lowResultText");
 };
 const setUpNumbersGameButtonListeners = () => {
     startGameButton.onclick = () => {
@@ -148,26 +150,26 @@ const setUpNumbersGameButtonListeners = () => {
     };
 };
 const setUpEnterKeyHandlers = () => {
-    targetNumberInput.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
+    targetNumberInput.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
             event.preventDefault();
             saveTargetNumberButton.click();
         }
     });
-    upperLimitInput.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
+    upperLimitInput.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
             event.preventDefault();
             saveUpperLimitButton.click();
         }
     });
-    guessNumberInput.addEventListener('keyup', (event) => {
-        if (event.key === 'Enter') {
+    guessNumberInput.addEventListener("keyup", (event) => {
+        if (event.key === "Enter") {
             event.preventDefault();
             saveguessNumberButton.click();
         }
     });
 };
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     initialiseNumbersGameDomVariables();
     setUpNumbersGameButtonListeners();
     setUpEnterKeyHandlers();
