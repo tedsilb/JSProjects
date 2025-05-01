@@ -15,8 +15,8 @@ importers:
         specifier: 7.0.3
         version: 7.0.3
       typescript:
-        specifier: 5.8.2
-        version: 5.8.2
+        specifier: 5.8.3
+        version: 5.8.3
 
 packages:
 
@@ -97,8 +97,8 @@ packages:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
 
-  typescript@5.8.2:
-    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -164,7 +164,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  typescript@5.8.2: {}
+  typescript@5.8.3: {}
 
   which@2.0.2:
     dependencies:
