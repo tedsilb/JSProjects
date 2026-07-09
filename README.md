@@ -1,6 +1,6 @@
 # JavaScript/TypeScript Projects
 
-[![CI](https://github.com/tedsilb/JSProjects/actions/workflows/main.yml/badge.svg)](https://github.com/tedsilb/JSProjects/actions/workflows/main.yml)
+[![CI](https://github.com/tedsilb/JSProjects/actions/workflows/lint.yml/badge.svg)](https://github.com/tedsilb/JSProjects/actions/workflows/lint.yml)
 
 [![CodeFactor](https://www.codefactor.io/repository/github/tedsilb/jsprojects/badge)](https://www.codefactor.io/repository/github/tedsilb/jsprojects)
 
