@@ -2,17 +2,17 @@
 // By Ted Silbernagel
 
 // Declare variables so they're global.
-let resultsTable: HTMLElement;
-let boxSummary: HTMLElement;
-let boxMean: HTMLElement;
-let boxMedian: HTMLElement;
-let boxMode: HTMLElement;
-let boxRange: HTMLElement;
-let boxVariance: HTMLElement;
-let boxStDev: HTMLElement;
-let boxStErr: HTMLElement;
-let boxConfInt: HTMLElement;
-let boxConfLevel: HTMLElement;
+let resultsTable: HTMLElement | null;
+let boxSummary: HTMLElement | null;
+let boxMean: HTMLElement | null;
+let boxMedian: HTMLElement | null;
+let boxMode: HTMLElement | null;
+let boxRange: HTMLElement | null;
+let boxVariance: HTMLElement | null;
+let boxStDev: HTMLElement | null;
+let boxStErr: HTMLElement | null;
+let boxConfInt: HTMLElement | null;
+let boxConfLevel: HTMLElement | null;
 
 // Interfaces.
 interface UserData {
@@ -51,40 +51,60 @@ const checkLastKey = () => {
 	const entryBoxValue = userDataElement.value;
 
 	// First show the table
-	resultsTable.style.display = entryBoxValue.length === 0 ? "none" : "table";
+	if (resultsTable) {
+		resultsTable.style.display = entryBoxValue.length === 0 ? "none" : "table";
+	}
 
 	if (/[a-z]|[0-9]/i.test(entryBoxValue.substr(-1))) {
 		runDescriptiveStats();
 	}
 };
 const setUpKeyUpListener = () => {
-	document.getElementById("userData").onkeyup = () => {
-		checkLastKey();
-	};
-	document.getElementById("userData").onchange = () => {
-		checkLastKey();
-	};
+	const userData = document.getElementById("userData");
+	if (userData) {
+		userData.onkeyup = () => {
+			checkLastKey();
+		};
+		userData.onchange = () => {
+			checkLastKey();
+		};
+	}
 };
 const setUpDescriptiveStatsButtonListeners = () => {
-	document.getElementById("dataTypeButtonS").onchange = () => {
-		checkLastKey();
-	};
-	document.getElementById("dataTypeButtonP").onchange = () => {
-		checkLastKey();
-	};
-	document.getElementById("confLevelButton90").onchange = () => {
-		checkLastKey();
-	};
-	document.getElementById("confLevelButton95").onchange = () => {
-		checkLastKey();
-	};
-	document.getElementById("confLevelButton99").onchange = () => {
-		checkLastKey();
-	};
+	const dataTypeButtonS = document.getElementById("dataTypeButtonS");
+	const dataTypeButtonP = document.getElementById("dataTypeButtonP");
+	const confLevelButton90 = document.getElementById("confLevelButton90");
+	const confLevelButton95 = document.getElementById("confLevelButton95");
+	const confLevelButton99 = document.getElementById("confLevelButton99");
+	if (dataTypeButtonS) {
+		dataTypeButtonS.onchange = () => {
+			checkLastKey();
+		};
+	}
+	if (dataTypeButtonP) {
+		dataTypeButtonP.onchange = () => {
+			checkLastKey();
+		};
+	}
+	if (confLevelButton90) {
+		confLevelButton90.onchange = () => {
+			checkLastKey();
+		};
+	}
+	if (confLevelButton95) {
+		confLevelButton95.onchange = () => {
+			checkLastKey();
+		};
+	}
+	if (confLevelButton99) {
+		confLevelButton99.onchange = () => {
+			checkLastKey();
+		};
+	}
 };
 
 /** Set up variables to hold DOM elements. */
-const initialiseDescriptiveStatsDomVariables = () => {
+const initialiseStatsDomVariables = () => {
 	resultsTable = document.getElementById("resultsTable");
 	boxSummary = document.getElementById("summary");
 	boxMean = document.getElementById("mean");
@@ -146,9 +166,7 @@ const calcMode = (data: Array<number>) => {
 	if (maxMode > 1) {
 		// Remove all numbers with occurrences less than max
 		for (let i = modes.length - 1; i >= 0; i--) {
-			if (
-				numOccurrences[modes.indexOf(modes[i])] !== Math.max(...numOccurrences)
-			) {
+			if (numOccurrences[modes.indexOf(modes[i])] !== Math.max(...numOccurrences)) {
 				loopedModeNos.splice(i, 1);
 			}
 		}
@@ -157,14 +175,14 @@ const calcMode = (data: Array<number>) => {
 		// Put modes into string
 		modeString = "";
 		for (const i in modes) {
-			if (modes.length == 1) {
+			if (modes.length === 1) {
 				modeString = modes[0].toString();
 			} else if (parseInt(i, 10) === 0) {
-				modeString += "[" + modes[i];
+				modeString += `[${modes[i]}`;
 			} else if (parseInt(i, 10) === modes.length - 1) {
-				modeString += ", " + modes[i] + "]";
+				modeString += `, ${modes[i]}]`;
 			} else {
-				modeString += ", " + modes[i];
+				modeString += `, ${modes[i]}`;
 			}
 		}
 	}
@@ -226,7 +244,7 @@ const descriptiveStats = (values: UserData) => {
 	// Calculate variance
 	const sqDiffFromMean = [];
 	for (const num of data) {
-		sqDiffFromMean.push(Math.pow(num - mean, 2));
+		sqDiffFromMean.push((num - mean) ** 2);
 	}
 	const variance = sqDiffFromMean.reduce(reducer) / dof;
 
@@ -261,23 +279,45 @@ const descriptiveStats = (values: UserData) => {
 
 /** Print results. */
 const printResults = (results: DescriptiveStatsData) => {
-	boxSummary.innerHTML = `<b>${results.dataType} of ${results.n} observations</b>`;
-	boxMean.innerHTML = `${results.mean}`;
-	boxMedian.innerHTML = `${results.median}`;
-	boxMode.innerHTML = `${results.mode}`;
-	boxRange.innerHTML = `[${results.min}, ${results.max}]`;
-	boxVariance.innerHTML = `${results.variance}`;
-	boxStDev.innerHTML = `${results.stDev}`;
-	boxStErr.innerHTML = `${results.stErr}`;
-	boxConfInt.innerHTML = `${results.confLevel}% Confidence Interval:`;
-	boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`;
+	if (boxSummary) {
+		boxSummary.innerHTML = `<b>${results.dataType} of ${results.n} observations</b>`;
+	}
+	if (boxMean) {
+		boxMean.innerHTML = `${results.mean}`;
+	}
+	if (boxMedian) {
+		boxMedian.innerHTML = `${results.median}`;
+	}
+	if (boxMode) {
+		boxMode.innerHTML = `${results.mode}`;
+	}
+	if (boxRange) {
+		boxRange.innerHTML = `[${results.min}, ${results.max}]`;
+	}
+	if (boxVariance) {
+		boxVariance.innerHTML = `${results.variance}`;
+	}
+	if (boxStDev) {
+		boxStDev.innerHTML = `${results.stDev}`;
+	}
+	if (boxStErr) {
+		boxStErr.innerHTML = `${results.stErr}`;
+	}
+	if (boxConfInt) {
+		boxConfInt.innerHTML = `${results.confLevel}% Confidence Interval:`;
+	}
+	if (boxConfLevel) {
+		boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`;
+	}
 };
 
 // Start script once DOM is loaded.
 document.addEventListener("DOMContentLoaded", () => {
-	initialiseDescriptiveStatsDomVariables();
+	initialiseStatsDomVariables();
 	setUpKeyUpListener();
 	setUpDescriptiveStatsButtonListeners();
 	// Hide results, initially
-	resultsTable.style.display = "none";
+	if (resultsTable) {
+		resultsTable.style.display = "none";
+	}
 });

@@ -10,7 +10,7 @@ body {
 #header-block {
 	color: #dcdde1;
 	margin-top: 6%;
-	margin-left: 5% !important;
+	margin-left: 5%;
 }
 #main-title {
 	margin-bottom: 1%;
@@ -20,7 +20,7 @@ body {
 /* Set up status display */
 #status-display {
 	/* Remove left margin */
-	margin-left: 5% !important;
+	margin-left: 5%;
 
 	/* Background colour */
 	background-color: #718093;
@@ -42,7 +42,7 @@ body {
 /* Reset button */
 #reset-button {
 	/* Remove right margin */
-	margin-right: 5% !important;
+	margin-right: 5%;
 
 	/* Remove padding to properly centre text */
 	padding-left: 0;

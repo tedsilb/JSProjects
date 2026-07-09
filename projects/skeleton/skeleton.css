@@ -186,8 +186,7 @@ body {
 	font-size: 1.5em; /* currently ems cause chrome bug misinterpreting rems on body element */
 	line-height: 1.6;
 	font-weight: 400;
-	font-family:
-		"Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Roboto", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	color: #222;
 }
 
@@ -532,20 +531,25 @@ there.
 
 /* Larger than mobile */
 @media (min-width: 400px) {
+	/* Styles for screens wider than 400px */
 }
 
 /* Larger than phablet (also point when grid becomes active) */
 @media (min-width: 550px) {
+	/* Styles for screens wider than 550px */
 }
 
 /* Larger than tablet */
 @media (min-width: 750px) {
+	/* Styles for screens wider than 750px */
 }
 
 /* Larger than desktop */
 @media (min-width: 1000px) {
+	/* Styles for screens wider than 1000px */
 }
 
 /* Larger than Desktop HD */
 @media (min-width: 1200px) {
+	/* Styles for screens wider than 1200px */
 }

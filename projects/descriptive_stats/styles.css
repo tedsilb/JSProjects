@@ -30,15 +30,15 @@ body {
 
 /* Buttons */
 .descStatsButton {
-	color: #dcdde1 !important;
-	font-size: 1.2em !important;
-	padding-left: 15px !important;
-	padding-right: 15px !important;
+	color: #dcdde1;
+	font-size: 1.2em;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
 .descStatsButton:hover {
-	color: #718093 !important;
-	border-color: #718093 !important;
+	color: #718093;
+	border-color: #718093;
 }
 
 #buttonsRow {
@@ -47,7 +47,7 @@ body {
 
 /* Results table */
 #resultsTable > tbody > tr > td {
-	font-size: 1.5em !important;
+	font-size: 1.5em;
 }
 
 /* Set up monospaced font for results */
