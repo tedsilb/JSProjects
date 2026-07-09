@@ -1,3 +1,7 @@
+"use strict";
+// Calculate descriptive statistics for a list of numbers
+// By Ted Silbernagel
+// Declare variables so they're global.
 let resultsTable;
 let boxSummary;
 let boxMean;
@@ -9,43 +13,70 @@ let boxStDev;
 let boxStErr;
 let boxConfInt;
 let boxConfLevel;
+/**
+ * Sum reducer function.
+ * sum = array.reduce(reducer);
+ */
 const reducer = (accumulator, currentValue) => {
     return accumulator + currentValue;
 };
+/** Set up keyUp and button listeners to auto calculate. */
 const checkLastKey = () => {
     const userDataElement = document.getElementById("userData");
     const entryBoxValue = userDataElement.value;
-    resultsTable.style.display = entryBoxValue.length === 0 ? "none" : "table";
+    // First show the table
+    if (resultsTable) {
+        resultsTable.style.display = entryBoxValue.length === 0 ? "none" : "table";
+    }
     if (/[a-z]|[0-9]/i.test(entryBoxValue.substr(-1))) {
         runDescriptiveStats();
     }
 };
 const setUpKeyUpListener = () => {
-    document.getElementById("userData").onkeyup = () => {
-        checkLastKey();
-    };
-    document.getElementById("userData").onchange = () => {
-        checkLastKey();
-    };
+    const userData = document.getElementById("userData");
+    if (userData) {
+        userData.onkeyup = () => {
+            checkLastKey();
+        };
+        userData.onchange = () => {
+            checkLastKey();
+        };
+    }
 };
 const setUpDescriptiveStatsButtonListeners = () => {
-    document.getElementById("dataTypeButtonS").onchange = () => {
-        checkLastKey();
-    };
-    document.getElementById("dataTypeButtonP").onchange = () => {
-        checkLastKey();
-    };
-    document.getElementById("confLevelButton90").onchange = () => {
-        checkLastKey();
-    };
-    document.getElementById("confLevelButton95").onchange = () => {
-        checkLastKey();
-    };
-    document.getElementById("confLevelButton99").onchange = () => {
-        checkLastKey();
-    };
+    const dataTypeButtonS = document.getElementById("dataTypeButtonS");
+    const dataTypeButtonP = document.getElementById("dataTypeButtonP");
+    const confLevelButton90 = document.getElementById("confLevelButton90");
+    const confLevelButton95 = document.getElementById("confLevelButton95");
+    const confLevelButton99 = document.getElementById("confLevelButton99");
+    if (dataTypeButtonS) {
+        dataTypeButtonS.onchange = () => {
+            checkLastKey();
+        };
+    }
+    if (dataTypeButtonP) {
+        dataTypeButtonP.onchange = () => {
+            checkLastKey();
+        };
+    }
+    if (confLevelButton90) {
+        confLevelButton90.onchange = () => {
+            checkLastKey();
+        };
+    }
+    if (confLevelButton95) {
+        confLevelButton95.onchange = () => {
+            checkLastKey();
+        };
+    }
+    if (confLevelButton99) {
+        confLevelButton99.onchange = () => {
+            checkLastKey();
+        };
+    }
 };
-const initialiseDescriptiveStatsDomVariables = () => {
+/** Set up variables to hold DOM elements. */
+const initialiseStatsDomVariables = () => {
     resultsTable = document.getElementById("resultsTable");
     boxSummary = document.getElementById("summary");
     boxMean = document.getElementById("mean");
@@ -58,6 +89,7 @@ const initialiseDescriptiveStatsDomVariables = () => {
     boxConfInt = document.getElementById("confInt");
     boxConfLevel = document.getElementById("confLevel");
 };
+/** Get data from user. */
 const getUserData = () => {
     const userDataElement = document.getElementById("userData");
     const dataTypeElement = (document.querySelector('input[name="dataType"]:checked'));
@@ -68,14 +100,17 @@ const getUserData = () => {
         confLevel: confLevelElement.value,
     };
 };
+/** Run the process and display results. */
 const runDescriptiveStats = () => {
     printResults(descriptiveStats(getUserData()));
 };
+/** Calculate mode. */
 const calcMode = (data) => {
     let modes = data;
     let modeString = "None";
     const loopedModeNos = [];
     const numOccurrences = [];
+    // Get the number of occurrences per number
     for (const mode of modes) {
         if (loopedModeNos.indexOf(mode) === -1) {
             loopedModeNos.push(mode);
@@ -87,6 +122,7 @@ const calcMode = (data) => {
             numOccurrences[loopedModeNos.indexOf(mode)] += 1;
         }
     }
+    // If no occurrences less than 0, set to empty array
     let maxMode = 0;
     for (const occurrence of numOccurrences) {
         if (occurrence > maxMode) {
@@ -94,31 +130,36 @@ const calcMode = (data) => {
         }
     }
     if (maxMode > 1) {
+        // Remove all numbers with occurrences less than max
         for (let i = modes.length - 1; i >= 0; i--) {
             if (numOccurrences[modes.indexOf(modes[i])] !== Math.max(...numOccurrences)) {
                 loopedModeNos.splice(i, 1);
             }
         }
+        // Remove duplicates
         modes = [...new Set(loopedModeNos)];
+        // Put modes into string
         modeString = "";
         for (const i in modes) {
-            if (modes.length == 1) {
+            if (modes.length === 1) {
                 modeString = modes[0].toString();
             }
             else if (parseInt(i, 10) === 0) {
-                modeString += "[" + modes[i];
+                modeString += `[${modes[i]}`;
             }
             else if (parseInt(i, 10) === modes.length - 1) {
-                modeString += ", " + modes[i] + "]";
+                modeString += `, ${modes[i]}]`;
             }
             else {
-                modeString += ", " + modes[i];
+                modeString += `, ${modes[i]}`;
             }
         }
     }
     return modeString;
 };
+/** Compute the statistics. */
 const descriptiveStats = (values) => {
+    // Set up incoming variables
     const data = [];
     for (const value of values.userData.split(",")) {
         data.push(parseFloat(value));
@@ -126,6 +167,7 @@ const descriptiveStats = (values) => {
     const dataType = values.dataType;
     const confLevel = parseInt(values.confLevel, 10);
     const roundTo = 4;
+    // Code confidence level
     let tStat = 0;
     if (confLevel === 90) {
         tStat = 1.64;
@@ -136,6 +178,7 @@ const descriptiveStats = (values) => {
     else if (confLevel === 99) {
         tStat = 2.58;
     }
+    // Calculate degrees of freedom
     let dof = 0;
     if (dataType === "Sample") {
         dof = data.length - 1;
@@ -143,7 +186,9 @@ const descriptiveStats = (values) => {
     else if (dataType === "Population") {
         dof = data.length;
     }
+    // Calculate mean
     const mean = data.reduce(reducer) / data.length;
+    // Calculate median
     const sortedData = data.sort((a, b) => {
         return a - b;
     });
@@ -155,18 +200,25 @@ const descriptiveStats = (values) => {
     else {
         median = sortedData[(data.length - 1) / 2];
     }
+    // Calculate mode
     const modeString = calcMode(data);
+    // Calculate range
     const min = sortedData[0];
     const max = sortedData[data.length - 1];
+    // Calculate variance
     const sqDiffFromMean = [];
     for (const num of data) {
-        sqDiffFromMean.push(Math.pow(num - mean, 2));
+        sqDiffFromMean.push((num - mean) ** 2);
     }
     const variance = sqDiffFromMean.reduce(reducer) / dof;
+    // Calculate standard deviation
     const stDev = Math.sqrt(variance);
+    // Calculate standard error
     const stErr = stDev / data.length;
+    // Calculate confidence interval
     const lowerBound = mean - tStat * stErr;
     const upperBound = mean + tStat * stErr;
+    // Compile and return results
     return {
         dataType: dataType,
         n: data.length,
@@ -184,21 +236,46 @@ const descriptiveStats = (values) => {
         upperBound: upperBound.toFixed(roundTo),
     };
 };
+/** Print results. */
 const printResults = (results) => {
-    boxSummary.innerHTML = `<b>${results.dataType} of ${results.n} observations</b>`;
-    boxMean.innerHTML = `${results.mean}`;
-    boxMedian.innerHTML = `${results.median}`;
-    boxMode.innerHTML = `${results.mode}`;
-    boxRange.innerHTML = `[${results.min}, ${results.max}]`;
-    boxVariance.innerHTML = `${results.variance}`;
-    boxStDev.innerHTML = `${results.stDev}`;
-    boxStErr.innerHTML = `${results.stErr}`;
-    boxConfInt.innerHTML = `${results.confLevel}% Confidence Interval:`;
-    boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`;
+    if (boxSummary) {
+        boxSummary.innerHTML = `<b>${results.dataType} of ${results.n} observations</b>`;
+    }
+    if (boxMean) {
+        boxMean.innerHTML = `${results.mean}`;
+    }
+    if (boxMedian) {
+        boxMedian.innerHTML = `${results.median}`;
+    }
+    if (boxMode) {
+        boxMode.innerHTML = `${results.mode}`;
+    }
+    if (boxRange) {
+        boxRange.innerHTML = `[${results.min}, ${results.max}]`;
+    }
+    if (boxVariance) {
+        boxVariance.innerHTML = `${results.variance}`;
+    }
+    if (boxStDev) {
+        boxStDev.innerHTML = `${results.stDev}`;
+    }
+    if (boxStErr) {
+        boxStErr.innerHTML = `${results.stErr}`;
+    }
+    if (boxConfInt) {
+        boxConfInt.innerHTML = `${results.confLevel}% Confidence Interval:`;
+    }
+    if (boxConfLevel) {
+        boxConfLevel.innerHTML = `[${results.lowerBound}, ${results.upperBound}]`;
+    }
 };
+// Start script once DOM is loaded.
 document.addEventListener("DOMContentLoaded", () => {
-    initialiseDescriptiveStatsDomVariables();
+    initialiseStatsDomVariables();
     setUpKeyUpListener();
     setUpDescriptiveStatsButtonListeners();
-    resultsTable.style.display = "none";
+    // Hide results, initially
+    if (resultsTable) {
+        resultsTable.style.display = "none";
+    }
 });

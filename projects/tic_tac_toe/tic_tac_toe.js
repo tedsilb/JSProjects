@@ -116,10 +116,7 @@ const takeCpuTurn = () => {
 			arraysEqual(userChosenCells, ["B3", "A2"]) ||
 			arraysEqual(userChosenCells, ["A2", "C2"]))
 	) {
-		if (
-			arraysEqual(userChosenCells, ["B1", "A2"]) ||
-			arraysEqual(userChosenCells, ["C1", "A2"])
-		) {
+		if (arraysEqual(userChosenCells, ["B1", "A2"]) || arraysEqual(userChosenCells, ["C1", "A2"])) {
 			cpuChoice = "C3";
 		} else if (arraysEqual(userChosenCells, ["B3", "A2"])) {
 			cpuChoice = "C1";
@@ -145,8 +142,7 @@ const takeCpuTurn = () => {
 		cpuChoice = "A1";
 		console.log(`Blocking a winning move, choosing ${cpuChoice}`);
 	} else if (
-		(includesAll(userChosenCells, ["A1", "A3"]) ||
-			includesAll(userChosenCells, ["B2", "C2"])) &&
+		(includesAll(userChosenCells, ["A1", "A3"]) || includesAll(userChosenCells, ["B2", "C2"])) &&
 		availableCells.includes("A2")
 	) {
 		cpuChoice = "A2";
@@ -161,8 +157,7 @@ const takeCpuTurn = () => {
 		console.log(`Blocking a winning move, choosing ${cpuChoice}`);
 		// B block
 	} else if (
-		(includesAll(userChosenCells, ["B2", "B3"]) ||
-			includesAll(userChosenCells, ["A1", "C1"])) &&
+		(includesAll(userChosenCells, ["B2", "B3"]) || includesAll(userChosenCells, ["A1", "C1"])) &&
 		availableCells.includes("B1")
 	) {
 		cpuChoice = "B1";
@@ -176,8 +171,7 @@ const takeCpuTurn = () => {
 		cpuChoice = "B2";
 		console.log(`Blocking a winning move, choosing ${cpuChoice}`);
 	} else if (
-		(includesAll(userChosenCells, ["B1", "B2"]) ||
-			includesAll(userChosenCells, ["A3", "C3"])) &&
+		(includesAll(userChosenCells, ["B1", "B2"]) || includesAll(userChosenCells, ["A3", "C3"])) &&
 		availableCells.includes("B3")
 	) {
 		cpuChoice = "B3";
@@ -192,8 +186,7 @@ const takeCpuTurn = () => {
 		cpuChoice = "C1";
 		console.log(`Blocking a winning move, choosing ${cpuChoice}`);
 	} else if (
-		(includesAll(userChosenCells, ["C1", "C3"]) ||
-			includesAll(userChosenCells, ["A2", "B2"])) &&
+		(includesAll(userChosenCells, ["C1", "C3"]) || includesAll(userChosenCells, ["A2", "B2"])) &&
 		availableCells.includes("C2")
 	) {
 		cpuChoice = "C2";
@@ -218,8 +211,7 @@ const takeCpuTurn = () => {
 		cpuChoice = "A1";
 		console.log(`Taking a winning move, choosing ${cpuChoice}`);
 	} else if (
-		(includesAll(cpuChosenCells, ["A1", "A3"]) ||
-			includesAll(cpuChosenCells, ["B2", "C2"])) &&
+		(includesAll(cpuChosenCells, ["A1", "A3"]) || includesAll(cpuChosenCells, ["B2", "C2"])) &&
 		availableCells.includes("A2")
 	) {
 		cpuChoice = "A2";
@@ -234,8 +226,7 @@ const takeCpuTurn = () => {
 		console.log(`Taking a winning move, choosing ${cpuChoice}`);
 		// B block
 	} else if (
-		(includesAll(cpuChosenCells, ["B2", "B3"]) ||
-			includesAll(cpuChosenCells, ["A1", "C1"])) &&
+		(includesAll(cpuChosenCells, ["B2", "B3"]) || includesAll(cpuChosenCells, ["A1", "C1"])) &&
 		availableCells.includes("B1")
 	) {
 		cpuChoice = "B1";
@@ -249,8 +240,7 @@ const takeCpuTurn = () => {
 		cpuChoice = "B2";
 		console.log(`Taking a winning move, choosing ${cpuChoice}`);
 	} else if (
-		(includesAll(cpuChosenCells, ["B1", "B2"]) ||
-			includesAll(cpuChosenCells, ["A3", "C3"])) &&
+		(includesAll(cpuChosenCells, ["B1", "B2"]) || includesAll(cpuChosenCells, ["A3", "C3"])) &&
 		availableCells.includes("B3")
 	) {
 		cpuChoice = "B3";
@@ -265,8 +255,7 @@ const takeCpuTurn = () => {
 		cpuChoice = "C1";
 		console.log(`Taking a winning move, choosing ${cpuChoice}`);
 	} else if (
-		(includesAll(cpuChosenCells, ["C1", "C3"]) ||
-			includesAll(cpuChosenCells, ["A2", "B2"])) &&
+		(includesAll(cpuChosenCells, ["C1", "C3"]) || includesAll(cpuChosenCells, ["A2", "B2"])) &&
 		availableCells.includes("C2")
 	) {
 		cpuChoice = "C2";
@@ -314,17 +303,14 @@ const takeCpuTurn = () => {
 		}
 		randomNo = 0;
 
-		cpuChoice = ["A1", "A3", "C1", "C3", "B2", "A2", "B3", "C2", "B1"][
-			itemIndex
-		];
+		cpuChoice = ["A1", "A3", "C1", "C3", "B2", "A2", "B3", "C2", "B1"][itemIndex];
 
 		// If no winning moves for user or cpu, choose at random
 	} else {
 		console.log("Choosing randomly");
 		// First make sure it's not a tie
 		if (availableCells.length !== 0) {
-			cpuChoice =
-				availableCells[Math.floor(Math.random() * availableCells.length)];
+			cpuChoice = availableCells[Math.floor(Math.random() * availableCells.length)];
 			// If it's a tie, end the game
 		} else {
 			console.log("Ending game");
@@ -495,7 +481,7 @@ const arraysEqual = (arrayA, arrayB) => {
 	if (a == null || b == null) {
 		return false;
 	}
-	if (a.length != b.length) {
+	if (a.length !== b.length) {
 		return false;
 	}
 	for (let i = 0; i < a.length; ++i) {

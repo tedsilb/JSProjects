@@ -1,22 +1,17 @@
 {
-	"files": [
-		"projects/"
-	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/tedsilb/JSProjects.git"
 	},
-	"preinstall": "npx only-allow pnpm",
 	"scripts": {
 		"build": "tsc",
 		"lint": "biome lint",
 		"format": "biome format --write"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.4.4",
-		"cross-env": "10.1.0",
-		"typescript": "5.9.3"
+		"@biomejs/biome": "2.5.3",
+		"typescript": "7.0.2"
 	},
 	"packageManager": "pnpm@9.1.0+sha512.67f5879916a9293e5cf059c23853d571beaf4f753c707f40cb22bed5fb1578c6aad3b6c4107ccb3ba0b35be003eb621a16471ac836c87beb53f9d54bb4612724"
 }

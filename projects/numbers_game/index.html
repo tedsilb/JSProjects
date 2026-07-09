@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Numbers Game JS - by Ted Silbernagel -->
-<html>
+<html lang="en">
 
 <head>
   <!-- Boilerplate, CSS -->
@@ -37,7 +37,7 @@
     <!-- Start/restart game button -->
     <div class="row" id="startGameRow">
       <div class="twelve columns">
-        <a class="button mainButton button-primary" href="#" id="startGameButton">Start new game</a>
+        <button type="button" class="button mainButton button-primary" id="startGameButton">Start new game</button>
       </div>
     </div>
 
@@ -46,7 +46,7 @@
       <div class="twelve columns">
         <h5>Your number is:</h5>
         <input inputmode="numeric" pattern="[0-9]*" type="text" required name="targetNumber" id="targetNumber" />
-        <a class="button button-primary" href="#" id="saveTargetNumberButton">Got it!</a>
+        <button type="button" class="button button-primary" id="saveTargetNumberButton">Got it!</button>
       </div>
     </div>
 
@@ -55,7 +55,7 @@
       <div class="twelve columns">
         <h5>Your upper number is: (ex: 100)</h5>
         <input inputmode="numeric" pattern="[0-9]*" type="text" required name="upperLimit" id="upperLimit" />
-        <a class="button button-primary" href="#" id="saveUpperLimitButton">Got it!</a>
+        <button type="button" class="button button-primary" id="saveUpperLimitButton">Got it!</button>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
       <div class="twelve columns">
         <h5>Enter the other person's guess:</h5>
         <input inputmode="numeric" pattern="[0-9]*" type="text" required name="guessNumber" id="guessNumber" />
-        <a class="button button-primary" href="#" id="saveguessNumberButton">Go!</a>
+        <button type="button" class="button button-primary" id="saveguessNumberButton">Go!</button>
       </div>
     </div>
 
