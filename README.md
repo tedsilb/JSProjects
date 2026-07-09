@@ -13,4 +13,4 @@ Various JS/TS projects that I work on from time to time.
 
 [Tic Tac Toe Game](projects/TicTacToe)
 
-`.ts` files are formatted with clang-format, `.js` files are formatted with VSCode "TS/JS language features".
+Files are formatted with Biome.
