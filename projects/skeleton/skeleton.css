@@ -413,13 +413,6 @@ ul {
 	padding-left: 0;
 	margin-top: 0;
 }
-ul ul,
-ul ol,
-ol ol,
-ol ul {
-	margin: 1.5rem 0 1.5rem 3rem;
-	font-size: 90%;
-}
 li {
 	margin-bottom: 1rem;
 }
@@ -480,6 +473,17 @@ ul,
 ol,
 form {
 	margin-bottom: 2.5rem;
+}
+
+/* Nested lists come after the spacing rule so specificity ascends
+   (0,0,1) before (0,0,2). This preserves Skeleton's intent that nested
+   lists keep the smaller margin. */
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+	margin: 1.5rem 0 1.5rem 3rem;
+	font-size: 90%;
 }
 
 /* Utilities
